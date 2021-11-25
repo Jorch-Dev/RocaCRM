@@ -3,7 +3,7 @@
 }
 .container_vertical {
   height: calc(100% - 70px);
-  width: 195px;
+  width: 9%;
   position: absolute;
   background: #dadada;
 }
@@ -11,7 +11,7 @@
 .container_logo {
   display: flex;
   background-color: #1a47bc;
-  width: 200px;
+  width: 10%;
 }
 
 .container_logo .logo {
@@ -35,6 +35,7 @@
   padding: 5px 10px 5px 10px;
   width: 100%;
   padding: 10px 8px 10px 8px;
+  cursor: pointer;
 }
 
 .option_vertical p{

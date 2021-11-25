@@ -4,14 +4,14 @@ import { AiOutlinePoweroff, AiFillHome } from "react-icons/ai";
 
 export const Navbar_view = () => {
   return (
-    <div className="container-fluid shadow-sm">
+    <div className="navbar-expand-lg shadow-sm">
       <div className="d-flex flex-row">
         <div className="container_logo">
           <Link to="/home">
             <img src="/assets/rocacrm.jpeg" className="logo img-fluid" />
           </Link>
         </div>
-        <div className="container_menu container_menu--gris">
+        <div className="container_menu">
           <div className="d-flex justify-content-start">
             
               <Link className="nav-link active" aria-current="page" to="/">
