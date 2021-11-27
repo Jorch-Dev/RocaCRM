@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
 export const PrivateRoute = ({ component: Component, ...props }) => {
@@ -9,8 +9,7 @@ export const PrivateRoute = ({ component: Component, ...props }) => {
     console.log(obj.token)
     authenticated = true;
  }
-  console.log(authenticated)
-  
+
   return (
     <Route exact={props.exact} path={props.path}>
       {authenticated ? <Component /> : <Redirect to="/" />}

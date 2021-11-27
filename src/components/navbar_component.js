@@ -1,75 +1,48 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { AiOutlinePoweroff, AiFillHome } from "react-icons/ai";
+import { UserContext } from "../context/user_context";
 
 export const Navbar_view = () => {
+  let history = useHistory();
+  const { userState, setUserState } = useContext(UserContext);
+
+  const cerrarSesion = () => {
+    localStorage.clear();
+
+    history.replace("/");
+  };
   return (
-    <div className="navbar-expand-lg shadow-sm">
-      <div className="d-flex flex-row">
-        <div className="container_logo">
-          <Link to="/home">
-            <img src="/assets/rocacrm.jpeg" className="logo img-fluid" />
-          </Link>
-        </div>
-        <div className="container_menu">
-          <div className="d-flex justify-content-start">
-            
-              <Link className="nav-link active" aria-current="page" to="/">
-                <div className="col">
-                  <AiFillHome size="50" />
-                </div>
-              </Link>
-              <Link className="nav-link" to="/">
-                <div className="col">
-                <p>Jorge García Méndez</p>
-                </div>
-              </Link>
+    <div className="shadow-sm navbar--blue">
+      <div className="d-flex">
+        <Link to="/home">
+          <img src="/assets/rocacrm.jpeg" className="logo" />
+        </Link>
+        <div className="col">
+          <div className="d-flex">
+            <div className="nav-link">
+              <AiFillHome size="50" />
+              <strong className="px-5">
+                {userState.usuario.nombre} {userState.usuario.apellido}
+              </strong>
+            </div>
 
             <div className="ms-auto d-flex">
-              <Link className="nav-link active" aria-current="page" to="/">
-                <div className="col">
-                  <AiFillHome size="50" />
-                </div>
+              <Link className="nav-link border" to="/">
+                <AiFillHome size="50" />
               </Link>
-              <div>|</div>
-              <Link className="nav-link active" aria-current="page" to="/">
-                <div className="col">
-                  <AiFillHome size="50" />
-                </div>
+              <div className="p-3 border">|</div>
+              <Link className="nav-link border" to="/">
+                <AiFillHome size="50" />
               </Link>
-              <div>|</div>
-              <Link className="nav-link" to="/">
-                <div className="col">
-                  <AiOutlinePoweroff size="50" />
-                </div>
+              <div className="p-3 border">|</div>
+              <Link className="nav-link border" onClick={cerrarSesion}>
+                <AiOutlinePoweroff size="50" />
               </Link>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    // <div className="d-flex flex-row">
-    //   <nav className="navbar navbar-expand-lg navbar-light bg-light">
-    //     <div className="container-fluid">
-    //       <div className="container">
-    //         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-    //           <div className="navbar-nav">
-    //             <Link className="nav-link active" aria-current="page" to="/">
-    //               <div>
-    //                 <AiFillHome />
-    //               </div>
-    //             </Link>
-    //             <Link className="nav-link" to="/display_flex">
-    //               <div>
-    //                 <AiOutlinePoweroff />
-    //               </div>
-    //             </Link>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </nav>
-    //</div>
   );
 };

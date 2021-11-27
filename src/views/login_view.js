@@ -19,7 +19,7 @@ export const Login_view = () => {
 
   return (
     <div className="container">
-      <div className="row y-5">
+      <div className="row my-5 mx-5">
         <button className="btn btn-primary" onClick={login}>
           <FcUnlock size={50} />
           Acceder

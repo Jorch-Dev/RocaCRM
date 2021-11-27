@@ -25,30 +25,30 @@ export const Contacts_view = () => {
     },
   ];
   return (
-    <Fragment>
-      <div className="container">
-        <div className="row mx-5 my-5">
-          <div className="col">Contactos</div>
-        </div>
-        <div className="row mx-5 my-5">
-          <div className="col d-flex">
-            <div className="col mx-3">
+    <>
+      <div className="container-fluid d-flex flex-column h-100 p-0 bs-blue">
+        <div>
+          <div className="col">
+            <h1 className="mx-2">Contactos</h1>
+          </div>
+          <div className="row mx-2 my-3 d-flex p-2 shadow-sm columna--white">
+            <div className="col">
               <input
                 type="email"
-                class="form-control"
+                className="form-control"
                 id="txtNombre"
                 placeholder="Escribe tu nombre"
               />
             </div>
-            <div className="col mx-3">
+            <div className="col">
               <input
                 type="email"
-                class="form-control"
+                className="form-control"
                 id="txtVentas"
                 placeholder="name@example.com"
               />
             </div>
-            <div className="col mx-3">
+            <div className="col">
               <select
                 name="selectfunnels"
                 id="selectfunnels"
@@ -64,20 +64,48 @@ export const Contacts_view = () => {
                 ))}
               </select>
             </div>
-            <div className="col d-flex justify-content-end mx-2">
-              <div className="d-grid col-6 me-auto">
-                <button className="btn btn-primary">Buscar</button>
-              </div>
-              <div className="d-grid col-6 mx-2">
-                <button className="btn btn-success">Agregar</button>
+            <div className="col">
+              <div className="col d-flex justify-content-end mx-2">
+                <div className="d-grid col-6 me-auto">
+                  <button className="btn btn-primary">Buscar</button>
+                </div>
+                <div className="d-grid col-6 mx-2">
+                  <button className="btn btn-success">Agregar</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="row mx-5 my-5">
-          <TableContact_component />
+        <div className="col">
+          <div className="row mx-2 d-flex p-2 shadow-sm columna--white">
+            <TableContact_component />
+          </div>
         </div>
       </div>
-    </Fragment>
+
+      {/* <TableContact_component /> */}
+      {/* <div className="container container-sm">
+        <div className="row mx-5 my-5">
+          <div className="col">Contactos</div>
+        </div>
+        <div className="row mx-5 my-5 p-3 col--white shadow-sm">
+          <div className="col d-flex">
+            <div className="col mx-3">
+             
+            </div>
+            <div className="col mx-3">
+              
+            </div>
+            <div className="col mx-3">
+              
+            </div>
+            
+          </div>
+        </div>
+        <div className="row mx-5 my-5 row-cols-1 row-cols-sm-2 row-cols-md-4">
+          
+        </div>
+      </div> */}
+    </>
   );
 };
