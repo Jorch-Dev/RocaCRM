@@ -12,12 +12,12 @@ export const Home_view = () => {
           <Navbar_view />
         </div>
         <Router>
-        <div className="container-fluid d-flex h-100 p-0">
+        <div className="d-flex h-100">
           <div>
             <VerticalBar_component />
           </div>
 
-          <div className="col">
+          <div className="h-100 w-100 p-0">
             <Switch>
               <Route exact path="/home" component={Contacts_view} />
               <Route exact path="/contacts_view" component={Contacts_view} />

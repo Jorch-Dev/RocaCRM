@@ -156,7 +156,7 @@ export const TableContact_component = () => {
 
   return (
     <>
-      <Paper sx={{ width: "100%", overflow: "hidden" }}>
+      <Paper sx={{ overflow: "hidden" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>

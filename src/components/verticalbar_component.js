@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { IoMdContacts } from "react-icons/io";
 import { BsCashStack } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -9,7 +9,7 @@ export const VerticalBar_component = () => {
   return (
 
 
-        <div className="container_vertical shadow-sm">
+        <div className="container_vertical shadow-sm d-none d-lg-block">
 
           <div className="options_vertical">
             <Link className="link--none" to="/contacts_view">

@@ -18,19 +18,22 @@ export const Login_view = () => {
   };
 
   return (
-    <div className="container w-50 bg-light reunded shadow my-5">
-      <div className="row align-items-stretch">
-        <div className="col border d-none d-lg-block">
-          <img src="assets/RF_Square_Blue.jpg" alt="" className="img-fluid" />
+    <div className="w-100 h-100 m-0 p-0 border bg-primary">
+      <div className="row mx-5 my-5">
+        <div className="col align-items-stretch d-none d-md-block">
+          <img
+            src="assets/lap.png"
+            alt=""
+            className="img-fluid mx-5 my-5"
+          />
         </div>
-        <div className="col border d-none d-md-block px-5 py-5">
-            <div className="text-end">
+        <div className="col d-none d-md-block d-lg-block d-xl-block d-xxl-block">
+          <div className="mx-5 my-5 pt-2 pb-3 px-5 bg-white rounded shadow col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8">
               <img src="assets/rocacrm.jpeg" alt="" className="img-fluid" />
-            </div>
-            <h2 className="fw-bold text-center py-5">Bienvenido</h2>
+            <h2 className="fw-bold text-center py-4">Bienvenido</h2>
 
             {/* //login  */}
-            <form action="#">
+            <form className="col-xxl-12 aling-items-center">
               <div className="mb-4">
                 <label htmlFor="email" className="form-label">
                   Correo electrónico
@@ -48,8 +51,59 @@ export const Login_view = () => {
                 />
               </div>
               <div className="d-grid">
-                <button className="btn btn-primary " onClick={login}>
-                  <FcUnlock /> Acceder
+                <button className="btn btn-primary w-100 my-1" onClick={login}>
+                  <div className="row align-items-center">
+                    <div className="col-12 text-center">
+                      <FcUnlock />
+                      Acceder
+                    </div>
+                  </div>
+                </button>
+              </div>
+
+              <div className="my-3">
+                <span>
+                  No tienes cuenta? <a href="#">Regístrate</a>
+                </span>
+                <br />
+                <span>
+                  <a href="#">Recuperar contraseña</a>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <div className="py-5 px-5 d-sm-block d-md-none d-lg-none d-xl-none d-xxl-none bg-white rounded shadow col-sm-10">
+              <img src="assets/rocacrm.jpeg" alt="" className="img-fluid" />
+            <h2 className="fw-bold text-center py-4">Bienvenido</h2>
+
+            {/* //login  */}
+            <form className="col">
+              <div className="mb-4">
+                <label htmlFor="email" className="form-label">
+                  Correo electrónico
+                </label>
+                <input type="email" className="form-control" name="email" />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="password" className="form-label">
+                  Contraseña
+                </label>
+                <input
+                  type="password"
+                  className="form-control"
+                  name="password"
+                />
+              </div>
+              <div className="d-grid">
+                <button className="btn btn-primary w-100 my-1" onClick={login}>
+                  <div className="row align-items-center">
+                    <div className="col-12 text-center">
+                      <FcUnlock />
+                      Acceder
+                    </div>
+                  </div>
                 </button>
               </div>
 
@@ -64,8 +118,7 @@ export const Login_view = () => {
               </div>
             </form>
         </div>
-
-        {/* */}
+     
       </div>
     </div>
   );

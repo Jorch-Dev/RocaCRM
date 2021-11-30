@@ -26,12 +26,12 @@ export const Contacts_view = () => {
   ];
   return (
     <>
-      <div className="container-fluid d-flex flex-column h-100 p-0 bs-blue">
+      <div className="d-flex flex-column my-3">
         <div>
           <div className="col">
-            <h1 className="mx-2">Contactos</h1>
+            <h1 className="mx-2 text-center">Contactos</h1>
           </div>
-          <div className="row mx-2 my-3 d-flex p-2 shadow-sm columna--white">
+          <div className="row d-flex shadow bg-white mx-2 my-2 px-2 py-2 rounded">
             <div className="col">
               <input
                 type="email"
@@ -76,36 +76,10 @@ export const Contacts_view = () => {
             </div>
           </div>
         </div>
-        <div className="col">
-          <div className="row mx-2 d-flex p-2 shadow-sm columna--white">
+        <div className="col shadow mx-2 my-2 ">
             <TableContact_component />
-          </div>
         </div>
-      </div>
-
-      {/* <TableContact_component /> */}
-      {/* <div className="container container-sm">
-        <div className="row mx-5 my-5">
-          <div className="col">Contactos</div>
-        </div>
-        <div className="row mx-5 my-5 p-3 col--white shadow-sm">
-          <div className="col d-flex">
-            <div className="col mx-3">
-             
-            </div>
-            <div className="col mx-3">
-              
-            </div>
-            <div className="col mx-3">
-              
-            </div>
-            
-          </div>
-        </div>
-        <div className="row mx-5 my-5 row-cols-1 row-cols-sm-2 row-cols-md-4">
-          
-        </div>
-      </div> */}
+      </div> 
     </>
   );
 };

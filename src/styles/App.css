@@ -8,6 +8,7 @@ body{
 
 .columna--white{
   background-color: #fff;
+  border-radius: 5px;
 }
 
 .link--none{
@@ -57,11 +58,4 @@ body{
 .option_vertical:hover{
   background-color: #fc7700;
   border-radius: 5px;
-}
-
-
-
-
-.col-menu--img{
-  size: 50;
 }
