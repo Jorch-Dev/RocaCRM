@@ -1,5 +1,5 @@
 import React from "react";
-import { FcUnlock } from "react-icons/fc";
+import { MdLogin } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 
 export const Login_view = () => {
@@ -17,108 +17,71 @@ export const Login_view = () => {
     history.replace("/home");
   };
 
+  const userAdd = () => {
+    history.replace("/register");
+  }
+
   return (
-    <div className="w-100 h-100 m-0 p-0 border bg-primary">
-      <div className="row mx-5 my-5">
-        <div className="col align-items-stretch d-none d-md-block">
-          <img
-            src="assets/lap.png"
-            alt=""
-            className="img-fluid mx-5 my-5"
-          />
-        </div>
-        <div className="col d-none d-md-block d-lg-block d-xl-block d-xxl-block">
-          <div className="mx-5 my-5 pt-2 pb-3 px-5 bg-white rounded shadow col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8">
+    <div className="container-fluid bg-light-blue d-flex justify-content-center align-items-center h-100">
+      <div className="container">
+        <div className="row m-0">
+          <div className="col-12 col-lg-6 p-0">
+            <div className="w-100 h-100 d-none d-lg-flex justify-content-center align-items-center">
+              <img src="assets/lap.png" alt="" className="w-100 max-640" />
+            </div>
+          </div>
+
+          <div className="col-12 col-lg-6 d-flex justify-content-center align-items-center p-0">
+            <div className="loginform  bg-white">
+
               <img src="assets/rocacrm.jpeg" alt="" className="img-fluid" />
-            <h2 className="fw-bold text-center py-4">Bienvenido</h2>
 
-            {/* //login  */}
-            <form className="col-xxl-12 aling-items-center">
-              <div className="mb-4">
-                <label htmlFor="email" className="form-label">
-                  Correo electrónico
-                </label>
-                <input type="email" className="form-control" name="email" />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="password" className="form-label">
-                  Contraseña
-                </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                />
-              </div>
-              <div className="d-grid">
-                <button className="btn btn-primary w-100 my-1" onClick={login}>
-                  <div className="row align-items-center">
-                    <div className="col-12 text-center">
-                      <FcUnlock />
-                      Acceder
+              <h2 className="fw-bold text-center py-4">Bienvenido</h2>
+              <div class="text-center text-orange d-none">Este es un error en alguna respuesta</div>
+
+
+              <form className="col-xxl-12 aling-items-center">
+
+                <div className="">
+                  <input type="email" name="email" className="form-input_text" placeholder="Correo Electronico" />
+                </div>
+                <div className="">
+                  <input type="password" name="password" className="form-input_text" placeholder="Contraseña" />
+                </div>
+
+                <div className="d-flex pe-2 mb-3">
+                  <div className="col"></div>
+                  <span>
+                    <a href="#">Recuperar contraseña</a>
+                  </span>
+                </div>
+
+                <div className="d-grid">
+                  
+
+                  <button className="cta cta--blue" onClick={login}>
+                    <div className="cta_icon">
+                        <MdLogin />
                     </div>
-                  </div>
-                </button>
-              </div>
+                    <div className="cta_text cta_text--white">ACCEDER</div>
+                    
+                  </button>
 
-              <div className="my-3">
-                <span>
-                  No tienes cuenta? <a href="#">Regístrate</a>
-                </span>
-                <br />
-                <span>
-                  <a href="#">Recuperar contraseña</a>
-                </span>
-              </div>
-            </form>
+                </div>
+
+                <div className="text-primary">
+                  <span>
+                    No tienes cuenta? <a href="#" onClick={userAdd}>Regístrate</a>
+                  </span>
+                </div>
+
+              </form>
+            
+            
+            </div>
           </div>
         </div>
         
-        <div className="py-5 px-5 d-sm-block d-md-none d-lg-none d-xl-none d-xxl-none bg-white rounded shadow col-sm-10">
-              <img src="assets/rocacrm.jpeg" alt="" className="img-fluid" />
-            <h2 className="fw-bold text-center py-4">Bienvenido</h2>
-
-            {/* //login  */}
-            <form className="col">
-              <div className="mb-4">
-                <label htmlFor="email" className="form-label">
-                  Correo electrónico
-                </label>
-                <input type="email" className="form-control" name="email" />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="password" className="form-label">
-                  Contraseña
-                </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                />
-              </div>
-              <div className="d-grid">
-                <button className="btn btn-primary w-100 my-1" onClick={login}>
-                  <div className="row align-items-center">
-                    <div className="col-12 text-center">
-                      <FcUnlock />
-                      Acceder
-                    </div>
-                  </div>
-                </button>
-              </div>
-
-              <div className="my-3">
-                <span>
-                  No tienes cuenta? <a href="#">Regístrate</a>
-                </span>
-                <br />
-                <span>
-                  <a href="#">Recuperar contraseña</a>
-                </span>
-              </div>
-            </form>
-        </div>
-     
       </div>
     </div>
   );

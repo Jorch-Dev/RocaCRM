@@ -7,17 +7,17 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 export const Home_view = () => {
   return (
-    <>
-        <div className="w-100">
+    <div className="h-100">
+        <div>
           <Navbar_view />
         </div>
         <Router>
-        <div className="d-flex h-100">
+        <div className="d-flex">
           <div>
             <VerticalBar_component />
           </div>
 
-          <div className="h-100 w-100 p-0">
+          <div className="w-100">
             <Switch>
               <Route exact path="/home" component={Contacts_view} />
               <Route exact path="/contacts_view" component={Contacts_view} />
@@ -26,6 +26,6 @@ export const Home_view = () => {
           </div>
         </div>
       </Router>
-    </>
+    </div>
   );
 };

@@ -1,5 +1,7 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { TableSales_component } from "../components/tablesales_component";
+import { FiSearch } from "react-icons/fi";
+import { AddContactsView } from "./addcontacts_view";
 
 export const Sales_view = () => {
   const objFunnels = [
@@ -26,61 +28,167 @@ export const Sales_view = () => {
   ];
 
   return (
-    <>
-      <div className="d-flex flex-column my-5">
+    <div className="contenedor-dashboard">
+      <div className="d-flex flex-column">
         <div>
           <div className="col">
-            <h1 className="mx-2">Ventas</h1>
+            <h1 className="mx-2 text-center">Ventas</h1>
           </div>
-          <div className="row mx-1 my-3 d-flex p-2 shadow columna--white">
-            <div className="col">
-              <input
-                type="email"
-                className="form-control"
-                id="txtNombre"
-                placeholder="Escribe tu nombre"
-              />
-            </div>
-            <div className="col">
-              <input
-                type="email"
-                className="form-control"
-                id="txtVentas"
-                placeholder="name@example.com"
-              />
-            </div>
-            <div className="col">
-              <select
-                name="selectfunnels"
-                id="selectfunnels"
-                className="form-select"
-              >
-                <option value="0" defaultValue>
-                  Busca tu proyecto
-                </option>
-                {objFunnels.map((i) => (
-                  <option key={i.Fun_ID} value={i.Fun_ID}>
-                    {i.Fun_Name}
+
+          <div className="row shadow bg-white mx-1 py-2">
+            <div className="d-none d-sm-flex">
+              <div className="col">
+                <input
+                  type="email"
+                  className="form-input_text"
+                  id="txtNombre"
+                  placeholder="Escribe tu nombre"
+                />
+              </div>
+              <div className="col">
+                <input
+                  type="email"
+                  className="form-input_text"
+                  id="txtVentas"
+                  placeholder="name@example.com"
+                />
+              </div>
+              <div className="col">
+                <select 
+                  name="selectfunnels"
+                  id="selectfunnels"
+                  className="form-input_select"
+                >
+                  <option value="0" defaultValue>
+                    Busca tu proyecto
                   </option>
-                ))}
-              </select>
+                  {objFunnels.map((i) => (
+                    <option key={i.Fun_ID} value={i.Fun_ID}>
+                      {i.Fun_Name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <button className="cta cta--icon cta--blue">
+                <div className="cta_icon">
+                  <div className="icon">
+                    <FiSearch />
+                  </div>
+                </div>
+                <div className="cta_text cta_text--white">BUSCAR</div>
+              </button>
+              <button className="cta cta--icon cta--orange">
+                <div className="cta_icon">
+                  <div className="icon">
+                    <FiSearch />
+                  </div>
+                </div>
+                <div data-bs-toggle="modal" data-bs-target="#addModal">
+                  <div className="cta_text cta_text--white">AGREGAR</div>
+                </div>
+              </button>
             </div>
-            <div className="col">
-              <div className="col d-flex justify-content-end mx-2">
-                <div className="d-grid col-6 me-auto">
-                  <button className="btn btn-primary">Buscar</button>
+
+            <div className="d-sm-none">
+              <div className="row gy-2">
+                <div className="col pe-1 pt-1">
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="txtNombre"
+                    placeholder="Escribe tu nombre"
+                  />
                 </div>
-                <div className="d-grid col-6 mx-2">
-                  <button className="btn btn-success">Agregar</button>
+                <div className="col pe-1 pt-1">
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="txtVentas"
+                    placeholder="name@example.com"
+                  />
                 </div>
+                <div className="col pe-1 pt-1">
+                  <select
+                    name="selectfunnels"
+                    id="selectfunnels"
+                    className="form-select"
+                  >
+                    <option value="0" defaultValue>
+                      Busca tu proyecto
+                    </option>
+                    {objFunnels.map((i) => (
+                      <option key={i.Fun_ID} value={i.Fun_ID}>
+                        {i.Fun_Name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="row gy-2 mt-2">
+                <button className="col cta cta--icon cta--blue">
+                  <div className="cta_icon">
+                    <div className="icon">
+                      <FiSearch />
+                    </div>
+                  </div>
+                  <div className="cta_text cta_text--white">BUSCAR</div>
+                </button>
+                <button className="col cta cta--icon cta--orange">
+                  <div className="cta_icon">
+                    <div className="icon">
+                      <FiSearch />
+                    </div>
+                  </div>
+                  <div className="cta_text cta_text--white">AGREGAR</div>
+                </button>
               </div>
             </div>
           </div>
         </div>
-        <div className="shadow columna--white">
+        <div className="col shadow my-2">
           <TableSales_component />
         </div>
       </div>
-    </>
+
+      <div
+        className="modal fade"
+        id="addModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
+                Estas agregando al contacto...
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">
+              <AddContactsView />
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" className="btn btn-primary">
+                Save changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
