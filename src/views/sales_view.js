@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { TableSales_component } from "../components/tablesales_component";
 import { FiSearch } from "react-icons/fi";
 import { AddContactsView } from "./addcontacts_view";
+import { Redirect } from "react-router-dom";
 
 export const Sales_view = () => {
+  let authenticated = false;
+  const obj = JSON.parse(localStorage.getItem("token"));
+
+  useEffect(() => {
+    if (obj != null) {
+      authenticated = true;
+    }
+  }, [obj]);
+
+  if (authenticated) {
+    return <Redirect replace to="/" />;
+  }
+
   const objFunnels = [
     {
       Fun_ID: 1,
@@ -54,7 +68,7 @@ export const Sales_view = () => {
                 />
               </div>
               <div className="col">
-                <select 
+                <select
                   name="selectfunnels"
                   id="selectfunnels"
                   className="form-input_select"
@@ -71,17 +85,13 @@ export const Sales_view = () => {
               </div>
               <button className="cta cta--icon cta--blue">
                 <div className="cta_icon">
-                  <div className="icon">
-                    <FiSearch />
-                  </div>
+                  <FiSearch />
                 </div>
                 <div className="cta_text cta_text--white">BUSCAR</div>
               </button>
               <button className="cta cta--icon cta--orange">
                 <div className="cta_icon">
-                  <div className="icon">
-                    <FiSearch />
-                  </div>
+                  <FiSearch />
                 </div>
                 <div data-bs-toggle="modal" data-bs-target="#addModal">
                   <div className="cta_text cta_text--white">AGREGAR</div>
@@ -166,7 +176,7 @@ export const Sales_view = () => {
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>

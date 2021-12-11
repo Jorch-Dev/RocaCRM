@@ -5,8 +5,7 @@ export const PrivateRoute = ({ component: Component, ...props }) => {
   let authenticated = false
   const obj = JSON.parse(localStorage.getItem("token"));
   
-  if (obj.token != null) {
-    console.log(obj.token)
+  if (obj != null) {
     authenticated = true;
  }
 

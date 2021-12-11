@@ -50,19 +50,27 @@ body {
     border-color 0.15s ease-in-out;
 }
 
-.navbar--gray {
+.icon-succes {
+  color: var(--green);
+}
+
+.icon-delete {
+  color: var(--orage);
+}
+
+.navbar-gray {
   background: var(--gray-10);
 }
 
-.navbar--blue {
+.navbar-blue {
   background: var(--blue);
 }
 
-.navbar--orange {
+.navbar-orange {
   background: var(--orage);
 }
 
-.navbar--alpha {
+.navbar-alpha {
   background: var(--black-alpha-10);
 }
 
@@ -203,7 +211,6 @@ body {
 }
 
 .container_vertical {
-  height: 144.5%;
   width: 100px;
   position: relative;
   border: 0;

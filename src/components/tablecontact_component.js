@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Paper,
   Table,
@@ -11,10 +11,13 @@ import {
   Checkbox,
 } from "@mui/material";
 import { MdDeleteForever, MdEdit } from "react-icons/md";
-import { EditContactsView } from "../views/editcontacts_view";
+import { ApiService } from "../services/api_service";
+import { EditContactsView } from "../views/editcontacts_view"
+import Modal from 'react-bootstrap/Modal'
 import Swal from "sweetalert2";
- 
-export const TableContact_component = () => {
+import Moment from "moment";
+
+export const TableContact_component = ({ data, stateData }) => {
   const [pagination, setPagination] = useState({
     columns: [
       { id: 1, code: "name", label: "Nombre", minWidth: 100 },
@@ -25,164 +28,72 @@ export const TableContact_component = () => {
     ],
     rows: [
       {
-        id: 1,
-        name: "Jhonatan",
-        lasName: "Bello",
-        email: "rocafunnels@gmail.com",
-        phone: 3287263742,
-        date: "03/08/2021",
-      },
-      {
-        id: 2,
-        name: "Christian",
-        lasName: "Juarez",
-        email: "rocafunnels@gmail.com",
-        phone: 3287263742,
-        date: "03/08/2021",
-      },
-      {
-        id: 3,
-        name: "Adrian",
-        lasName: "Juarez",
-        email: "rocafunnels@gmail.com",
-        phone: 3287263742,
-        date: "03/08/2021",
-      },
-      {
-        id: 4,
-        name: "Jorge",
-        lasName: "García",
-        email: "rocafunnels@gmail.com",
-        phone: 3287263742,
-        date: "03/08/2021",
-      },
-      {
-        id: 5,
-        name: "Moises",
-        lasName: "Roca",
-        email: "rocafunnels@gmail.com",
-        phone: 3287263742,
-        date: "03/08/2021",
-      },
-      {
-        id: 6,
-        name: "Sebastian",
-        lasName: "Arzega",
-        email: "rocafunnels@gmail.com",
-        phone: 3287263742,
-        date: "03/08/2021",
-      },
-      {
-        id: 7,
-        name: "Karla",
-        lasName: "Paola",
-        email: "rocafunnels@gmail.com",
-        phone: 3287263742,
-        date: "03/08/2021",
-      },
-      {
-        id: 8,
-        name: "Kevin",
-        lasName: "Bello",
-        email: "rocafunnels@gmail.com",
-        phone: 3287263742,
-        date: "03/08/2021",
-      },
-      {
-        id: 9,
-        name: "Victor",
-        lasName: "Ponce",
-        email: "rocafunnels@gmail.com",
-        phone: 3287263742,
-        date: "03/08/2021",
-      },
-      {
-        id: 10,
-        name: "Manuel",
-        lasName: "Castillo",
-        email: "rocafunnels@gmail.com",
-        phone: 3287263742,
-        date: "03/08/2021",
-      },
-      {
-        id: 11,
-        name: "Josafat",
-        lasName: "Calderon",
-        email: "rocafunnels@gmail.com",
-        phone: 3287263742,
-        date: "03/08/2021",
-      },
-      {
-        id: 12,
-        name: "Viridiana",
-        lasName: "Resendiz",
-        email: "rocafunnels@gmail.com",
-        phone: 3287263742,
-        date: "03/08/2021",
-      },
-      {
-        id: 13,
-        name: "Naif",
-        lasName: "Alejandre",
-        email: "rocafunnels@gmail.com",
-        phone: 3287263742,
-        date: "03/08/2021",
-      },
-      {
-        id: 14,
-        name: "Petra",
-        lasName: "Bello",
-        email: "rocafunnels@gmail.com",
-        phone: 3287263742,
-        date: "03/08/2021",
-      },
-      {
-        id: 15,
-        name: "Juan",
-        lasName: "Carranza",
-        email: "rocafunnels@gmail.com",
-        phone: 3287263742,
-        date: "03/08/2021",
+        id: "",
+        name: "",
+        lasName: "",
+        email: "",
+        phone: "",
+        date: "",
       },
     ],
     page: 0,
     rowsPerPage: 10,
     modalIsOpen: false,
+    objetoUsuario: {},
+    isLoading: false,
   });
 
-  const handleChangePage = (event, newPage) => {
+  useEffect(() => {
+    if (data != null) {
+      data.contactos.map((i) =>
+        setPagination({
+          ...pagination,
+
+          rows: [
+            {
+              id: i.Con_ID,
+              name: i.Con_Name,
+              lasName: i.Con_Lastname,
+              email: i.Con_Email,
+              phone: i.Con_Phone,
+              date: Moment(i.createdAt).format("MMMM DD, YYYY HH:mm"),
+            },
+          ],
+        })
+      );
+    }
+  }, [data]);
+
+  const cambiaPagina = (event, newPage) => {
     setPagination({ ...pagination, page: newPage });
   };
 
-  const handleChangeRowsPerPage = (event) => {
+  const cambiaFilasxPagina = (event) => {
     setPagination({ ...pagination, rowsPerPage: +event.target.value, page: 0 });
   };
 
-  //#region  ventana modal
-  let subtitle;
-  const customStyles = {
-    content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-    },
+  const editContact = async (e) => {
+    let id = e;
+    let metod = "get";
+    let resource = `user/contact/${id}?f=${data.idFunel}`;
+    const result = await ApiService(metod, resource);
+
+    if (result === 401) {
+      stateData({
+        ...data,
+        error:
+          "Ocurrio un error, si el error persiste contacte a un administrador.",
+      });
+    } else {
+      if (result != null) {
+        setPagination({
+          ...pagination,
+          objetoUsuario: result.data,
+          modalIsOpen: true,
+        });
+      }
+    }
   };
-
-  function openModal() {
-    setPagination({ ...pagination, modalIsOpen: true });
-  }
-
-  function afterOpenModal() {
-    subtitle.style.color = "#1a47bc";
-  }
-
-  function closeModal() {
-    setPagination({ ...pagination, modalIsOpen: false });
-  }
-  //#endregion
 
   const deleteContac = () => {
     Swal.fire({
@@ -200,12 +111,14 @@ export const TableContact_component = () => {
       }
     });
   };
-
+  
+  const closeModal = () => setPagination({ ...pagination, modalIsOpen: false });
+  
   return (
     <>
       <Paper sx={{ overflow: "hidden" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
-          <Table aria-label="sticky table">
+          <Table aria-label="sticky table" tabIndex={-1}>
             <TableHead>
               <TableRow>
                 <TableCell padding="checkbox">
@@ -213,6 +126,7 @@ export const TableContact_component = () => {
                 </TableCell>
                 {pagination.columns.map((column) => (
                   <TableCell
+                    tabIndex={-1}
                     key={column.id}
                     align={column.align}
                     style={{ minWidth: column.minWidth }}
@@ -220,12 +134,7 @@ export const TableContact_component = () => {
                     {column.label}
                   </TableCell>
                 ))}
-                <TableCell>
-                  <MdEdit size="30" />
-                </TableCell>
-                <TableCell>
-                  <MdDeleteForever size="30" />
-                </TableCell>
+                <TableCell className="text-center">Acciones</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -249,13 +158,22 @@ export const TableContact_component = () => {
                           </TableCell>
                         );
                       })}
-                      <TableCell>
-                        <div data-bs-toggle="modal" data-bs-target="#editModal">
-                          <MdEdit />
+                      <TableCell tabIndex={-1}>
+                        <div className="d-flex justify-content-end">
+                          <div
+                            onClick={() => editContact(row.id)}
+                            className="me-auto"
+                          >
+                            <MdEdit className="icon-succes" size="30" />
+                          </div>
+
+                          <div onClick={deleteContac}>
+                            <MdDeleteForever
+                              className="icon-delete"
+                              size="30"
+                            />
+                          </div>
                         </div>
-                      </TableCell>
-                      <TableCell>
-                        <MdDeleteForever onClick={deleteContac} />
                       </TableCell>
                     </TableRow>
                   );
@@ -269,50 +187,24 @@ export const TableContact_component = () => {
           count={pagination.rows.length}
           rowsPerPage={pagination.rowsPerPage}
           page={pagination.page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
+          onPageChange={cambiaPagina}
+          onRowsPerPageChange={cambiaFilasxPagina}
           labelRowsPerPage="Columnas por página"
         />
       </Paper>
 
-      <div
-        className="modal fade"
-        id="editModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                Estas editando al contacto...
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <EditContactsView />
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" className="btn btn-primary">
-                Save changes
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Modal show={pagination.modalIsOpen} onHide={closeModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Estas editando al contacto...</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {pagination.objetoUsuario != null ? (
+             <EditContactsView data={pagination} setData={setPagination} body={data} setBody={stateData} />
+          ) : (
+            <></>
+          )}
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

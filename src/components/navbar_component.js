@@ -6,14 +6,14 @@ import { UserContext } from "../context/user_context";
 export const Navbar_view = () => {
   let history = useHistory();
   const { userState, setUserState } = useContext(UserContext);
-
+console.log(userState)
   const cerrarSesion = () => {
     localStorage.clear();
 
-    history.replace("/");
+    window.location.replace("/");
   };
   return (
-    <nav className="shadow-sm navbar--blue border-0">
+    <nav className="shadow-sm navbar-blue border-0">
       <div className="d-sm-flex">
         <Link to="/home">
           <img
