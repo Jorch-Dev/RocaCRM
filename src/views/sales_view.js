@@ -1,22 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { TableSales_component } from "../components/tablesales_component";
 import { FiSearch } from "react-icons/fi";
 import { AddContactsView } from "./addcontacts_view";
-import { Redirect } from "react-router-dom";
 
 export const Sales_view = () => {
-  let authenticated = false;
   const obj = JSON.parse(localStorage.getItem("token"));
-
-  useEffect(() => {
-    if (obj != null) {
-      authenticated = true;
-    }
-  }, [obj]);
-
-  if (authenticated) {
-    return <Redirect replace to="/" />;
-  }
 
   const objFunnels = [
     {
@@ -182,7 +170,7 @@ export const Sales_view = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <AddContactsView />
+              {/* <AddContactsView /> */}
             </div>
             <div className="modal-footer">
               <button

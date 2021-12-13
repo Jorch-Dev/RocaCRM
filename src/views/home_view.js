@@ -36,8 +36,7 @@ export const Home_view = () => {
           <VerticalBar_component />
           <div className="w-100">
             <Switch>
-              <Route exact path="/" component={Login_view} />
-              <Route exact path="/home" component={EmailViews} />
+              <Route exact path="/contacts_view" component={Contacts_view} />
               <Route exact path="/contacts_view" component={Contacts_view} />
               <Route exact path="/sales_view" component={Sales_view} />
             </Switch>

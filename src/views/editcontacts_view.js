@@ -3,7 +3,7 @@ import { AiOutlineSave } from "react-icons/ai";
 import { ApiService } from "../services/api_service";
 
 export const EditContactsView = ({ data, setData, body, setBody }) => {
-  console.log(data);
+  
   const [userEdit, setUserEdit] = useState({
     Con_Address1: "",
     Con_Address2: "",
@@ -68,7 +68,7 @@ export const EditContactsView = ({ data, setData, body, setBody }) => {
     let metod = "put";
     let resource = `user/contact/${id}?f=${idFun}`;
     const result = await ApiService(metod, resource, obj);
-    
+    console.log(result)
     if (result === 401) {
       setUserEdit({
         ...userEdit,
@@ -76,26 +76,27 @@ export const EditContactsView = ({ data, setData, body, setBody }) => {
           "Ocurrio un error, si el error persiste contacte a un administrador.",
       });
     }else{
-      setBody({ ...body, isLoading: false });
+      llenaContactos();
+      setData({ ...data, isLoading: false, modalIsOpen: false });
     }
   };
 
-  // const llenaContactos = async (e) => {
-  //   if (data.idFunel != 0) {
-  //     let id = data.idFunel;
-  //     let metod = "get";
-  //     let resource = `user/contact?f=${id}`;
-  //     const result = await ApiService(metod, resource);
-  //     console.log(result)
-  //     //stateData({ ...data, contactos: result.data.rows, idFunel: id });
-  //   } else {
-  //     stateData({
-  //       ...data,
-  //       error:
-  //         "Debes escojer un proyecto para poder visualizar los contactos que pertenecen a el",
-  //     });
-  //   }
-  // };
+  const llenaContactos = async (e) => {
+    if (body.idFunel != 0) {
+      let id = body.idFunel;
+      let metod = "get";
+      let resource = `user/contact?f=${id}`;
+      const result = await ApiService(metod, resource);
+      console.log(result)
+      setBody({ ...body, contactos: result.data.rows, idFunel: id });
+    } else {
+      setBody({
+        ...body,
+        error:
+          "Debes escojer un proyecto para poder visualizar los contactos que pertenecen a el",
+      });
+    }
+  };
 
   return (
     <>

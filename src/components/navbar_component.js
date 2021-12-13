@@ -15,7 +15,7 @@ console.log(userState)
   return (
     <nav className="shadow-sm navbar-blue border-0">
       <div className="d-sm-flex">
-        <Link to="/home">
+        <Link to="/contacts_view">
           <img
             src="/assets/rocacrm.jpeg"
             width="150"

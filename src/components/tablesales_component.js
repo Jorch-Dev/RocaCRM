@@ -300,7 +300,7 @@ export const TableSales_component = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <EditContactsView />
+              {/* <EditContactsView /> */}
             </div>
             <div className="modal-footer">
               <button

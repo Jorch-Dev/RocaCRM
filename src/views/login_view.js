@@ -32,7 +32,7 @@ export const Login_view = () => {
     let regext =
       /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})$/;
     if (!regext.test(state_Loguin.email)) {
-      console.log("entre");
+      
       setState_Loguin({
         ...state_Loguin,
         email: "",
@@ -54,7 +54,7 @@ export const Login_view = () => {
       localStorage.setItem("token", JSON.stringify(data.token));
       setUserState({ ...userState, usuario: {nombre: data.user.Usr_Name, apellido: data.user.Usr_Lastname, email: data.user.Usr_Email}});
 
-      history.replace("/home");
+      history.replace("/contacts_view");
     }
   };
 

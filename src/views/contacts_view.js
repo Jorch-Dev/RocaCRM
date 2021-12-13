@@ -14,7 +14,7 @@ import {
   TableRow,
   Checkbox,
 } from "@mui/material";
-import Modal from 'react-bootstrap/Modal'
+import Modal from "react-bootstrap/Modal";
 
 export const Contacts_view = () => {
   const obj = JSON.parse(localStorage.getItem("token"));
@@ -33,6 +33,7 @@ export const Contacts_view = () => {
     error: null,
     modalIsOpen: false,
   });
+
   useEffect(async () => {
     if (obj != null) {
       await GetFunnenls();
@@ -56,6 +57,7 @@ export const Contacts_view = () => {
     } else {
       setStateAdd({
         ...stateAdd,
+        idFunel: null,
         error:
           "Debes escojer un proyecto para poder visualizar los contactos que pertenecen a el",
       });
@@ -85,6 +87,95 @@ export const Contacts_view = () => {
             <h1 className="mx-2 text-center">Contactos</h1>
           </div>
 
+          <div className="row shadow bg-white mx-1 py-2 mb-2">
+            <div className="d-none d-md-flex">
+              <div className="col mx-5">
+                <select
+                  name="selectfunnels"
+                  id="selectfunnels"
+                  className="form-input_text"
+                  //onChange={(e) => llenaContactos(e)}
+                >
+                  <option value="7" defaultValue>
+                    Últimos 7 días
+                  </option>
+                  <option value="30">Últimos 30 días</option>
+                </select>
+              </div>
+              <div className="col d-flex py-2">
+                <div>
+                  <img
+                    src="/assets/contacto1.svg"
+                  />
+                </div>
+                <div className="text-orange">CONTACTOS NUEVOS</div>
+              </div>
+
+              <div className="col d-flex py-2 ">
+                <div className="icon">
+                  <RiFileExcel2Line />
+                </div>
+                <div className="text-orange">TODOS LOS CONTACTOS</div>
+              </div>
+
+              <div className="col d-flex py-2 ">
+                <div className="icon">
+                  <FiSearch />
+                </div>
+                <div>
+                  <div className="text-orange">DADOS DE BAJA</div>
+                </div>
+              </div>
+            </div>
+            {stateAdd.error != null ? (
+              <p className="text-center text-orange">{stateAdd.error}</p>
+            ) : (
+              <></>
+            )}
+            <div className="d-md-none">
+              <div className="row gy-2">
+                <div className="col">
+                  <select
+                    name="selectfunnels"
+                    id="selectfunnels"
+                    className="form-select"
+                    onChange={(e) => llenaContactos(e)}
+                  >
+                    <option value="0" defaultValue>
+                      Busca tu proyecto
+                    </option>
+                    {stateAdd.objFunnels.map((i) => (
+                      <option key={i.Fun_ID} value={i.Fun_ID}>
+                        {i.Fun_Name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="row gy-2 mt-2">
+                <button className="col cta cta--icon cta--blue">
+                  <div className="cta_icon">
+                    <div className="icon">
+                      <RiFileExcel2Line />
+                    </div>
+                  </div>
+                  <div className="cta_text cta_text--white">
+                    DESCARGAR EXCEL
+                  </div>
+                </button>
+                <button className="col cta cta--icon cta--orange">
+                  <div className="cta_icon">
+                    <div className="icon">
+                      <FiSearch />
+                    </div>
+                  </div>
+                  <div className="cta_text cta_text--white">NUEVO CONTACTO</div>
+                </button>
+              </div>
+            </div>
+          </div>
+
           <div className="row shadow bg-white mx-1 py-2">
             <div className="d-none d-md-flex">
               <div className="col mx-5">
@@ -110,10 +201,7 @@ export const Contacts_view = () => {
                 </div>
                 <div className="cta_text cta_text--white">DESCARGAR EXCEL</div>
               </button>
-              <button
-                className="cta cta--icon cta--orange"
-                onClick={openModal}
-              >
+              <button className="cta cta--icon cta--orange" onClick={openModal}>
                 <div className="cta_icon">
                   <FiSearch />
                 </div>
@@ -179,7 +267,10 @@ export const Contacts_view = () => {
                   No tienes contactos que mostrar en este embudo...
                 </div>
               ) : (
-                <TableContact_component data={stateAdd} stateData={setStateAdd} />
+                <TableContact_component
+                  data={stateAdd}
+                  stateData={setStateAdd}
+                />
               )}
             </>
           ) : (
