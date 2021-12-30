@@ -3,7 +3,7 @@ import { TableContact_component } from "../components/tablecontact_component";
 import { FiSearch } from "react-icons/fi";
 import { RiFileExcel2Line } from "react-icons/ri";
 import { AddContactsView } from "./addcontacts_view";
-import { ApiService } from "../services/api_service";
+import { ApiService, getContactExcel } from "../services/api_service";
 import {
   Paper,
   Table,
@@ -32,34 +32,126 @@ export const Contacts_view = () => {
     idFunel: null,
     error: null,
     modalIsOpen: false,
+    days: 7,
+    contacts: {},
   });
 
   useEffect(async () => {
-    if (obj != null) {
-      await GetFunnenls();
+    if (stateAdd.objFunnels.length === 0) {
+      setStateAdd({ ...stateAdd, isLoading: true });
+      const funnels = await ApiService("get", "funnel/all");
+      console.log(funnels.data.rows);
+      if (funnels.status != 200) {
+        setStateAdd({
+          ...stateAdd,
+          idFunel: null,
+          error:
+            "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
+        });
+      } else {
+        //getStadistics()
+        setStateAdd({
+          ...stateAdd,
+          
+          isLoading: true,
+        });
+        if (stateAdd.days != null) {
+          const result = await ApiService(
+            "get",
+            "user/contact/stats?d=" + stateAdd.days
+          );
+          if (result != null) {
+            setStateAdd({ ...stateAdd, contacts: result, isLoading: false, objFunnels: funnels.data.rows, });
+          }
+        } else {
+          setStateAdd({
+            ...stateAdd,
+            idFunel: null,
+            error:
+              "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
+          });
+        }
+      }
     }
-  }, [obj]);
+  }, []);
 
-  const GetFunnenls = async () => {
-    let metod = "get";
-    let resource = "funnel/all";
-    const result = await ApiService(metod, resource);
-    setStateAdd({ ...stateAdd, objFunnels: result.data.rows });
+  const getRange = async (e) => {
+    if (e != null) {
+      setStateAdd({ ...stateAdd, days: e.target.value });
+    }
+  };
+
+  const getStadistics = async () => {
+    setStateAdd({ ...stateAdd, isLoading: true });
+    if (stateAdd.days != null) {
+      const result = await ApiService(
+        "get",
+        "user/contact/stats?d=" + stateAdd.days
+      );
+      if (result != null) {
+        setStateAdd({ ...stateAdd, contacts: result, isLoading: false });
+      }
+    } else {
+      setStateAdd({
+        ...stateAdd,
+        idFunel: null,
+        error:
+          "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
+      });
+    }
   };
 
   const llenaContactos = async (e) => {
     if (e.target.value != 0) {
       let id = e.target.value;
       let metod = "get";
-      let resource = `user/contact?f=${id}`;
+      let resource = `user/contact?f=${id}&o=0&l=100`;
       const result = await ApiService(metod, resource);
-      setStateAdd({ ...stateAdd, contactos: result.data.rows, idFunel: id });
+      console.log(result);
+      if (result === 401) {
+        setStateAdd({
+          ...stateAdd,
+          idFunel: null,
+          error:
+            "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
+        });
+        return;
+      } else {
+        setStateAdd({ ...stateAdd, contactos: result.data.rows, idFunel: id });
+      }
     } else {
       setStateAdd({
         ...stateAdd,
         idFunel: null,
-        error:
-          "Debes escojer un proyecto para poder visualizar los contactos que pertenecen a el",
+        error: null,
+      });
+    }
+  };
+
+  const downloadExcel = async () => {
+    if (stateAdd.idFunel != null) {
+      if (stateAdd.contactos.length !== 0) {
+        const result = await getContactExcel(stateAdd.idFunel);
+        if (result === 401) {
+          setStateAdd({
+            ...stateAdd,
+            idFunel: null,
+            error:
+              "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
+          });
+        }
+      } else {
+        setStateAdd({
+          ...stateAdd,
+          idFunel: null,
+          error: "Este proyecto no cuenta con contactos activos",
+        });
+      }
+    } else {
+      setStateAdd({
+        ...stateAdd,
+        idFunel: null,
+        error: "Debe escojer un proyecto para poder descargar su archivo",
       });
     }
   };
@@ -78,7 +170,7 @@ export const Contacts_view = () => {
   }
 
   const closeModal = () => setStateAdd({ ...stateAdd, modalIsOpen: false });
-
+  
   return (
     <div className="contenedor-dashboard">
       <div className="d-flex flex-column">
@@ -94,6 +186,7 @@ export const Contacts_view = () => {
                   name="selectfunnels"
                   id="selectfunnels"
                   className="form-input_text"
+                  onChange={(e) => getRange(e)}
                 >
                   <option value="7" defaultValue>
                     Últimos 7 días
@@ -105,17 +198,36 @@ export const Contacts_view = () => {
                 <div className="col text-center">Nuevos contactos</div>
                 <div className="col">
                   <div className="d-flex justify-content-center align-items-center">
-                    <div className="col-6 d-flex justify-content-center align-items-center">
-                      <img
-                        src="/assets/contacto1.svg"
-                        width="32px"
-                        height="32px"
-                      />
-                    </div>
+                    {stateAdd.contacts.data != null ? (
+                      <>
+                        {stateAdd.isLoading ? (
+                          <div
+                            className="spinner-border text-secondary"
+                            role="status"
+                          >
+                            <span className="sr-only"></span>
+                          </div>
+                        ) : (
+                          <>
+                            <div className="col-6 d-flex justify-content-center align-items-center">
+                              <img
+                                src="/assets/contacto1.svg"
+                                width="32px"
+                                height="32px"
+                              />
+                            </div>
 
-                    <div className="col-6 d-flex justify-content-center align-items-center pt-3">
-                      <p className="text-orange">0</p>
-                    </div>
+                            <div className="col-6 d-flex justify-content-center align-items-center pt-3">
+                              <p className="text-orange">
+                                {stateAdd.contacts.data.nuevos}
+                              </p>
+                            </div>
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
               </div>
@@ -124,17 +236,36 @@ export const Contacts_view = () => {
                 <div className="col text-center">Todos los contactos</div>
                 <div className="col">
                   <div className="d-flex justify-content-center align-items-center">
-                    <div className="col-6 d-flex justify-content-center align-items-center">
-                      <img
-                        src="/assets/contacto1.svg"
-                        width="32px"
-                        height="32px"
-                      />
-                    </div>
+                    {stateAdd.contacts.data != null ? (
+                      <>
+                        {stateAdd.isLoading ? (
+                          <div
+                            className="spinner-border text-secondary"
+                            role="status"
+                          >
+                            <span className="sr-only"></span>
+                          </div>
+                        ) : (
+                          <>
+                            <div className="col-6 d-flex justify-content-center align-items-center">
+                              <img
+                                src="/assets/contacto2.svg"
+                                width="32px"
+                                height="32px"
+                              />
+                            </div>
 
-                    <div className="col-6 d-flex justify-content-center align-items-center pt-3">
-                      <p className="text-orange">0</p>
-                    </div>
+                            <div className="col-6 d-flex justify-content-center align-items-center pt-3">
+                              <p className="text-orange">
+                                {stateAdd.contacts.data.total}
+                              </p>
+                            </div>
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
               </div>
@@ -143,32 +274,48 @@ export const Contacts_view = () => {
                 <div className="col text-center">Dados de baja</div>
                 <div className="col">
                   <div className="d-flex justify-content-center align-items-center">
-                    <div className="col-6 d-flex justify-content-center align-items-center">
-                      <img
-                        src="/assets/contacto1.svg"
-                        width="32px"
-                        height="32px"
-                      />
-                    </div>
+                    {stateAdd.contacts.data != null ? (
+                      <>
+                        {stateAdd.isLoading ? (
+                          <div
+                            className="spinner-border text-secondary"
+                            role="status"
+                          >
+                            <span className="sr-only"></span>
+                          </div>
+                        ) : (
+                          <>
+                            <div className="col-6 d-flex justify-content-center align-items-center">
+                              <img
+                                src="/assets/contacto3.svg"
+                                width="32px"
+                                height="32px"
+                              />
+                            </div>
 
-                    <div className="col-6 d-flex justify-content-center align-items-center pt-3">
-                      <p className="text-orange">0</p>
-                    </div>
+                            <div className="col-6 d-flex justify-content-center align-items-center pt-3">
+                              <p className="text-orange">
+                                {stateAdd.contacts.data.baja}
+                              </p>
+                            </div>
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
-            {stateAdd.error != null ? (
-              <p className="text-center text-orange">{stateAdd.error}</p>
-            ) : (
-              <></>
-            )}
+
             <div className="d-md-none">
               <div className="col d-flex justify-content-center align-items-center ms-2">
                 <select
                   name="selectfunnels"
                   id="selectfunnels"
                   className="form-input_text"
+                  onChange={(e) => getRange(e)}
                 >
                   <option value="7" defaultValue>
                     Últimos 7 días
@@ -176,64 +323,120 @@ export const Contacts_view = () => {
                   <option value="30">Últimos 30 días</option>
                 </select>
               </div>
-              <div className="col d-flex border">
-                <div className="col d-flex flex-column border">
+              <div className="col d-flex">
+                <div className="col d-flex flex-column">
                   <div className="col text-center">Nuevos contactos</div>
                   <div className="col">
                     <div className="d-flex justify-content-center align-items-center">
-                      <div className="col d-flex justify-content-center align-items-center">
-                        <img
-                          src="/assets/contacto1.svg"
-                          width="32px"
-                          height="32px"
-                        />
-                      </div>
+                      {stateAdd.contacts.data != null ? (
+                        <>
+                          {stateAdd.isLoading ? (
+                            <div
+                              className="spinner-border text-secondary"
+                              role="status"
+                            >
+                              <span className="sr-only"></span>
+                            </div>
+                          ) : (
+                            <>
+                              <div className="col-6 d-flex justify-content-center align-items-center">
+                                <img
+                                  src="/assets/contacto1.svg"
+                                  width="32px"
+                                  height="32px"
+                                />
+                              </div>
 
-                      <div className="col d-flex justify-content-center align-items-center pt-3">
-                        <p className="text-orange">0</p>
-                      </div>
+                              <div className="col-6 d-flex justify-content-center align-items-center pt-3">
+                                <p className="text-orange">
+                                  {stateAdd.contacts.data.nuevos}
+                                </p>
+                              </div>
+                            </>
+                          )}
+                        </>
+                      ) : (
+                        <></>
+                      )}
                     </div>
                   </div>
                 </div>
 
-                <div className="col d-flex flex-column border">
+                <div className="col d-flex flex-column">
                   <div className="col text-center">Todos los contactos</div>
                   <div className="col">
                     <div className="d-flex justify-content-center align-items-center">
-                      <div className="col d-flex justify-content-center align-items-center">
-                        <img
-                          src="/assets/contacto1.svg"
-                          width="32px"
-                          height="32px"
-                        />
-                      </div>
+                      {stateAdd.contacts.data != null ? (
+                        <>
+                          {stateAdd.isLoading ? (
+                            <div
+                              className="spinner-border text-secondary"
+                              role="status"
+                            >
+                              <span className="sr-only"></span>
+                            </div>
+                          ) : (
+                            <>
+                              <div className="col-6 d-flex justify-content-center align-items-center">
+                                <img
+                                  src="/assets/contacto2.svg"
+                                  width="32px"
+                                  height="32px"
+                                />
+                              </div>
 
-                      <div className="col d-flex justify-content-center align-items-center pt-3">
-                        <p className="text-orange">0</p>
-                      </div>
+                              <div className="col-6 d-flex justify-content-center align-items-center pt-3">
+                                <p className="text-orange">
+                                  {stateAdd.contacts.data.total}
+                                </p>
+                              </div>
+                            </>
+                          )}
+                        </>
+                      ) : (
+                        <></>
+                      )}
                     </div>
                   </div>
                 </div>
 
-                <div className="col d-flex flex-column border">
-                <div className="col text-center">Dados de baja</div>
-                <div className="col">
-                  <div className="d-flex justify-content-center align-items-center">
-                    <div className="col d-flex justify-content-center align-items-center">
-                    <img
-                      src="/assets/contacto1.svg"
-                      width="32px"
-                      height="32px"
-                    />
+                <div className="col d-flex flex-column">
+                  <div className="col text-center">Dados de baja</div>
+                  <div className="col">
+                    <div className="d-flex justify-content-center align-items-center">
+                      {stateAdd.contacts.data != null ? (
+                        <>
+                          {stateAdd.isLoading ? (
+                            <div
+                              className="spinner-border text-secondary"
+                              role="status"
+                            >
+                              <span className="sr-only"></span>
+                            </div>
+                          ) : (
+                            <>
+                              <div className="col-6 d-flex justify-content-center align-items-center">
+                                <img
+                                  src="/assets/contacto3.svg"
+                                  width="32px"
+                                  height="32px"
+                                />
+                              </div>
+
+                              <div className="col-6 d-flex justify-content-center align-items-center pt-3">
+                                <p className="text-orange">
+                                  {stateAdd.contacts.data.baja}
+                                </p>
+                              </div>
+                            </>
+                          )}
+                        </>
+                      ) : (
+                        <></>
+                      )}
                     </div>
-                    
-                    <div className="col d-flex justify-content-center align-items-center pt-3">
-                    <p className="text-orange">0</p>
                   </div>
-                  </div>
-                </div> 
                 </div>
-                
               </div>
 
               {/* <div className="col d-flex flex-column border">
@@ -280,7 +483,7 @@ export const Contacts_view = () => {
 
           <div className="row shadow bg-white mx-1 py-2">
             <div className="d-none d-md-flex">
-              <div className="col mx-5">
+              <div className="col mx-1">
                 <select
                   name="selectfunnels"
                   id="selectfunnels"
@@ -297,7 +500,10 @@ export const Contacts_view = () => {
                   ))}
                 </select>
               </div>
-              <button className="cta cta--icon cta--blue">
+              <button
+                className="cta cta--icon cta--blue"
+                onClick={downloadExcel}
+              >
                 <div className="cta_icon">
                   <RiFileExcel2Line />
                 </div>
@@ -323,7 +529,7 @@ export const Contacts_view = () => {
                   <select
                     name="selectfunnels"
                     id="selectfunnels"
-                    className="form-select"
+                    className="form-input_text"
                     onChange={(e) => llenaContactos(e)}
                   >
                     <option value="0" defaultValue>
@@ -339,7 +545,10 @@ export const Contacts_view = () => {
               </div>
 
               <div className="row gy-2 mt-2">
-                <button className="col cta cta--icon cta--blue">
+                <button
+                  className="col cta cta--icon cta--blue"
+                  onClick={downloadExcel}
+                >
                   <div className="cta_icon">
                     <div className="icon">
                       <RiFileExcel2Line />
@@ -349,7 +558,10 @@ export const Contacts_view = () => {
                     DESCARGAR EXCEL
                   </div>
                 </button>
-                <button className="col cta cta--icon cta--orange">
+                <button
+                  className="col cta cta--icon cta--orange"
+                  onClick={openModal}
+                >
                   <div className="cta_icon">
                     <div className="icon">
                       <FiSearch />
@@ -361,6 +573,7 @@ export const Contacts_view = () => {
             </div>
           </div>
         </div>
+
         <div className="col shadow mx-1 my-2">
           {stateAdd.idFunel != null ? (
             <>
@@ -372,6 +585,19 @@ export const Contacts_view = () => {
                 <TableContact_component
                   data={stateAdd}
                   stateData={setStateAdd}
+                  onEditUser={(contacto) => {
+                    const newArray = stateAdd.contactos.filter(
+                      (x) => x.Con_ID != contacto.Con_ID
+                    );
+
+                    newArray.push(contacto);
+
+                    setStateAdd({
+                      ...stateAdd,
+                      contactos: newArray,
+                      idFunel: contacto.Fun_ID,
+                    });
+                  }}
                 />
               )}
             </>
@@ -410,7 +636,43 @@ export const Contacts_view = () => {
           <Modal.Title>Estas agregando al contacto...</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddContactsView data={stateAdd} stateData={setStateAdd} />
+          <AddContactsView
+            data={stateAdd}
+            stateData={setStateAdd}
+            onAddUser={async (contacto) => {
+              // const newArray = []
+              // newArray.push(...stateAdd.contactos)
+
+              // newArray.push(contacto);
+              // console.log(newArray)
+              // setStateAdd({
+              //   ...stateAdd,
+              //   contactos: newArray,
+              //   idFunel: contacto.Fun_ID,
+              // });
+              let id = contacto.Fun_ID;
+              let metod = "get";
+              let resource = `user/contact?f=${id}&o=0&l=100`;
+              const result = await ApiService(metod, resource);
+              
+              if (result === 401) {
+                setStateAdd({
+                  ...stateAdd,
+                  idFunel: null,
+                  error:
+                    "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
+                });
+                return;
+              } else {
+                setStateAdd({
+                  ...stateAdd,
+                  contactos: result.data.rows,
+                  idFunel: id,
+                  modalIsOpen: false,
+                });
+              }
+            }}
+          />
         </Modal.Body>
       </Modal>
     </div>

@@ -1,5 +1,7 @@
 import Axios from "axios";
-export const ApiUrl = `https://roca-funnels.herokuapp.com/api/v1/`;
+//export const ApiUrl = `http://192.168.88.198:3000/api/v1/`;
+//servidor Produccion
+export const ApiUrl = `https://api.stage.rocafunnels.com/api/v1/`
 
 export const ApiLogin = async (obj) => {
   let url = `${ApiUrl}user/login`;
@@ -13,10 +15,8 @@ export const ApiLogin = async (obj) => {
 
     return data;
   } catch (error) {
-    if (error.response.status === 400) {
       const data = error.response;
       return data;
-    }
   }
 };
 
@@ -28,7 +28,7 @@ export const ApiService = async (method, resource, data) => {
           headers: getToken(),
         });
       } catch (error) {
-        console.log(error);
+        console.log(error.response);
         return 401;
       }
     case "post":
@@ -37,12 +37,12 @@ export const ApiService = async (method, resource, data) => {
           headers: getTokenContent(),
         });
       } catch (error) {
-        console.log(error);
-        return 401;
+        console.log(error.response);
+        const data = error.response;
+      return data;
       }
     case "put":
       try {
-        console.log(`${data}`);
         return await Axios.put(`${ApiUrl}${resource}`, data, {
           headers: getTokenContent(),
         });
@@ -52,10 +52,8 @@ export const ApiService = async (method, resource, data) => {
       }
     case "delete":
       try {
-        return await Axios.delete(`${ApiUrl}${resource}`, data, {
-          headers: {
-            headers: getToken(),
-          },
+        return await Axios.delete(`${ApiUrl}${resource}`, {
+          headers: getToken(),
         });
       } catch (error) {
         console.log(error);
@@ -82,4 +80,32 @@ const getTokenContent = () => {
     "RF-Token": `${token}`,
     "Content-Type": "application/json",
   };
+};
+
+export const getContactExcel = async (f) => {
+  let direccion = `${ApiUrl}user/contact/excel?f=${f}`;
+  try {
+    const response = await Axios({
+      url: direccion,
+      method: "get",
+      responseType: "blob",
+      headers: getToken(),
+    });
+
+    const blob = new Blob([response.data], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8",
+    });
+    const a = document.createElement("a");
+    const href = URL.createObjectURL(blob);
+    a.href = href;
+    a.Download = `${Date.now().toString()}.xlsx`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(href);
+
+    return true;
+  } catch (error) {
+    return false;
+  }
 };

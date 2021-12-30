@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { AiOutlinePoweroff, AiFillHome } from "react-icons/ai";
 import { UserContext } from "../context/user_context";
 
@@ -17,18 +17,18 @@ export const Navbar_view = () => {
     <nav className="navbar shadow-sm bg-blue">
       <div className="container-fluid">
         <div className="w-100 d-none d-sm-flex">
-          <div class="d-flex justify-content-center align-items-center">
-            <div class="col text-center">
+          <div className="d-flex justify-content-center align-items-center">
+            <div className="col text-center">
               <img src="/assets/rocacrm.jpeg" width="150" height="30" />
             </div>
-            <div class="navbar-item">
+            <div className="col navbar-item">
               <div className="icon p-2">
                 <AiFillHome size="32" />
               </div>
             </div>
-            <div class="col">
+            <div className="col-6">
               <span className="navbar_user navbar_user--text">
-                {userState.usuario.nombre} {userState.usuario.apellido}
+                {userState.usuario.nombre} {userState.usuario.apellido} mendez
               </span>
             </div>
           </div>
@@ -53,18 +53,18 @@ export const Navbar_view = () => {
         </div>
 
         <div className="w-100 d-sm-none">
-          <div class="d-flex justify-content-center align-items-center">
-            <div class="col text-center">
+          <div className="d-flex justify-content-center align-items-center">
+            <div className="col text-center">
               <img src="/assets/rocacrm.jpeg" width="130" height="30" />
             </div>
-            <div class="navbar-item">
+            <div className="col navbar-item">
               <div className="icon p-2">
                 <AiFillHome size="32" />
               </div>
             </div>
-            <div class="col border">
+            <div className="">
               <p className="navbar_user navbar_user--text">
-                {userState.usuario.nombre} {userState.usuario.apellido}
+                {userState.usuario.nombre} {userState.usuario.apellido} Mendez
               </p>
             </div>
           </div>

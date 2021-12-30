@@ -294,7 +294,7 @@ export const TableSales_component = () => {
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>

@@ -2,52 +2,15 @@ import React, { useState } from "react";
 import { AiOutlineSave } from "react-icons/ai";
 import { ApiService } from "../services/api_service";
 
-export const EditContactsView = ({ data, setData, body, setBody }) => {
-  
+export const EditContactsView = ({ data, setData, onEditUser }) => {
+
   const [userEdit, setUserEdit] = useState({
-    Con_Address1: "",
-    Con_Address2: "",
-    Con_AffiliateOf: "null",
-    Con_Birthday: "",
-    Con_City: "",
-    Con_Country: "",
-    Con_Email: "",
-    Con_Lastname: "",
-    Con_Name: "",
-    Con_Phone: "",
-    Con_PostalCode: "",
-    Con_State: "",
-    Con_Status: "",
-    Fun_ID: 0,
-    createdAt: "",
-    updatedAt: "",
+    ...data.objetoUsuario,
     error: null,
   });
 
-  const actualizanombre = (e) =>
-    setUserEdit({ ...userEdit, Con_Name: e.target.value });
-  const actualizapellido = (e) =>
-    setUserEdit({ ...userEdit, Con_Lastname: e.target.value });
-  const actualizacorreo = (e) =>
-    setUserEdit({ ...userEdit, Con_Email: e.target.value });
-  const actualizatelefono = (e) =>
-    setUserEdit({ ...userEdit, Con_Phone: e.target.value });
-  const actualizadirec1 = (e) =>
-    setUserEdit({ ...userEdit, Con_Address1: e.target.value });
-  const actualizadirec2 = (e) =>
-    setUserEdit({ ...userEdit, Con_Address2: e.target.value });
-  const actualizaciudad = (e) =>
-    setUserEdit({ ...userEdit, Con_City: e.target.value });
-  const actualizaestado = (e) =>
-    setUserEdit({ ...userEdit, Con_State: e.target.value });
-  const actualizacp = (e) =>
-    setUserEdit({ ...userEdit, Con_PostalCode: e.target.value });
-  const actualizapais = (e) =>
-    setUserEdit({ ...userEdit, Con_Country: e.target.value });
-  const actualizabirthday = (e) =>
-    setUserEdit({ ...userEdit, Con_Birthday: e.target.value });
-
   const guardaEditar = async () => {
+
     setData({ ...data, isLoading: true });
     const obj = JSON.stringify({
       Con_Name: userEdit.Con_Name,
@@ -63,38 +26,22 @@ export const EditContactsView = ({ data, setData, body, setBody }) => {
       Con_Birthday: userEdit.Con_Birthday,
     });
 
-    let id = data.objetoUsuario.Con_ID;
-    let idFun = data.objetoUsuario.Fun_ID;
+    let id = userEdit.Con_ID;
+
+    let idFun = userEdit.Fun_ID;
     let metod = "put";
     let resource = `user/contact/${id}?f=${idFun}`;
-    const result = await ApiService(metod, resource, obj);
-    console.log(result)
-    if (result === 401) {
+    let result = await ApiService(metod, resource, obj);
+    
+    if (result.status !== 200) {
       setUserEdit({
         ...userEdit,
         error:
-          "Ocurrio un error, si el error persiste contacte a un administrador.",
+        "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
       });
-    }else{
-      llenaContactos();
       setData({ ...data, isLoading: false, modalIsOpen: false });
-    }
-  };
-
-  const llenaContactos = async (e) => {
-    if (body.idFunel != 0) {
-      let id = body.idFunel;
-      let metod = "get";
-      let resource = `user/contact?f=${id}`;
-      const result = await ApiService(metod, resource);
-      console.log(result)
-      setBody({ ...body, contactos: result.data.rows, idFunel: id });
-    } else {
-      setBody({
-        ...body,
-        error:
-          "Debes escojer un proyecto para poder visualizar los contactos que pertenecen a el",
-      });
+    }else{
+      onEditUser(userEdit)
     }
   };
 
@@ -112,8 +59,11 @@ export const EditContactsView = ({ data, setData, body, setBody }) => {
               type="text"
               className="form-control"
               placeholder="Nombre"
-              onChange={actualizanombre}
-              value={data.objetoUsuario.Con_Name}
+              onChange={ (evt) => {
+                console.log(evt.currentTarget.value)
+                setUserEdit({...userEdit, Con_Name:evt.currentTarget.value})
+              }}
+              value={userEdit.Con_Name !== null ? userEdit.Con_Name : ''}
             />
           </div>
           <div className="col">
@@ -121,8 +71,11 @@ export const EditContactsView = ({ data, setData, body, setBody }) => {
               type="text"
               className="form-control"
               placeholder="Apellidos"
-              onChange={actualizapellido}
-              value={data.objetoUsuario.Con_Lastname}
+              onChange={ (evt) => {
+                console.log(evt.currentTarget.value)
+                setUserEdit({...userEdit, Con_Lastname:evt.currentTarget.value})
+              }}
+              value={userEdit.Con_Lastname !== null ? userEdit.Con_Lastname : ''}
             />
           </div>
         </div>
@@ -132,8 +85,11 @@ export const EditContactsView = ({ data, setData, body, setBody }) => {
               type="text"
               className="form-control"
               placeholder="Correo Electrónico"
-              onChange={actualizacorreo}
-              value={data.objetoUsuario.Con_Email}
+              onChange={ (evt) => {
+                console.log(evt.currentTarget.value)
+                setUserEdit({...userEdit, Con_Email:evt.currentTarget.value})
+              }}
+              value={userEdit.Con_Email !== null ? userEdit.Con_Email : ''}
             />
           </div>
           <div className="col">
@@ -141,8 +97,11 @@ export const EditContactsView = ({ data, setData, body, setBody }) => {
               type="text"
               className="form-control"
               placeholder="Télefono"
-              onChange={actualizatelefono}
-              value={data.objetoUsuario.Con_Phone}
+              onChange={ (evt) => {
+                console.log(evt.currentTarget.value)
+                setUserEdit({...userEdit, Con_Phone:evt.currentTarget.value})
+              }}
+              value={userEdit.Con_Phone !== null ? userEdit.Con_Phone : ''}
             />
           </div>
           <div className="col">
@@ -150,8 +109,11 @@ export const EditContactsView = ({ data, setData, body, setBody }) => {
               type="text"
               className="form-control"
               placeholder="Dirección 1"
-              onChange={actualizadirec1}
-              value={data.objetoUsuario.Con_Address1}
+              onChange={ (evt) => {
+                console.log(evt.currentTarget.value)
+                setUserEdit({...userEdit, Con_Address1:evt.currentTarget.value})
+              }}
+              value={userEdit.Con_Address1 !== null ? userEdit.Con_Address1 : ''}
             />
           </div>
           <div className="col">
@@ -159,8 +121,11 @@ export const EditContactsView = ({ data, setData, body, setBody }) => {
               type="text"
               className="form-control"
               placeholder="Dirección 2"
-              onChange={actualizadirec2}
-              value={data.objetoUsuario.Con_Address2}
+              onChange={ (evt) => {
+                console.log(evt.currentTarget.value)
+                setUserEdit({...userEdit, Con_Address2:evt.currentTarget.value})
+              }}
+              value={userEdit.Con_Address2 !== null ? userEdit.Con_Address2 : ''}
             />
           </div>
         </div>
@@ -171,8 +136,11 @@ export const EditContactsView = ({ data, setData, body, setBody }) => {
               type="text"
               className="form-control"
               placeholder="Ciudad"
-              onChange={actualizaciudad}
-              value={data.objetoUsuario.Con_City}
+              onChange={ (evt) => {
+                console.log(evt.currentTarget.value)
+                setUserEdit({...userEdit, Con_City:evt.currentTarget.value})
+              }}
+              value={userEdit.Con_City !== null ? userEdit.Con_City : ''}
             />
           </div>
           <div className="col-6">
@@ -180,8 +148,11 @@ export const EditContactsView = ({ data, setData, body, setBody }) => {
               type="text"
               className="form-control"
               placeholder="Estado"
-              onChange={actualizaestado}
-              value={data.objetoUsuario.Con_State}
+              onChange={ (evt) => {
+                console.log(evt.currentTarget.value)
+                setUserEdit({...userEdit, Con_State:evt.currentTarget.value})
+              }}
+              value={userEdit.Con_State !== null ? userEdit.Con_State : ''}
             />
           </div>
           <div className="col-6">
@@ -189,8 +160,11 @@ export const EditContactsView = ({ data, setData, body, setBody }) => {
               type="text"
               className="form-control"
               placeholder="Código postal"
-              onChange={actualizacp}
-              value={data.objetoUsuario.Con_PostalCode}
+              onChange={ (evt) => {
+                console.log(evt.currentTarget.value)
+                setUserEdit({...userEdit, Con_PostalCode:evt.currentTarget.value})
+              }}
+              value={userEdit.Con_PostalCode !== null ? userEdit.Con_PostalCode : ''}
             />
           </div>
           <div className="col-6">
@@ -198,8 +172,11 @@ export const EditContactsView = ({ data, setData, body, setBody }) => {
               type="text"
               className="form-control"
               placeholder="País"
-              onChange={actualizapais}
-              value={data.objetoUsuario.Con_Country}
+              onChange={ (evt) => {
+                console.log(evt.currentTarget.value)
+                setUserEdit({...userEdit, Con_Country:evt.currentTarget.value})
+              }}
+              value={userEdit.Con_Country !== null ? userEdit.Con_Country : ''}
             />
           </div>
           <div className="col">
@@ -207,8 +184,11 @@ export const EditContactsView = ({ data, setData, body, setBody }) => {
               type="date"
               className="form-control"
               placeholder="Fecha de nacimiento"
-              onChange={actualizabirthday}
-              value={data.objetoUsuario.Con_Birthday}
+              onChange={ (evt) => {
+                console.log(evt.currentTarget.value)
+                setUserEdit({...userEdit, Con_Birthday:evt.currentTarget.value})
+              }}
+              value={userEdit.Con_Birthday !== null ? userEdit.Con_Birthday : ''}
             />
           </div>
         </div>
@@ -222,8 +202,8 @@ export const EditContactsView = ({ data, setData, body, setBody }) => {
         >
           {data.isLoading ? (
             <>
-              <div class="spinner-border text-light" role="status">
-                <span class="visually-hidden">Loading...</span>
+              <div className="spinner-border text-light" role="status">
+                <span className="visually-hidden">Loading...</span>
               </div>
             </>
           ) : (

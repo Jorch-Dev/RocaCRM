@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { MdLogin } from "react-icons/md";
 import { useHistory } from "react-router-dom";
-import { ApiLogin } from "../services/api_service"
+import { ApiLogin } from "../services/api_service";
 import { UserContext } from "../context/user_context";
 
 export const Login_view = () => {
@@ -26,13 +26,12 @@ export const Login_view = () => {
     setState_Loguin({ ...state_Loguin, password: dato });
   };
 
-  const login = async(e) => {
+  const login = async (e) => {
     e.preventDefault();
     setState_Loguin({ ...state_Loguin, isLoading: true });
     let regext =
       /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})$/;
     if (!regext.test(state_Loguin.email)) {
-      
       setState_Loguin({
         ...state_Loguin,
         email: "",
@@ -50,11 +49,42 @@ export const Login_view = () => {
       };
 
       const data = await ApiLogin(obj);
-      
-      localStorage.setItem("token", JSON.stringify(data.token));
-      setUserState({ ...userState, usuario: {nombre: data.user.Usr_Name, apellido: data.user.Usr_Lastname, email: data.user.Usr_Email}});
+      console.log(data);
+      if (data != null) {
+        if (data.status === 400) {
+          setState_Loguin({
+            ...state_Loguin,
+            email: "",
+            password: "",
+            isLoading: false,
+            error:
+            "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
+          });
+          return;
+        } else {
+          localStorage.setItem("token", JSON.stringify(data.token));
+          setUserState({
+            ...userState,
+            usuario: {
+              nombre: data.user.Usr_Name,
+              apellido: data.user.Usr_Lastname,
+              email: data.user.Usr_Email,
+            },
+          });
 
-      history.replace("/contacts_view");
+          history.replace("/contacts_view");
+        }
+      } else {
+        setState_Loguin({
+          ...state_Loguin,
+          email: "",
+          password: "",
+          isLoading: false,
+          error:
+          "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
+        });
+        return;
+      }
     }
   };
 
@@ -100,6 +130,7 @@ export const Login_view = () => {
                     className="form-input_text"
                     placeholder="Correo Electronico"
                     onChange={llenaEmail}
+                    value={state_Loguin.email}
                   />
                 </div>
                 <div className="">
@@ -109,6 +140,7 @@ export const Login_view = () => {
                     className="form-input_text"
                     placeholder="Contraseña"
                     onChange={llenaPassword}
+                    value={state_Loguin.password}
                   />
                 </div>
 
@@ -129,7 +161,10 @@ export const Login_view = () => {
                           <MdLogin />
                         </div>
                         <div className="cta_text cta_text--white">ACCEDER</div>
-                        <div className="spinner-border text-light" role="status">
+                        <div
+                          className="spinner-border text-light"
+                          role="status"
+                        >
                           <span className="visually-hidden">Loading...</span>
                         </div>
                       </>
