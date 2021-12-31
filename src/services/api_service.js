@@ -1,7 +1,7 @@
 import Axios from "axios";
-export const ApiUrl = `http://192.168.88.198:3000/api/v1/`;
+//export const ApiUrl = `http://192.168.88.198:3000/api/v1/`;
 //servidor Produccion
-//export const ApiUrl = `https://api.stage.rocafunnels.com/api/v1/`
+export const ApiUrl = `https://api.stage.rocafunnels.com/api/v1/`
 
 export const ApiLogin = async (obj) => {
   let url = `${ApiUrl}user/login`;
