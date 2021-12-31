@@ -35,6 +35,7 @@ export const Login_view = () => {
       setState_Loguin({
         ...state_Loguin,
         email: "",
+        password: "",
         isLoading: false,
         error:
           "Ingresa el correo electrónico que diste de alta al momento de registrarte en el sistema",
@@ -49,41 +50,27 @@ export const Login_view = () => {
       };
 
       const data = await ApiLogin(obj);
-      console.log(data);
-      if (data != null) {
-        if (data.status === 400) {
-          setState_Loguin({
-            ...state_Loguin,
-            email: "",
-            password: "",
-            isLoading: false,
-            error:
-            "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
-          });
-          return;
-        } else {
-          localStorage.setItem("token", JSON.stringify(data.token));
-          setUserState({
-            ...userState,
-            usuario: {
-              nombre: data.user.Usr_Name,
-              apellido: data.user.Usr_Lastname,
-              email: data.user.Usr_Email,
-            },
-          });
 
-          history.replace("/contacts_view");
-        }
-      } else {
+      if (data.status === 400) {
         setState_Loguin({
           ...state_Loguin,
           email: "",
           password: "",
           isLoading: false,
-          error:
-          "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
+          error: data.data.error.msg,
         });
-        return;
+      } else {
+        localStorage.setItem("token", JSON.stringify(data.token));
+        setUserState({
+          ...userState,
+          usuario: {
+            nombre: data.user.Usr_Name,
+            apellido: data.user.Usr_Lastname,
+            email: data.user.Usr_Email,
+          },
+        });
+
+        history.replace("/contacts_view");
       }
     }
   };

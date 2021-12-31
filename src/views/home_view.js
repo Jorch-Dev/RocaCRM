@@ -26,7 +26,7 @@ export const Home_view = () => {
     return <Redirect replace to="/" />;
   }
   return (
-    <div className="h-100">
+    <div className="container-fluid p-0 m-0 h-100">
       <Router>
         <div>
           <Navbar_view />
@@ -34,7 +34,7 @@ export const Home_view = () => {
 
         <div className="d-flex h-100">
           <VerticalBar_component />
-          <div className="w-100">
+          <div className="container-fluid">
             <Switch>
               <Route exact path="/contacts_view" component={Contacts_view} />
               <Route exact path="/contacts_view" component={Contacts_view} />

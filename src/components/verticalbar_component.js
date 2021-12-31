@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 
 export const VerticalBar_component = () => {
   return (
-    <nav className="container_vertical shadow-sm d-none d-lg-block navbar-blue">
-      <div className="options_vertical">
+    <div className="shadow-sm d-none d-lg-block navbar-blue">
+      <div className="options_vertical navbar-blue">
         <Link className="link--none" to="/contacts_view">
           <div className="option_vertical">
             <div className="icon">
@@ -23,6 +23,6 @@ export const VerticalBar_component = () => {
           </div>
         </Link>
       </div>
-    </nav>
+    </div>
   );
 };

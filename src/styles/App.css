@@ -99,7 +99,7 @@ body {
 }
 
 .text-primary {
-  color: var(--primary-text) !important;
+  color: var(--secondary-text) !important;
 }
 
 .text-orange {
@@ -211,13 +211,13 @@ body {
 }
 
 .container_vertical {
-  width: 100px;
+  width: 50px;
   position: relative;
   border: 0;
 }
 
 .options_vertical {
-  width: 100%;
+  width: 50px;
 }
 
 .option_vertical {

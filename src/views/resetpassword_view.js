@@ -1,12 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { RiDeviceRecoverFill } from "react-icons/ri"
+import { RiDeviceRecoverFill } from "react-icons/ri";
+import { postForgotPassword } from "../services/api_service";
 
 export const ResetPasswordView = () => {
   let history = useHistory();
-  const recupera = () => {
-    history.replace("/");
+  const [objmail, setObjMail] = useState({
+    email: "",
+    error: null,
+    isLoading: false,
+  });
+
+  const recupera = async(e) => {
+    e.preventDefault();
+    setObjMail({
+      ...objmail,
+      isLoading: true,
+    });
+    let regext =
+      /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})$/;
+    if (!regext.test(objmail.email)) {
+      setObjMail({
+        ...objmail,
+        email: "",
+        error: "el formato de Correo Electrónico no es el correcto",
+        isLoading: false,
+      });
+      return;
+    }
+
+    const obj = JSON.stringify({
+      email: objmail.email,
+    });
+    let resource = `user/forgot/password`;
+
+    const result = await postForgotPassword(obj, resource);
+    console.log(result);
+    setObjMail({
+      ...objmail,
+      email: "",
+      error:
+        "Se mando un correo a su bandeja de entrada con una liga para que pueda restablecer su contraseña, tiene 25 minutos para realizar está acción o de lo contrario tendrá que solicitarlo nuevamente, no olvide revisar su bandeja de spam.",
+      isLoading: false,
+    });
   };
+  
+  const loguin = () => {
+    history.push("/")
+  }
+
   return (
     <div className="container-fluid bg-light-blue d-flex justify-content-center align-items-center h-100">
       <div className="container">
@@ -21,37 +63,64 @@ export const ResetPasswordView = () => {
             <div className="loginform  bg-white">
               <img src="assets/rocacrm.jpeg" alt="" className="img-fluid" />
 
-              <h2 className="fw-bold text-center py-4">Bienvenido</h2>
-              <div class="text-center text-orange d-none">
+              <h2 className="fw-bold text-center pt-4">Recuperar contraseña</h2>
+              <div className="text-center text-secondary">
+                Ingrese su dirección de correo electrónico y le enviaremos un
+                enlace para restablecer su contraseña.
+              </div>
+              <div className="text-center text-orange d-none">
                 Este es un error en alguna respuesta
               </div>
 
-              <form className="col-xxl-12 aling-items-center">
+              <form className="col-xxl-12 aling-items-center" onSubmit={(e) => recupera(e)}>
                 <div className="">
                   <input
-                    type="password"
-                    name="password1"
+                    type="text"
+                    name="email"
                     className="form-input_text"
-                    placeholder="Contraseña"
-                  />
-                </div>
-
-                <div className="">
-                  <input
-                    type="password"
-                    name="password2"
-                    className="form-input_text"
-                    placeholder="Contraseña"
+                    placeholder="tu@correo"
+                    onChange={(e) =>
+                      setObjMail({ ...objmail, email: e.target.value })
+                    }
                   />
                 </div>
 
                 <div className="d-grid">
-                  <button className="cta cta--blue" onClick={recupera}>
-                    <div className="cta_icon">
-                      <RiDeviceRecoverFill />
-                    </div>
-                    <div className="cta_text cta_text--white">RECUPERAR</div>
+                  <button className="cta cta--blue">
+                    {objmail.isLoading ? (
+                      <>
+                        <div className="cta_icon">
+                          <RiDeviceRecoverFill />
+                        </div>
+                        <div className="cta_text cta_text--white">
+                          RECUPERAR
+                        </div>
+                        <div
+                          className="spinner-border text-light"
+                          role="status"
+                        >
+                          <span className="visually-hidden">loading...</span>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="cta_icon">
+                          <RiDeviceRecoverFill />
+                        </div>
+                        <div className="cta_text cta_text--white">
+                          RECUPERAR
+                        </div>
+                      </>
+                    )}
                   </button>
+                </div>
+
+                <div className="text-primary">
+                  <span>
+                    <a href="#" onClick={loguin}>
+                      Inicia sesión aquí
+                    </a>
+                  </span>
                 </div>
               </form>
             </div>

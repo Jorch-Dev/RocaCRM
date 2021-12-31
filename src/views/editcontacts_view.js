@@ -60,7 +60,6 @@ export const EditContactsView = ({ data, setData, onEditUser }) => {
               className="form-control"
               placeholder="Nombre"
               onChange={ (evt) => {
-                console.log(evt.currentTarget.value)
                 setUserEdit({...userEdit, Con_Name:evt.currentTarget.value})
               }}
               value={userEdit.Con_Name !== null ? userEdit.Con_Name : ''}
@@ -72,7 +71,6 @@ export const EditContactsView = ({ data, setData, onEditUser }) => {
               className="form-control"
               placeholder="Apellidos"
               onChange={ (evt) => {
-                console.log(evt.currentTarget.value)
                 setUserEdit({...userEdit, Con_Lastname:evt.currentTarget.value})
               }}
               value={userEdit.Con_Lastname !== null ? userEdit.Con_Lastname : ''}
@@ -86,7 +84,6 @@ export const EditContactsView = ({ data, setData, onEditUser }) => {
               className="form-control"
               placeholder="Correo Electrónico"
               onChange={ (evt) => {
-                console.log(evt.currentTarget.value)
                 setUserEdit({...userEdit, Con_Email:evt.currentTarget.value})
               }}
               value={userEdit.Con_Email !== null ? userEdit.Con_Email : ''}
@@ -98,7 +95,6 @@ export const EditContactsView = ({ data, setData, onEditUser }) => {
               className="form-control"
               placeholder="Télefono"
               onChange={ (evt) => {
-                console.log(evt.currentTarget.value)
                 setUserEdit({...userEdit, Con_Phone:evt.currentTarget.value})
               }}
               value={userEdit.Con_Phone !== null ? userEdit.Con_Phone : ''}
@@ -110,7 +106,6 @@ export const EditContactsView = ({ data, setData, onEditUser }) => {
               className="form-control"
               placeholder="Dirección 1"
               onChange={ (evt) => {
-                console.log(evt.currentTarget.value)
                 setUserEdit({...userEdit, Con_Address1:evt.currentTarget.value})
               }}
               value={userEdit.Con_Address1 !== null ? userEdit.Con_Address1 : ''}
@@ -122,7 +117,6 @@ export const EditContactsView = ({ data, setData, onEditUser }) => {
               className="form-control"
               placeholder="Dirección 2"
               onChange={ (evt) => {
-                console.log(evt.currentTarget.value)
                 setUserEdit({...userEdit, Con_Address2:evt.currentTarget.value})
               }}
               value={userEdit.Con_Address2 !== null ? userEdit.Con_Address2 : ''}
@@ -137,7 +131,6 @@ export const EditContactsView = ({ data, setData, onEditUser }) => {
               className="form-control"
               placeholder="Ciudad"
               onChange={ (evt) => {
-                console.log(evt.currentTarget.value)
                 setUserEdit({...userEdit, Con_City:evt.currentTarget.value})
               }}
               value={userEdit.Con_City !== null ? userEdit.Con_City : ''}
@@ -161,7 +154,6 @@ export const EditContactsView = ({ data, setData, onEditUser }) => {
               className="form-control"
               placeholder="Código postal"
               onChange={ (evt) => {
-                console.log(evt.currentTarget.value)
                 setUserEdit({...userEdit, Con_PostalCode:evt.currentTarget.value})
               }}
               value={userEdit.Con_PostalCode !== null ? userEdit.Con_PostalCode : ''}
@@ -173,7 +165,6 @@ export const EditContactsView = ({ data, setData, onEditUser }) => {
               className="form-control"
               placeholder="País"
               onChange={ (evt) => {
-                console.log(evt.currentTarget.value)
                 setUserEdit({...userEdit, Con_Country:evt.currentTarget.value})
               }}
               value={userEdit.Con_Country !== null ? userEdit.Con_Country : ''}
@@ -185,7 +176,6 @@ export const EditContactsView = ({ data, setData, onEditUser }) => {
               className="form-control"
               placeholder="Fecha de nacimiento"
               onChange={ (evt) => {
-                console.log(evt.currentTarget.value)
                 setUserEdit({...userEdit, Con_Birthday:evt.currentTarget.value})
               }}
               value={userEdit.Con_Birthday !== null ? userEdit.Con_Birthday : ''}

@@ -1,4 +1,4 @@
-import React, { useState,} from "react";
+import React, { useState } from "react";
 import {
   Paper,
   Table,
@@ -27,9 +27,9 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
       { id: 5, code: "date", label: "Fecha de alta", minWidth: 100 },
     ],
     page: 0,
-    rowsPerPage: 10,
+    rowsPerPage: 5,
     modalIsOpen: false,
-    objetoUsuario:null,
+    objetoUsuario: null,
     isLoading: false,
   });
 
@@ -42,7 +42,6 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
   };
 
   const editContact = async (user) => {
-
     setPagination({
       ...pagination,
       objetoUsuario: user,
@@ -65,7 +64,7 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
         let metod = "delete";
         let resource = `user/contact/${e}?f=${data.idFunel}`;
         const result = await ApiService(metod, resource);
-        console.log(result)
+        console.log(result);
         if (result === 401) {
           stateData({
             ...data,
@@ -75,9 +74,7 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
           });
           return;
         } else {
-          const newArray = data.contactos.filter(
-            (x) => x.Con_ID != e
-          );
+          const newArray = data.contactos.filter((x) => x.Con_ID != e);
 
           stateData({
             ...data,
@@ -116,8 +113,13 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.contactos.map((i) => {
-                  
+              {data.contactos
+                .slice(
+                  pagination.page * pagination.rowsPerPage,
+                  pagination.page * pagination.rowsPerPage +
+                    pagination.rowsPerPage
+                )
+                .map((i) => {
                   return (
                     <TableRow
                       hover
@@ -162,7 +164,7 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
+          rowsPerPageOptions={[5, 10, 25, 100]}
           component="div"
           count={data.contactos.length}
           rowsPerPage={pagination.rowsPerPage}
@@ -181,15 +183,14 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
           {pagination.objetoUsuario != null ? (
             <EditContactsView
               data={pagination}
-              onEditUser={(user)=>{
-              
-                onEditUser(user)
-                setPagination({ ...pagination, isLoading: false, modalIsOpen: false });
-                
-
+              onEditUser={(user) => {
+                onEditUser(user);
+                setPagination({
+                  ...pagination,
+                  isLoading: false,
+                  modalIsOpen: false,
+                });
               }}
-
-
               setData={setPagination}
               body={data}
               setBody={stateData}

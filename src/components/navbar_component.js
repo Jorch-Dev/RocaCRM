@@ -6,7 +6,7 @@ import { UserContext } from "../context/user_context";
 export const Navbar_view = () => {
   let history = useHistory();
   const { userState, setUserState } = useContext(UserContext);
-  console.log(userState);
+  
   const cerrarSesion = () => {
     localStorage.clear();
 
@@ -14,11 +14,11 @@ export const Navbar_view = () => {
   };
   return (
     //bg-blue
-    <nav className="navbar shadow-sm bg-blue">
+    <nav className="w-100 shadow-sm bg-blue">
       <div className="container-fluid">
         <div className="w-100 d-none d-sm-flex">
           <div className="d-flex justify-content-center align-items-center">
-            <div className="col text-center">
+            <div className="col text-center ms-3">
               <img src="/assets/rocacrm.jpeg" width="150" height="30" />
             </div>
             <div className="col navbar-item">
@@ -28,7 +28,7 @@ export const Navbar_view = () => {
             </div>
             <div className="col-6">
               <span className="navbar_user navbar_user--text">
-                {userState.usuario.nombre} {userState.usuario.apellido} mendez
+                {userState.usuario.nombre} {userState.usuario.apellido}
               </span>
             </div>
           </div>

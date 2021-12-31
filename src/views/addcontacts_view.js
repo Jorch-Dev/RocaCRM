@@ -75,39 +75,16 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
     let resource = `user/contact?f=${id}&o=0&i=100`;
 
     const result = await ApiService(method, resource, obj);
-    console.log(result)
+    
     if (result.status !== 201) {
       setStateuser({
         ...stateuser,
-        error:
-        "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
+        error: result.data.error.msg,
       });
+      stateData({ ...data, isLoading: false });
     }else{
       onAddUser(result.data)
       stateData({ ...data, modalIsOpen: false, });
-      // if (data.idFunel != 0) {
-      //   let id = data.idFunel;
-      //   let metod = "get";
-      //   let resource = `user/contact?f=${id}`;
-      //   const result = await ApiService(metod, resource);
-  
-      //   if (result === 401) {
-      //     stateData({
-      //       ...data,
-      //       idFunel: null,
-      //       error:
-      //         "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
-      //     });
-      //   } else {
-      //     stateData({ ...data, contactos: result.data.rows, idFunel: id, modalIsOpen: false, });
-      //   }
-      // } else {
-      //   stateData({
-      //     ...data,
-      //     idFunel: null,
-      //     error: null,
-      //   });
-      // }
     }
   };
   
@@ -127,7 +104,6 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 className="form-control"
                 placeholder="Nombre"
                 onChange={ (evt) => {
-                  console.log(evt.currentTarget.value)
                   setStateuser({...stateuser, Con_Name:evt.currentTarget.value})
                 }}
               />
@@ -138,7 +114,6 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 className="form-control"
                 placeholder="Apellidos"
                 onChange={ (evt) => {
-                  console.log(evt.currentTarget.value)
                   setStateuser({...stateuser, Con_Lastname:evt.currentTarget.value})
                 }}
               />
@@ -151,7 +126,6 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 className="form-control"
                 placeholder="Correo Electrónico"
                 onChange={ (evt) => {
-                  console.log(evt.currentTarget.value)
                   setStateuser({...stateuser, Con_Email:evt.currentTarget.value})
                 }}
               />
@@ -162,7 +136,6 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 className="form-control"
                 placeholder="Télefono"
                 onChange={ (evt) => {
-                  console.log(evt.currentTarget.value)
                   setStateuser({...stateuser, Con_Phone:evt.currentTarget.value})
                 }}
               />
@@ -173,7 +146,6 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 className="form-control"
                 placeholder="Dirección 1"
                 onChange={ (evt) => {
-                  console.log(evt.currentTarget.value)
                   setStateuser({...stateuser, Con_Address1:evt.currentTarget.value})
                 }}
               />
@@ -184,7 +156,6 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 className="form-control"
                 placeholder="Dirección 2"
                 onChange={ (evt) => {
-                  console.log(evt.currentTarget.value)
                   setStateuser({...stateuser, Con_Address2:evt.currentTarget.value})
                 }}
               />
@@ -198,7 +169,6 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 className="form-control"
                 placeholder="Ciudad"
                 onChange={ (evt) => {
-                  console.log(evt.currentTarget.value)
                   setStateuser({...stateuser, Con_City:evt.currentTarget.value})
                 }}
               />
@@ -209,7 +179,6 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 className="form-control"
                 placeholder="Estado"
                 onChange={ (evt) => {
-                  console.log(evt.currentTarget.value)
                   setStateuser({...stateuser, Con_State:evt.currentTarget.value})
                 }}
               />
@@ -220,7 +189,6 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 className="form-control"
                 placeholder="Código postal"
                 onChange={ (evt) => {
-                  console.log(evt.currentTarget.value)
                   setStateuser({...stateuser, Con_PostalCode:evt.currentTarget.value})
                 }}
               />
@@ -231,7 +199,6 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 className="form-control"
                 placeholder="País"
                 onChange={ (evt) => {
-                  console.log(evt.currentTarget.value)
                   setStateuser({...stateuser, Con_Country:evt.currentTarget.value})
                 }}
               />
@@ -242,7 +209,6 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 className="form-control"
                 placeholder="Fecha de nacimiento"
                 onChange={ (evt) => {
-                  console.log(evt.currentTarget.value)
                   setStateuser({...stateuser, Con_Birthday:evt.currentTarget.value})
                 }}
               />
@@ -256,6 +222,10 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
         <button className="cta cta--blue" onClick={saveContac}>
           {data.isLoading ? (
             <>
+            <div className="cta_icon">
+                <AiOutlineSave />
+              </div>
+              <div className="cta_text cta_text--white">GUARDAR</div>
               <div className="spinner-border text-light" role="status">
                 <span className="visually-hidden">loading...</span>
               </div>
