@@ -26,21 +26,23 @@ export const Home_view = () => {
     return <Redirect replace to="/" />;
   }
   return (
-    <div className="container-fluid p-0 m-0 h-100">
+    <div className="d-flex h-100">
       <Router>
-        <div>
+        {/* <div>
           <Navbar_view />
+        </div> */}
+
+        <div className="d-block">
+          <VerticalBar_component />
         </div>
 
-        <div className="d-flex h-100">
-          <VerticalBar_component />
-          <div className="container-fluid">
+        <div className="col bg-gray-00 h-100 overflow-auto">
+          <Navbar_view show={false}/>
             <Switch>
               <Route exact path="/contacts_view" component={Contacts_view} />
               <Route exact path="/contacts_view" component={Contacts_view} />
               <Route exact path="/sales_view" component={Sales_view} />
             </Switch>
-          </div>
         </div>
       </Router>
     </div>

@@ -225,7 +225,7 @@ export const TableSales_component = () => {
                   </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+            {/* <TableBody>
               {pagination.rows
                 .slice(
                   pagination.page * pagination.rowsPerPage,
@@ -264,7 +264,7 @@ export const TableSales_component = () => {
                     </TableRow>
                   );
                 })}
-            </TableBody>
+            </TableBody> */}
           </Table>
         </TableContainer>
         <TablePagination

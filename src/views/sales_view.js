@@ -42,7 +42,7 @@ export const Sales_view = () => {
               <div className="col">
                 <input
                   type="email"
-                  className="form-input_text"
+                  className="form-input"
                   id="txtNombre"
                   placeholder="Escribe tu nombre"
                 />
@@ -50,7 +50,7 @@ export const Sales_view = () => {
               <div className="col">
                 <input
                   type="email"
-                  className="form-input_text"
+                  className="form-input"
                   id="txtVentas"
                   placeholder="name@example.com"
                 />
@@ -59,7 +59,7 @@ export const Sales_view = () => {
                 <select
                   name="selectfunnels"
                   id="selectfunnels"
-                  className="form-input_select"
+                  className="form-input"
                 >
                   <option value="0" defaultValue>
                     Busca tu proyecto

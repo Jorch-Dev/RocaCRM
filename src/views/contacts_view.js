@@ -203,29 +203,169 @@ export const Contacts_view = () => {
         </div>
         
       ) : ( */}
-        <div className="d-flex flex-column">
-          <div>
-            <div className="col">
-              <h1 className="mx-2 text-center">Aquí estan tus contactos</h1>
+      <div className="d-flex flex-column">
+        <div>
+          <div className="text-big text-primary text-bold">
+            Aquí estan tus contactos
+          </div>
+
+          <div className="row shadow bg-white mx-1 py-2 mb-2">
+            <div className="d-none d-md-flex">
+              <div className="col-6 d-flex justify-content-center align-items-center ms-2">
+                <select
+                  name="selectfunnels"
+                  id="selectfunnels"
+                  className="form-input"
+                  onChange={(e) => getRange(e)}
+                >
+                  <option value="7" className="text-small" defaultValue>
+                    Últimos 7 días
+                  </option>
+                  <option value="30" className="text-small">
+                    Últimos 30 días
+                  </option>
+                </select>
+              </div>
+              <div className="col-2 d-flex flex-column">
+                <div className="col text-center text-primary">
+                  Nuevos contactos
+                </div>
+                <div className="col">
+                  <div className="d-flex justify-content-center align-items-center">
+                    {stateAdd.contacts.data != null ? (
+                      <>
+                        {stateAdd.isLoading ? (
+                          <div
+                            className="spinner-border text-secondary"
+                            role="status"
+                          >
+                            <span className="sr-only"></span>
+                          </div>
+                        ) : (
+                          <>
+                            <div className="col-6 d-flex justify-content-center align-items-center">
+                              <img
+                                src="/assets/contacto1.svg"
+                                width="32px"
+                                height="32px"
+                              />
+                            </div>
+
+                            <div className="col-6 d-flex justify-content-center align-items-center pt-3">
+                              <p className="text-orange">
+                                {stateAdd.contacts.data.nuevos}
+                              </p>
+                            </div>
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-2 d-flex flex-column">
+                <div className="col text-center text-primary">
+                  Todos los contactos
+                </div>
+                <div className="col">
+                  <div className="d-flex justify-content-center align-items-center">
+                    {stateAdd.contacts.data != null ? (
+                      <>
+                        {stateAdd.isLoading ? (
+                          <div
+                            className="spinner-border text-secondary"
+                            role="status"
+                          >
+                            <span className="sr-only"></span>
+                          </div>
+                        ) : (
+                          <>
+                            <div className="col-6 d-flex justify-content-center align-items-center">
+                              <img
+                                src="/assets/contacto2.svg"
+                                width="32px"
+                                height="32px"
+                              />
+                            </div>
+
+                            <div className="col-6 d-flex justify-content-center align-items-center pt-3">
+                              <p className="text-orange">
+                                {stateAdd.contacts.data.total}
+                              </p>
+                            </div>
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-2 d-flex flex-column">
+                <div className="col text-center text-primary">
+                  Dados de baja
+                </div>
+                <div className="col">
+                  <div className="d-flex justify-content-center align-items-center">
+                    {stateAdd.contacts.data != null ? (
+                      <>
+                        {stateAdd.isLoading ? (
+                          <div
+                            className="spinner-border text-secondary"
+                            role="status"
+                          >
+                            <span className="sr-only"></span>
+                          </div>
+                        ) : (
+                          <>
+                            <div className="col-6 d-flex justify-content-center align-items-center">
+                              <img
+                                src="/assets/contacto3.svg"
+                                width="32px"
+                                height="32px"
+                              />
+                            </div>
+
+                            <div className="col-6 d-flex justify-content-center align-items-center pt-3">
+                              <p className="text-orange">
+                                {stateAdd.contacts.data.baja}
+                              </p>
+                            </div>
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="row shadow bg-white mx-1 py-2 mb-2">
-              <div className="d-none d-md-flex">
-                <div className="col-6 d-flex justify-content-center align-items-center ms-2">
-                  <select
-                    name="selectfunnels"
-                    id="selectfunnels"
-                    className="form-input_text"
-                    onChange={(e) => getRange(e)}
-                  >
-                    <option value="7" defaultValue>
-                      Últimos 7 días
-                    </option>
-                    <option value="30">Últimos 30 días</option>
-                  </select>
-                </div>
-                <div className="col-2 d-flex flex-column">
-                  <div className="col text-center">Nuevos contactos</div>
+            <div className="d-md-none">
+              <div className="col d-flex justify-content-center align-items-center ms-2">
+                <select
+                  name="selectfunnels"
+                  id="selectfunnels"
+                  className="form-input"
+                  onChange={(e) => getRange(e)}
+                >
+                  <option value="7" defaultValue>
+                    Últimos 7 días
+                  </option>
+                  <option value="30">Últimos 30 días</option>
+                </select>
+              </div>
+              <div className="col d-flex">
+                <div className="col d-flex flex-column">
+                  <div className="col text-center text-primary">
+                    Nuevos contactos
+                  </div>
                   <div className="col">
                     <div className="d-flex justify-content-center align-items-center">
                       {stateAdd.contacts.data != null ? (
@@ -262,8 +402,10 @@ export const Contacts_view = () => {
                   </div>
                 </div>
 
-                <div className="col-2 d-flex flex-column">
-                  <div className="col text-center">Todos los contactos</div>
+                <div className="col d-flex flex-column">
+                  <div className="col text-center text-primary">
+                    Todos los contactos
+                  </div>
                   <div className="col">
                     <div className="d-flex justify-content-center align-items-center">
                       {stateAdd.contacts.data != null ? (
@@ -300,8 +442,10 @@ export const Contacts_view = () => {
                   </div>
                 </div>
 
-                <div className="col-2 d-flex flex-column">
-                  <div className="col text-center">Dados de baja</div>
+                <div className="col d-flex flex-column">
+                  <div className="col text-center text-primary">
+                    Dados de baja
+                  </div>
                   <div className="col">
                     <div className="d-flex justify-content-center align-items-center">
                       {stateAdd.contacts.data != null ? (
@@ -338,146 +482,58 @@ export const Contacts_view = () => {
                   </div>
                 </div>
               </div>
-
-              <div className="d-md-none">
-                <div className="col d-flex justify-content-center align-items-center ms-2">
-                  <select
-                    name="selectfunnels"
-                    id="selectfunnels"
-                    className="form-input_text"
-                    onChange={(e) => getRange(e)}
-                  >
-                    <option value="7" defaultValue>
-                      Últimos 7 días
-                    </option>
-                    <option value="30">Últimos 30 días</option>
-                  </select>
-                </div>
-                <div className="col d-flex">
-                  <div className="col d-flex flex-column">
-                    <div className="col text-center">Nuevos contactos</div>
-                    <div className="col">
-                      <div className="d-flex justify-content-center align-items-center">
-                        {stateAdd.contacts.data != null ? (
-                          <>
-                            {stateAdd.isLoading ? (
-                              <div
-                                className="spinner-border text-secondary"
-                                role="status"
-                              >
-                                <span className="sr-only"></span>
-                              </div>
-                            ) : (
-                              <>
-                                <div className="col-6 d-flex justify-content-center align-items-center">
-                                  <img
-                                    src="/assets/contacto1.svg"
-                                    width="32px"
-                                    height="32px"
-                                  />
-                                </div>
-
-                                <div className="col-6 d-flex justify-content-center align-items-center pt-3">
-                                  <p className="text-orange">
-                                    {stateAdd.contacts.data.nuevos}
-                                  </p>
-                                </div>
-                              </>
-                            )}
-                          </>
-                        ) : (
-                          <></>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col d-flex flex-column">
-                    <div className="col text-center">Todos los contactos</div>
-                    <div className="col">
-                      <div className="d-flex justify-content-center align-items-center">
-                        {stateAdd.contacts.data != null ? (
-                          <>
-                            {stateAdd.isLoading ? (
-                              <div
-                                className="spinner-border text-secondary"
-                                role="status"
-                              >
-                                <span className="sr-only"></span>
-                              </div>
-                            ) : (
-                              <>
-                                <div className="col-6 d-flex justify-content-center align-items-center">
-                                  <img
-                                    src="/assets/contacto2.svg"
-                                    width="32px"
-                                    height="32px"
-                                  />
-                                </div>
-
-                                <div className="col-6 d-flex justify-content-center align-items-center pt-3">
-                                  <p className="text-orange">
-                                    {stateAdd.contacts.data.total}
-                                  </p>
-                                </div>
-                              </>
-                            )}
-                          </>
-                        ) : (
-                          <></>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col d-flex flex-column">
-                    <div className="col text-center">Dados de baja</div>
-                    <div className="col">
-                      <div className="d-flex justify-content-center align-items-center">
-                        {stateAdd.contacts.data != null ? (
-                          <>
-                            {stateAdd.isLoading ? (
-                              <div
-                                className="spinner-border text-secondary"
-                                role="status"
-                              >
-                                <span className="sr-only"></span>
-                              </div>
-                            ) : (
-                              <>
-                                <div className="col-6 d-flex justify-content-center align-items-center">
-                                  <img
-                                    src="/assets/contacto3.svg"
-                                    width="32px"
-                                    height="32px"
-                                  />
-                                </div>
-
-                                <div className="col-6 d-flex justify-content-center align-items-center pt-3">
-                                  <p className="text-orange">
-                                    {stateAdd.contacts.data.baja}
-                                  </p>
-                                </div>
-                              </>
-                            )}
-                          </>
-                        ) : (
-                          <></>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
+          </div>
 
-            <div className="row shadow bg-white mx-1 py-2">
-              <div className="d-none d-md-flex">
-                <div className="col mx-1">
+          <div className="row shadow bg-white mx-1 py-2">
+            <div className="d-none d-md-flex">
+              <div className="col mx-1">
+                <select
+                  name="selectfunnels"
+                  id="selectfunnels"
+                  className="form-input"
+                  onChange={(e) => llenaContactos(e.target.value)}
+                >
+                  <option value="0" defaultValue>
+                    Filtralo por funnel aquí
+                  </option>
+                  {stateAdd.objFunnels.map((i) => (
+                    <option key={i.Fun_ID} value={i.Fun_ID}>
+                      {i.Fun_Name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <button
+                className="cta cta--icon cta--blue"
+                onClick={downloadExcel}
+              >
+                <div className="cta_icon">
+                  <RiFileExcel2Line />
+                </div>
+                <div className="cta_text cta_text--white">DESCARGAR EXCEL</div>
+              </button>
+              <button className="cta cta--icon cta--orange" onClick={openModal}>
+                <div className="cta_icon">
+                  <FiSearch />
+                </div>
+                <div>
+                  <div className="cta_text cta_text--white">NUEVO CONTACTO</div>
+                </div>
+              </button>
+            </div>
+            {stateAdd.error != null ? (
+              <p className="text-center text-orange">{stateAdd.error}</p>
+            ) : (
+              <></>
+            )}
+            <div className="d-md-none">
+              <div className="row gy-2">
+                <div className="col">
                   <select
                     name="selectfunnels"
                     id="selectfunnels"
-                    className="form-input_text"
+                    className="form-input"
                     onChange={(e) => llenaContactos(e.target.value)}
                   >
                     <option value="0" defaultValue>
@@ -490,181 +546,162 @@ export const Contacts_view = () => {
                     ))}
                   </select>
                 </div>
+              </div>
+
+              <div className="row gy-2 mt-2">
                 <button
-                  className="cta cta--icon cta--blue"
+                  className="col cta cta--icon cta--blue"
                   onClick={downloadExcel}
                 >
                   <div className="cta_icon">
-                    <RiFileExcel2Line />
+                    <div className="icon">
+                      <RiFileExcel2Line />
+                    </div>
                   </div>
                   <div className="cta_text cta_text--white">
                     DESCARGAR EXCEL
                   </div>
                 </button>
                 <button
-                  className="cta cta--icon cta--orange"
+                  className="col cta cta--icon cta--orange"
                   onClick={openModal}
                 >
                   <div className="cta_icon">
-                    <FiSearch />
-                  </div>
-                  <div>
-                    <div className="cta_text cta_text--white">
-                      NUEVO CONTACTO
+                    <div className="icon">
+                      <FiSearch />
                     </div>
                   </div>
+                  <div className="cta_text cta_text--white">NUEVO CONTACTO</div>
                 </button>
-              </div>
-              {stateAdd.error != null ? (
-                <p className="text-center text-orange">{stateAdd.error}</p>
-              ) : (
-                <></>
-              )}
-              <div className="d-md-none">
-                <div className="row gy-2">
-                  <div className="col">
-                    <select
-                      name="selectfunnels"
-                      id="selectfunnels"
-                      className="form-input_text"
-                      onChange={(e) => llenaContactos(e.target.value)}
-                    >
-                      <option value="0" defaultValue>
-                        Filtralo por funnel aquí
-                      </option>
-                      {stateAdd.objFunnels.map((i) => (
-                        <option key={i.Fun_ID} value={i.Fun_ID}>
-                          {i.Fun_Name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div className="row gy-2 mt-2">
-                  <button
-                    className="col cta cta--icon cta--blue"
-                    onClick={downloadExcel}
-                  >
-                    <div className="cta_icon">
-                      <div className="icon">
-                        <RiFileExcel2Line />
-                      </div>
-                    </div>
-                    <div className="cta_text cta_text--white">
-                      DESCARGAR EXCEL
-                    </div>
-                  </button>
-                  <button
-                    className="col cta cta--icon cta--orange"
-                    onClick={openModal}
-                  >
-                    <div className="cta_icon">
-                      <div className="icon">
-                        <FiSearch />
-                      </div>
-                    </div>
-                    <div className="cta_text cta_text--white">
-                      NUEVO CONTACTO
-                    </div>
-                  </button>
-                </div>
               </div>
             </div>
           </div>
-
-          <div className="col shadow mx-1 my-2">
-            {stateAdd.idFunel != null ? (
-              <>
-                {stateAdd.contactos.length === 0 ? (
-                  <div className="alert alert-primary" role="alert">
-                    No tienes contactos que mostrar en este embudo...
-                  </div>
-                ) : (
-                  <TableContact_component
-                    data={stateAdd}
-                    stateData={setStateAdd}
-                    onEditUser={(contacto) => {
-                      const newArray = stateAdd.contactos.filter(
-                        (x) => x.Con_ID != contacto.Con_ID
-                      );
-
-                      newArray.push(contacto);
-
-                      setStateAdd({
-                        ...stateAdd,
-                        contactos: newArray,
-                        idFunel: contacto.Fun_ID,
-                      });
-                    }}
-                  />
-                )}
-              </>
-            ) : (
-              <Paper sx={{ overflow: "hidden" }}>
-                <TableContainer sx={{ maxHeight: 600 }}>
-                  <Table aria-label="sticky table" tabIndex={-1}>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell padding="checkbox">
-                          <Checkbox color="primary" />
-                        </TableCell>
-                        {stateAdd.columns.map((column) => (
-                          <TableCell
-                            tabIndex={-1}
-                            key={column.id}
-                            align={column.align}
-                            style={{ minWidth: column.minWidth }}
-                          >
-                            {column.label}
-                          </TableCell>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {stateAdd.allcontactos
-                        .slice(
-                          stateAdd.page * stateAdd.rowsPerPage,
-                          stateAdd.page * stateAdd.rowsPerPage +
-                            stateAdd.rowsPerPage
-                        )
-                        .map((i) => {
-                          return (
-                            <TableRow
-                              hover
-                              role="checkbox"
-                              tabIndex={-1}
-                              key={i.Con_ID}
-                            >
-                              <TableCell padding="checkbox">
-                                <Checkbox color="primary" />
-                              </TableCell>
-                              <TableCell>{i.Con_Name}</TableCell>
-                              <TableCell>{i.Con_Lastname}</TableCell>
-                              <TableCell>{i.Con_Email}</TableCell>
-                              <TableCell>{i.Con_Phone}</TableCell>
-                              <TableCell>{i.Fun_Name}</TableCell>
-                            </TableRow>
-                          );
-                        })}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-                <TablePagination
-                  rowsPerPageOptions={[10, 25, 100]}
-                  component="div"
-                  count={stateAdd.contactos.length}
-                  rowsPerPage={stateAdd.rowsPerPage}
-                  page={stateAdd.page}
-                  onPageChange={cambiaPagina}
-                  onRowsPerPageChange={cambiaFilasxPagina}
-                  labelRowsPerPage="Columnas por página"
-                />
-              </Paper>
-            )}
-          </div>
         </div>
-     {/* )} */}
+
+        <div className="col shadow mx-1 my-2">
+          {stateAdd.idFunel != null ? (
+            <>
+              {stateAdd.contactos.length === 0 ? (
+                <div className="alert alert-primary" role="alert">
+                  No tienes contactos que mostrar en este embudo...
+                </div>
+              ) : (
+                <TableContact_component
+                  data={stateAdd}
+                  stateData={setStateAdd}
+                  onEditUser={async(contacto) => {
+                    // const newArray = stateAdd.contactos.filter(
+                    //   (x) => x.Con_ID != contacto.Con_ID
+                    // );
+
+                    // newArray.push(contacto);
+
+                    // setStateAdd({
+                    //   ...stateAdd,
+                    //   contactos: newArray,
+                    //   idFunel: contacto.Fun_ID,
+                    // });
+                    let id = contacto.Fun_ID;
+              let metod = "get";
+              let resource = `user/contact?f=${id}&o=0&l=100`;
+              const result = await ApiService(metod, resource);
+
+              if (result === 401) {
+                setStateAdd({
+                  ...stateAdd,
+                  idFunel: null,
+                  error:
+                    "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
+                });
+                return;
+              } else {
+                setStateAdd({
+                  ...stateAdd,
+                  contactos: result.data.rows,
+                  idFunel: id,
+                  modalIsOpen: false,
+                });
+              }
+                  }}
+                />
+              )}
+            </>
+          ) : (
+            <Paper sx={{ overflow: "hidden" }}>
+              <TableContainer sx={{ maxHeight: 600 }}>
+                <Table aria-label="sticky table" tabIndex={-1}>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell padding="checkbox">
+                        {/* <Checkbox color="primary" /> */}
+                      </TableCell>
+                      {stateAdd.columns.map((column) => (
+                        <TableCell
+                          tabIndex={-1}
+                          key={column.id}
+                          align={column.align}
+                          style={{ minWidth: column.minWidth }}
+                          className="text-bold text-primary text-0"
+                        >
+                          {column.label}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {stateAdd.allcontactos
+                      .slice(
+                        stateAdd.page * stateAdd.rowsPerPage,
+                        stateAdd.page * stateAdd.rowsPerPage +
+                          stateAdd.rowsPerPage
+                      )
+                      .map((i, x) => {
+                        return (
+                          <TableRow
+                            hover
+                            role="checkbox"
+                            tabIndex={-1}
+                            key={i.Con_ID}
+                          >
+                            <TableCell className="text-center text-bold text-primary text-0">
+                              {x + 1}
+                            </TableCell>
+                            <TableCell className="text-secondary">
+                              {i.Con_Name}
+                            </TableCell>
+                            <TableCell className="text-secondary">
+                              {i.Con_Lastname}
+                            </TableCell>
+                            <TableCell className="text-secondary">
+                              {i.Con_Email}
+                            </TableCell>
+                            <TableCell className="text-secondary">
+                              {i.Con_Phone}
+                            </TableCell>
+                            <TableCell className="text-secondary">
+                              {i.Fun_Name}
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <TablePagination
+                animation="false"
+                rowsPerPageOptions={[-1]}
+                component="div"
+                count={stateAdd.allcontactos.length}
+                rowsPerPage={stateAdd.rowsPerPage}
+                page={stateAdd.page}
+                onPageChange={cambiaPagina}
+                // onRowsPerPageChange={cambiaFilasxPagina}
+                // labelRowsPerPage="Columnas por página"
+              />
+            </Paper>
+          )}
+        </div>
+      </div>
 
       <Modal show={stateAdd.modalIsOpen} onHide={closeModal}>
         <Modal.Header closeButton>

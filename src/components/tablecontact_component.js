@@ -8,11 +8,12 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Checkbox,
+  Checkbox
 } from "@mui/material";
-import { MdDeleteForever, MdEdit } from "react-icons/md";
+import { MdDeleteForever, BiEdit } from "react-icons/all";
 import { ApiService } from "../services/api_service";
 import { EditContactsView } from "../views/editcontacts_view";
+import { IconUI } from "../utils/IconUI";
 import Modal from "react-bootstrap/Modal";
 import Swal from "sweetalert2";
 import Moment from "moment";
@@ -88,7 +89,7 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
   };
 
   const closeModal = () => setPagination({ ...pagination, modalIsOpen: false });
-
+  
   return (
     <>
       <Paper sx={{ overflow: "hidden" }}>
@@ -97,7 +98,7 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
             <TableHead>
               <TableRow>
                 <TableCell padding="checkbox">
-                  <Checkbox color="primary" />
+                  {/* <Checkbox color="primary" /> */}
                 </TableCell>
                 {pagination.columns.map((column) => (
                   <TableCell
@@ -105,11 +106,14 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
                     key={column.id}
                     align={column.align}
                     style={{ minWidth: column.minWidth }}
+                    className="text-bold text-primary text-0"
                   >
                     {column.label}
                   </TableCell>
                 ))}
-                <TableCell className="text-center">Acciones</TableCell>
+                <TableCell className="text-center text-bold text-primary text-0">
+                  Acciones
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -119,7 +123,7 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
                   pagination.page * pagination.rowsPerPage +
                     pagination.rowsPerPage
                 )
-                .map((i) => {
+                .map((i, x) => {
                   return (
                     <TableRow
                       hover
@@ -127,33 +131,43 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
                       tabIndex={-1}
                       key={i.Con_ID}
                     >
-                      <TableCell padding="checkbox">
-                        <Checkbox color="primary" />
+                      <TableCell className="text-center text-bold text-primary text-0">
+                        {x+1}
                       </TableCell>
-                      <TableCell>{i.Con_Name}</TableCell>
-                      <TableCell>{i.Con_Lastname}</TableCell>
-                      <TableCell>{i.Con_Email}</TableCell>
-                      <TableCell>{i.Con_Phone}</TableCell>
-                      <TableCell>
+                      <TableCell className="text-secondary">
+                        {i.Con_Name}
+                      </TableCell>
+                      <TableCell className="text-secondary">
+                        {i.Con_Lastname}
+                      </TableCell>
+                      <TableCell className="text-secondary">
+                        {i.Con_Email}
+                      </TableCell>
+                      <TableCell className="text-secondary">
+                        {i.Con_Phone}
+                      </TableCell>
+                      <TableCell className="text-secondary">
                         {Moment(i.createdAt).format("MMMM DD, YYYY HH:mm")}
                       </TableCell>
 
-                      <TableCell tabIndex={-1}>
+                      <TableCell tabIndex={-1} className="bottom-border">
                         <div className="d-flex justify-content-end">
                           <div
                             onClick={() => editContact(i)}
-                            className="me-auto"
+                            className="me-auto icon_btn"
                           >
-                            <MdEdit className="icon-succes" size="30" />
+                            <IconUI size={22}>
+                              <BiEdit />
+                            </IconUI>
                           </div>
 
                           <div
                             onClick={() => deleteContac(i.Con_ID, i.Con_Name)}
+                            className="icon_btn"
                           >
-                            <MdDeleteForever
-                              className="icon-delete"
-                              size="30"
-                            />
+                            <IconUI size={22}>
+                              <MdDeleteForever />
+                            </IconUI>
                           </div>
                         </div>
                       </TableCell>
@@ -164,14 +178,15 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25, 100]}
+          animation="false"
+          rowsPerPageOptions={[-1]}
           component="div"
           count={data.contactos.length}
           rowsPerPage={pagination.rowsPerPage}
           page={pagination.page}
           onPageChange={cambiaPagina}
-          onRowsPerPageChange={cambiaFilasxPagina}
-          labelRowsPerPage="Columnas por página"
+          // onRowsPerPageChange={cambiaFilasxPagina}
+          // labelRowsPerPage="Columnas por página"
         />
       </Paper>
 

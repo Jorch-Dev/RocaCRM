@@ -2,11 +2,40 @@ import React from "react";
 import { IoMdContacts } from "react-icons/io";
 import { BsCashStack } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { IconUI } from "../utils/IconUI";
 
 export const VerticalBar_component = () => {
   return (
-    <div className="shadow-sm d-none d-lg-block navbar-blue">
-      <div className="options_vertical navbar-blue">
+    <div className="d-none d-lg-block homemenu h-100">
+      <div className="brand">
+        <img src="/assets/rocacrm.jpeg" width="150" height="30" />
+        {/* <div className="d-none d-lg-block text-dark text-bolder px-2">
+          Roca CRM
+        </div> */}
+      </div>
+
+      {/* <Link to={`${url}`}> */}
+      <Link to="/contacts_view">
+        <div className="homemenu_item text-grey-00 text-bold">
+          <IconUI>
+            <IoMdContacts />
+          </IconUI>
+
+          <div className="d-none d-lg-block  text-0  px-3">Contactos</div>
+        </div>
+      </Link>
+
+      <Link to="/sales_view">
+        <div className="homemenu_item text-grey-00 text-bold">
+          <IconUI>
+            <BsCashStack />
+          </IconUI>
+
+          <div className="d-none d-lg-block  text-0  px-3">Ventas</div>
+        </div>
+      </Link>
+
+      {/* <div className="options_vertical navbar-white">
         <Link className="link--none" to="/contacts_view">
           <div className="option_vertical">
             <div className="icon">
@@ -22,7 +51,7 @@ export const VerticalBar_component = () => {
             </div>
           </div>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -3,6 +3,8 @@ import { MdLogin } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import { ApiLogin } from "../services/api_service";
 import { UserContext } from "../context/user_context";
+import { FaRegHandshake } from "react-icons/fa";
+import { lightBlue } from '../styles/colors';
 
 export const Login_view = () => {
   let history = useHistory();
@@ -97,9 +99,17 @@ export const Login_view = () => {
             <div className="loginform  bg-white">
               <img src="assets/rocacrm.jpeg" alt="" className="img-fluid" />
 
-              <h2 className="fw-bold text-center py-4">Bienvenido</h2>
+              <div className="title d-flex">
+                <div className="title_text tittle_text--lightblue">
+                  Bienvenido
+                </div>
+                <div className="title_icon">
+                  <FaRegHandshake size={48} color={lightBlue} />
+                </div>
+              </div>
+
               {state_Loguin.error != null ? (
-                <div className="text-center text-orange">
+                <div className="text-center text-red">
                   {state_Loguin.error}
                 </div>
               ) : (
@@ -114,7 +124,7 @@ export const Login_view = () => {
                   <input
                     type="text"
                     name="email"
-                    className="form-input_text"
+                    className="form-input"
                     placeholder="Correo Electronico"
                     onChange={llenaEmail}
                     value={state_Loguin.email}
@@ -124,7 +134,7 @@ export const Login_view = () => {
                   <input
                     type="password"
                     name="password"
-                    className="form-input_text"
+                    className="form-input"
                     placeholder="Contraseña"
                     onChange={llenaPassword}
                     value={state_Loguin.password}
@@ -133,11 +143,12 @@ export const Login_view = () => {
 
                 <div className="d-flex pe-2 mb-3">
                   <div className="col"></div>
-                  <span>
-                    <a href="#" onClick={recovery}>
-                      Recuperar contraseña
-                    </a>
-                  </span>
+                  <div
+                    className="text text-orange cursor-pointer text-decoration-underline"
+                    onClick={recovery}
+                  >
+                    Recuperar contraseña
+                  </div>
                 </div>
 
                 <div className="d-grid">
@@ -166,13 +177,12 @@ export const Login_view = () => {
                   </button>
                 </div>
 
-                <div className="text-primary">
-                  <span>
-                    No tienes cuenta?{" "}
-                    <a href="#" onClick={userAdd}>
-                      Regístrate
-                    </a>
-                  </span>
+                <div className="text">¿No tienes cuenta?</div>
+                <div
+                  className="text text-orange cursor-pointer text-decoration-underline"
+                  onClick={userAdd}
+                >
+                  Regístrate
                 </div>
               </form>
             </div>
