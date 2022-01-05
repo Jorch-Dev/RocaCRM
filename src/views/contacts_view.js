@@ -13,7 +13,6 @@ import {
   TablePagination,
   TableHead,
   TableRow,
-  Checkbox,
 } from "@mui/material";
 import Modal from "react-bootstrap/Modal";
 
@@ -91,7 +90,7 @@ export const Contacts_view = () => {
         }
       }
     }
-  }, []);
+  }, [stateAdd.objFunnels]);
 
   const cambiaPagina = (event, newPage) => {
     setStateAdd({ ...stateAdd, page: newPage });
@@ -589,39 +588,18 @@ export const Contacts_view = () => {
                 <TableContact_component
                   data={stateAdd}
                   stateData={setStateAdd}
-                  onEditUser={async(contacto) => {
-                    // const newArray = stateAdd.contactos.filter(
-                    //   (x) => x.Con_ID != contacto.Con_ID
-                    // );
+                  onEditUser={(contacto) => {
+                    const newArray = stateAdd.contactos.filter(
+                      (x) => x.Con_ID != contacto.Con_ID
+                    );
+                    //Al finalizar la edicion, agrega el item al principio del arreglo
+                    newArray.unshift(contacto);
 
-                    // newArray.push(contacto);
-
-                    // setStateAdd({
-                    //   ...stateAdd,
-                    //   contactos: newArray,
-                    //   idFunel: contacto.Fun_ID,
-                    // });
-                    let id = contacto.Fun_ID;
-              let metod = "get";
-              let resource = `user/contact?f=${id}&o=0&l=100`;
-              const result = await ApiService(metod, resource);
-
-              if (result === 401) {
-                setStateAdd({
-                  ...stateAdd,
-                  idFunel: null,
-                  error:
-                    "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
-                });
-                return;
-              } else {
-                setStateAdd({
-                  ...stateAdd,
-                  contactos: result.data.rows,
-                  idFunel: id,
-                  modalIsOpen: false,
-                });
-              }
+                    setStateAdd({
+                      ...stateAdd,
+                      contactos: newArray,
+                      idFunel: contacto.Fun_ID,
+                    });
                   }}
                 />
               )}
@@ -632,9 +610,7 @@ export const Contacts_view = () => {
                 <Table aria-label="sticky table" tabIndex={-1}>
                   <TableHead>
                     <TableRow>
-                      <TableCell padding="checkbox">
-                        {/* <Checkbox color="primary" /> */}
-                      </TableCell>
+                      <TableCell padding="checkbox"></TableCell>
                       {stateAdd.columns.map((column) => (
                         <TableCell
                           tabIndex={-1}
@@ -711,38 +687,13 @@ export const Contacts_view = () => {
           <AddContactsView
             data={stateAdd}
             stateData={setStateAdd}
-            onAddUser={async (contacto) => {
-              // const newArray = []
-              // newArray.push(...stateAdd.contactos)
-
-              // newArray.push(contacto);
-              // console.log(newArray)
-              // setStateAdd({
-              //   ...stateAdd,
-              //   contactos: newArray,
-              //   idFunel: contacto.Fun_ID,
-              // });
-              let id = contacto.Fun_ID;
-              let metod = "get";
-              let resource = `user/contact?f=${id}&o=0&l=100`;
-              const result = await ApiService(metod, resource);
-
-              if (result === 401) {
-                setStateAdd({
-                  ...stateAdd,
-                  idFunel: null,
-                  error:
-                    "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
-                });
-                return;
-              } else {
-                setStateAdd({
-                  ...stateAdd,
-                  contactos: result.data.rows,
-                  idFunel: id,
-                  modalIsOpen: false,
-                });
-              }
+            onAddUser={(contacto) => {
+              //Al finalizar el add del nuevo contacto, agrega el item al principio del arreglo
+              stateAdd.contactos.unshift(contacto);
+              setStateAdd({
+                ...stateAdd,
+                idFunel: contacto.Fun_ID,
+              });
             }}
           />
         </Modal.Body>

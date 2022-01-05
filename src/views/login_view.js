@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { MdLogin } from "react-icons/md";
 import { useHistory } from "react-router-dom";
-import { ApiLogin } from "../services/api_service";
+import { ApiLogin, ApiService } from "../services/api_service";
 import { UserContext } from "../context/user_context";
 import { FaRegHandshake } from "react-icons/fa";
-import { lightBlue } from '../styles/colors';
+import { lightBlue } from "../styles/colors";
 
 export const Login_view = () => {
   let history = useHistory();
@@ -46,13 +46,13 @@ export const Login_view = () => {
     }
 
     if (state_Loguin.email != "" && state_Loguin.password != "") {
-      const obj = {
+      const body = {
         email: state_Loguin.email,
         password: state_Loguin.password,
       };
 
-      const data = await ApiLogin(obj);
-
+      const data = await ApiService("post", "user/login", body);
+      
       if (data.status === 400) {
         setState_Loguin({
           ...state_Loguin,
@@ -62,17 +62,15 @@ export const Login_view = () => {
           error: data.data.error.msg,
         });
       } else {
-        localStorage.setItem("token", JSON.stringify(data.token));
+        localStorage.setItem("token", JSON.stringify(data.data.token));
+        const user_result = await ApiService("get", "user");
+        
         setUserState({
           ...userState,
-          usuario: {
-            nombre: data.user.Usr_Name,
-            apellido: data.user.Usr_Lastname,
-            email: data.user.Usr_Email,
-          },
+          usuario: user_result.data,
         });
 
-        history.replace("/contacts_view");
+        history.replace("/contacts");
       }
     }
   };
@@ -109,9 +107,7 @@ export const Login_view = () => {
               </div>
 
               {state_Loguin.error != null ? (
-                <div className="text-center text-red">
-                  {state_Loguin.error}
-                </div>
+                <div className="text-center text-red">{state_Loguin.error}</div>
               ) : (
                 <></>
               )}
@@ -143,12 +139,12 @@ export const Login_view = () => {
 
                 <div className="d-flex pe-2 mb-3">
                   <div className="col"></div>
-                  <div
+                  <span
                     className="text text-orange cursor-pointer text-decoration-underline"
                     onClick={recovery}
                   >
                     Recuperar contraseña
-                  </div>
+                  </span>
                 </div>
 
                 <div className="d-grid">
@@ -177,12 +173,14 @@ export const Login_view = () => {
                   </button>
                 </div>
 
-                <div className="text">¿No tienes cuenta?</div>
-                <div
-                  className="text text-orange cursor-pointer text-decoration-underline"
-                  onClick={userAdd}
-                >
-                  Regístrate
+                <div className="text">
+                  ¿No tienes cuenta?
+                  <span
+                    className="text text-orange cursor-pointer text-decoration-underline"
+                    onClick={userAdd}
+                  >
+                    Regístrate
+                  </span>
                 </div>
               </form>
             </div>

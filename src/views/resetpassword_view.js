@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { RiDeviceRecoverFill } from "react-icons/ri";
 import { postForgotPassword } from "../services/api_service";
+import { lightBlue } from "../styles/colors";
 
 export const ResetPasswordView = () => {
   let history = useHistory();
@@ -11,7 +12,7 @@ export const ResetPasswordView = () => {
     isLoading: false,
   });
 
-  const recupera = async(e) => {
+  const recupera = async (e) => {
     e.preventDefault();
     setObjMail({
       ...objmail,
@@ -44,10 +45,10 @@ export const ResetPasswordView = () => {
       isLoading: false,
     });
   };
-  
+
   const loguin = () => {
-    history.push("/")
-  }
+    history.push("/");
+  };
 
   return (
     <div className="container-fluid bg-light-blue d-flex justify-content-center align-items-center h-100">
@@ -63,8 +64,16 @@ export const ResetPasswordView = () => {
             <div className="loginform  bg-white">
               <img src="assets/rocacrm.jpeg" alt="" className="img-fluid" />
 
-              <h2 className="fw-bold text-center pt-4">Recuperar contraseña</h2>
-              <div className="text-center text-secondary">
+              <div className="title d-flex">
+                <div className="title_text tittle_text--lightblue">
+                  Recuperar contraseña
+                </div>
+                <div className="title_icon">
+                  <RiDeviceRecoverFill size={48} color={lightBlue} />
+                </div>
+              </div>
+
+              <div className="text text-secondary">
                 Ingrese su dirección de correo electrónico y le enviaremos un
                 enlace para restablecer su contraseña.
               </div>
@@ -72,12 +81,15 @@ export const ResetPasswordView = () => {
                 Este es un error en alguna respuesta
               </div>
 
-              <form className="col-xxl-12 aling-items-center" onSubmit={(e) => recupera(e)}>
+              <form
+                className="col-xxl-12 aling-items-center"
+                onSubmit={(e) => recupera(e)}
+              >
                 <div className="">
                   <input
                     type="text"
                     name="email"
-                    className="form-input_text"
+                    className="form-input"
                     placeholder="tu@correo"
                     onChange={(e) =>
                       setObjMail({ ...objmail, email: e.target.value })
@@ -115,11 +127,13 @@ export const ResetPasswordView = () => {
                   </button>
                 </div>
 
-                <div className="text-primary">
-                  <span>
-                    <a href="#" onClick={loguin}>
-                      Inicia sesión aquí
-                    </a>
+                <div className="text">
+                  Regresa a&nbsp;
+                  <span
+                    className="text text-orange cursor-pointer text-decoration-underline"
+                    onClick={loguin}
+                  >
+                    login
                   </span>
                 </div>
               </form>

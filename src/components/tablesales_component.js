@@ -204,78 +204,38 @@ export const TableSales_component = () => {
   return (
     <>
       <Paper sx={{ overflow: "hidden" }}>
-        <TableContainer sx={{ maxHeight: 440 }} tabIndex={-1}>
-          <Table aria-label="sticky table">
-            <TableHead>
+        <TableContainer sx={{ maxHeight: 600 }}>
+          <Table aria-label="sticky table" tabIndex={-1}>
+          <TableHead>
               <TableRow>
                 <TableCell padding="checkbox">
-                  <Checkbox color="primary" />
+                  
                 </TableCell>
                 {pagination.columns.map((column) => (
                   <TableCell
+                    tabIndex={-1}
                     key={column.id}
                     align={column.align}
                     style={{ minWidth: column.minWidth }}
+                    className="text-bold text-primary text-0"
                   >
                     {column.label}
                   </TableCell>
                 ))}
-                <TableCell>
-                  <div className="col text-center">Acciones</div>
-                  </TableCell>
+                <TableCell className="text-center text-bold text-primary text-0">
+                  Acciones
+                </TableCell>
               </TableRow>
             </TableHead>
-            {/* <TableBody>
-              {pagination.rows
-                .slice(
-                  pagination.page * pagination.rowsPerPage,
-                  pagination.page * pagination.rowsPerPage +
-                    pagination.rowsPerPage
-                )
-                .map((row) => {
-                  return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                      <TableCell padding="checkbox">
-                        <Checkbox color="primary" />
-                      </TableCell>
-                      {pagination.columns.map((column) => {
-                        const value = row[column.code];
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {value}
-                          </TableCell>
-                        );
-                      })}
-                      <TableCell tabIndex={-1}>
-                        <div className="d-flex justify-content-end">
-                          <div
-                            data-bs-toggle="modal"
-                            data-bs-target="#editModal"
-                            className="me-auto"
-                          >
-                            <MdEdit className="icon-succes" size="30" />
-                          </div>
-
-                          <div onClick={deleteContac} >
-                            <MdDeleteForever className="icon-delete" size="30" />
-                          </div>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-            </TableBody> */}
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
+          rowsPerPageOptions={[-1]}
           component="div"
           count={pagination.rows.length}
           rowsPerPage={pagination.rowsPerPage}
           page={pagination.page}
           onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          labelRowsPerPage="Columnas por página"
         />
       </Paper>
 

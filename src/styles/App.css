@@ -307,6 +307,7 @@ a:focus-visible {
   justify-content: center;
   align-items: center;
   color: var(--white);
+  margin-left: 3px;
 }
 
 .cta--blue {
@@ -335,6 +336,10 @@ a:focus-visible {
 
 .cta--disabled .cta_text {
   color: red;
+}
+
+.cursor-pointer{
+  cursor: pointer;
 }
 
 .columna--white {

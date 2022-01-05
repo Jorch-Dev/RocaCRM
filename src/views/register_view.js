@@ -76,7 +76,7 @@ export const RegisterView = () => {
                   <input
                     type="text"
                     name="name"
-                    className="form-input_text"
+                    className="form-input"
                     placeholder="Nombre"
                     onChange={(evt) => {
                       setStateuser({
@@ -90,7 +90,7 @@ export const RegisterView = () => {
                   <input
                     type="text"
                     name="lastname"
-                    className="form-input_text"
+                    className="form-input"
                     placeholder="Apellido"
                     onChange={(evt) => {
                       setStateuser({
@@ -104,7 +104,7 @@ export const RegisterView = () => {
                   <input
                     type="email"
                     name="email"
-                    className="form-input_text"
+                    className="form-input"
                     placeholder="Correo Electronico"
                     onChange={(evt) => {
                       setStateuser({
@@ -118,7 +118,7 @@ export const RegisterView = () => {
                   <input
                     type="password"
                     name="password"
-                    className="form-input_text"
+                    className="form-input"
                     placeholder="Contraseña"
                     onChange={(evt) => {
                       setStateuser({
@@ -155,13 +155,11 @@ export const RegisterView = () => {
                   </button>
                 </div>
 
-                <div className="text-primary">
-                  <span>
-                    Ya tienes cuenta?{" "}
-                    <a href="#" onClick={loguin}>
+                <div className="text">
+                    Ya tienes cuenta?
+                    <span className="text text-orange cursor-pointer text-decoration-underline" onClick={loguin}>
                       Inicia sesión aquí
-                    </a>
-                  </span>
+                    </span>
                 </div>
               </form>
             </div>

@@ -1,29 +1,11 @@
 import Axios from "axios";
-//export const ApiUrl = `http://192.168.88.198:3000/api/v1/`;
-//servidor Produccion
-export const ApiUrl = `https://api.stage.rocafunnels.com/api/v1/`
-
-export const ApiLogin = async (obj) => {
-  let url = `${ApiUrl}user/login`;
-
-  try {
-    const result = await Axios.post(url, {
-      email: obj.email,
-      password: obj.password,
-    });
-    const data = result.data;
-
-    return data;
-  } catch (error) {
-      const data = error.response;
-      return data;
-  }
-};
+//export const Api_Url = `http://192.168.88.198:3000/api/v1/`;
+export const Api_Url = `https://api.stage.rocafunnels.com/api/v1/`;
 
 export const postForgotPassword = async (contact, resource) => {
 
   try {
-    const result = await Axios(`${ApiUrl}${resource}`, {
+    const result = await Axios(`${Api_Url}${resource}`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -40,7 +22,7 @@ export const postForgotPassword = async (contact, resource) => {
 };
 
 export const ApiRegister = async (obj) => {
-  let url = `${ApiUrl}user`;
+  let url = `${Api_Url}user`;
 
   try {
     const result = await Axios.post(url, {
@@ -62,7 +44,7 @@ export const ApiRegister = async (obj) => {
 };
 
 export const getContactExcel = async (f) => {
-  let direccion = `${ApiUrl}user/contact/excel?f=${f}`;
+  let direccion = `${Api_Url}user/contact/excel?f=${f}`;
   try {
     const response = await Axios({
       url: direccion,
@@ -93,26 +75,26 @@ export const ApiService = async (method, resource, data) => {
   switch (method) {
     case "get":
       try {
-        return await Axios.get(`${ApiUrl}${resource}`, {
+        return await Axios.get(`${Api_Url}${resource}`, {
           headers: getToken(),
         });
       } catch (error) {
-        console.log(error.response);
-        return 401;
+        const data = error.response;
+        return data;
       }
     case "post":
       try {
-        return await Axios.post(`${ApiUrl}${resource}`, data, {
+        return await Axios.post(`${Api_Url}${resource}`, data, {
           headers: getTokenContent(),
         });
       } catch (error) {
-        console.log(error.response);
+        
         const data = error.response;
       return data;
       }
     case "put":
       try {
-        return await Axios.put(`${ApiUrl}${resource}`, data, {
+        return await Axios.put(`${Api_Url}${resource}`, data, {
           headers: getTokenContent(),
         });
       } catch (error) {
@@ -121,7 +103,7 @@ export const ApiService = async (method, resource, data) => {
       }
     case "delete":
       try {
-        return await Axios.delete(`${ApiUrl}${resource}`, {
+        return await Axios.delete(`${Api_Url}${resource}`, {
           headers: getToken(),
         });
       } catch (error) {

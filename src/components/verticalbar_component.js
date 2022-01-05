@@ -1,10 +1,11 @@
 import React from "react";
 import { IoMdContacts } from "react-icons/io";
 import { BsCashStack } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 import { IconUI } from "../utils/IconUI";
 
 export const VerticalBar_component = () => {
+  const { path, url } = useRouteMatch();
   return (
     <div className="d-none d-lg-block homemenu h-100">
       <div className="brand">
@@ -15,7 +16,7 @@ export const VerticalBar_component = () => {
       </div>
 
       {/* <Link to={`${url}`}> */}
-      <Link to="/contacts_view">
+      <Link to="/contacts">
         <div className="homemenu_item text-grey-00 text-bold">
           <IconUI>
             <IoMdContacts />
@@ -25,7 +26,7 @@ export const VerticalBar_component = () => {
         </div>
       </Link>
 
-      <Link to="/sales_view">
+      <Link to="/sales">
         <div className="homemenu_item text-grey-00 text-bold">
           <IconUI>
             <BsCashStack />

@@ -1,11 +1,15 @@
 import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
-import { AiOutlinePoweroff, AiFillHome, BsPersonFill, IoMdContacts, BsCashStack } from "react-icons/all";
+import {
+  AiOutlinePoweroff,
+  AiFillHome,
+  BsPersonFill,
+  IoMdContacts,
+  BsCashStack,
+} from "react-icons/all";
 import { UserContext } from "../context/user_context";
 import { IconUI } from "../utils/IconUI";
 
 export const Navbar_view = () => {
-  let history = useHistory();
   const { userState, setUserState } = useContext(UserContext);
 
   const cerrarSesion = () => {
@@ -32,9 +36,13 @@ export const Navbar_view = () => {
               <IconUI size={32}>
                 <BsPersonFill />
               </IconUI>
-              <span className="mx-2 text-0">
-                {userState.usuario.nombre} {userState.usuario.apellido}
-              </span>
+              {userState.usuario !== null ? (
+                <span className="mx-2 text-0">
+                  {userState.usuario.Usr_Name} {userState.usuario.Usr_Lastname}
+                </span>
+              ) : (
+                <></>
+              )}
             </div>
             <div className="snack" onClick={cerrarSesion}>
               <IconUI size={32}>
@@ -57,9 +65,13 @@ export const Navbar_view = () => {
               <IconUI size={32}>
                 <BsPersonFill />
               </IconUI>
-              <span className="mx-2 text-0">
-                {userState.usuario.nombre} {userState.usuario.apellido}
-              </span>
+              {userState.usuario !== null ? (
+                <span className="mx-2 text-0">
+                  {userState.usuario.Usr_Name} {userState.usuario.Usr_Lastname}
+                </span>
+              ) : (
+                <></>
+              )}
             </div>
             <div className="snack" onClick={cerrarSesion}>
               <IconUI size={32}>

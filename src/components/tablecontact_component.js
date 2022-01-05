@@ -65,7 +65,7 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
         let metod = "delete";
         let resource = `user/contact/${e}?f=${data.idFunel}`;
         const result = await ApiService(metod, resource);
-        console.log(result);
+        
         if (result === 401) {
           stateData({
             ...data,
