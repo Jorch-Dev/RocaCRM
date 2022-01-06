@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { MdLogin } from "react-icons/md";
 import { useHistory } from "react-router-dom";
-import { ApiLogin, ApiService } from "../services/api_service";
+import { ApiService } from "../services/api_service";
 import { UserContext } from "../context/user_context";
 import { FaRegHandshake } from "react-icons/fa";
 import { lightBlue } from "../styles/colors";
@@ -52,7 +52,7 @@ export const Login_view = () => {
       };
 
       const data = await ApiService("post", "user/login", body);
-      
+
       if (data.status === 400) {
         setState_Loguin({
           ...state_Loguin,
@@ -64,13 +64,13 @@ export const Login_view = () => {
       } else {
         localStorage.setItem("token", JSON.stringify(data.data.token));
         const user_result = await ApiService("get", "user");
-        
+
         setUserState({
           ...userState,
           usuario: user_result.data,
         });
 
-        history.replace("/contacts");
+        history.replace("/home");
       }
     }
   };
@@ -84,109 +84,212 @@ export const Login_view = () => {
   };
 
   return (
-    <div className="container-fluid bg-light-blue d-flex justify-content-center align-items-center h-100">
-      <div className="container">
-        <div className="row m-0">
-          <div className="col-12 col-lg-6 p-0">
-            <div className="w-100 h-100 d-none d-lg-flex justify-content-center align-items-center">
-              <img src="assets/lap.png" alt="" className="w-100 max-640" />
-            </div>
+    <div className="w-100 d-flex justify-content-center h-100">
+      <div className="col-12 col-lg-6 d-flex bg-white justify-content-center p-0">
+        <div className="loginform">
+          <div className="w-100 d-flex justify-content-center">
+            <img
+              src="assets/roca-crm.svg"
+              width="200px"
+              className="img-fluid"
+            />
           </div>
 
-          <div className="col-12 col-lg-6 d-flex justify-content-center align-items-center p-0">
-            <div className="loginform  bg-white">
-              <img src="assets/rocacrm.jpeg" alt="" className="img-fluid" />
+          <div className="title text-center">
+            <div className="title_text">Acceder</div>
+          </div>
+          <div className="text text-grey text-center">
+            ¿Necesitas una cuenta?
+            <span
+              className="text text-bluelight cursor-pointer text-decoration-underline ms-1"
+              onClick={userAdd}
+            >
+              ¡EMPIEZA!
+            </span>
+          </div>
 
-              <div className="title d-flex">
-                <div className="title_text tittle_text--lightblue">
-                  Bienvenido
-                </div>
-                <div className="title_icon">
-                  <FaRegHandshake size={48} color={lightBlue} />
-                </div>
-              </div>
+          {state_Loguin.error != null ? (
+            <div className="text-center text-red">{state_Loguin.error}</div>
+          ) : (
+            <></>
+          )}
 
-              {state_Loguin.error != null ? (
-                <div className="text-center text-red">{state_Loguin.error}</div>
-              ) : (
-                <></>
-              )}
-
-              <form
-                className="col-xxl-12 aling-items-center"
-                onSubmit={(e) => login(e)}
-              >
-                <div className="">
-                  <input
-                    type="text"
-                    name="email"
-                    className="form-input"
-                    placeholder="Correo Electronico"
-                    onChange={llenaEmail}
-                    value={state_Loguin.email}
-                  />
-                </div>
-                <div className="">
-                  <input
-                    type="password"
-                    name="password"
-                    className="form-input"
-                    placeholder="Contraseña"
-                    onChange={llenaPassword}
-                    value={state_Loguin.password}
-                  />
-                </div>
-
-                <div className="d-flex pe-2 mb-3">
-                  <div className="col"></div>
-                  <span
-                    className="text text-orange cursor-pointer text-decoration-underline"
-                    onClick={recovery}
-                  >
-                    Recuperar contraseña
-                  </span>
-                </div>
-
-                <div className="d-grid">
-                  <button type="submit" className="cta cta--blue">
-                    {state_Loguin.isLoading ? (
-                      <>
-                        <div className="cta_icon">
-                          <MdLogin />
-                        </div>
-                        <div className="cta_text cta_text--white">ACCEDER</div>
-                        <div
-                          className="spinner-border text-light"
-                          role="status"
-                        >
-                          <span className="visually-hidden">Loading...</span>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="cta_icon">
-                          <MdLogin />
-                        </div>
-                        <div className="cta_text cta_text--white">ACCEDER</div>
-                      </>
-                    )}
-                  </button>
-                </div>
-
-                <div className="text">
-                  ¿No tienes cuenta?
-                  <span
-                    className="text text-orange cursor-pointer text-decoration-underline"
-                    onClick={userAdd}
-                  >
-                    Regístrate
-                  </span>
-                </div>
-              </form>
+          <form
+            className="col-xxl-12 aling-items-center my-3"
+            onSubmit={(e) => login(e)}
+          >
+            <div className="">
+              <input
+                type="text"
+                name="email"
+                className="form-input"
+                placeholder="Correo Electrónico"
+                onChange={llenaEmail}
+                value={state_Loguin.email}
+              />
             </div>
+            <div className="">
+              <input
+                type="password"
+                name="password"
+                className="form-input"
+                placeholder="Contraseña"
+                onChange={llenaPassword}
+                value={state_Loguin.password}
+              />
+            </div>
+
+            <div className="d-flex pe-2 my-4">
+              <div className="form-check">
+                <input type="checkbox" className="form-check-input" />
+              </div>
+              <span className="text text-grey">Recuérdame</span>
+            </div>
+
+            <div className="d-grid">
+              <button type="submit" className="cta cta--orange">
+                {state_Loguin.isLoading ? (
+                  <>
+                    <div className="cta_icon">
+                      <MdLogin />
+                    </div>
+                    <div className="cta_text cta_text--white">ACCEDER</div>
+                    <div className="spinner-border text-light" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="cta_icon">
+                      <MdLogin />
+                    </div>
+                    <div className="cta_text cta_text--white">ACCEDER</div>
+                  </>
+                )}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div className="d-none d-lg-block col-12 col-lg-6 h-100">
+        <img src="assets/grupo_36.webp" className="img-fluid h-100 w-100" />
+
+        <div className="">
+          <img src="assets/grupo_39.webp" className="img-uno" />
+          <img src="assets/grupo_42.webp" className="img-dos" />
+        </div>
+        <div className="d-flex justify-content-center loginform_footer">
+          <div className="text-white text-big text-center w-50">
+            Automatiza tu negocio con email marketing que maximizará tus ventas.
           </div>
         </div>
       </div>
     </div>
+
+    // <div className="container-fluid d-flex justify-content-center align-items-center h-100">
+    //     <div className="container">
+    //       <div className="row m-0">
+    //         <div className="col-12 col-lg-6 p-0">
+    //           <div className="w-100 h-100 d-none d-lg-flex justify-content-center align-items-center">
+    //             <img src="assets/lap.png" alt="" className="w-100 max-640" />
+    //           </div>
+    //         </div>
+
+    //         <div className="col-12 col-lg-6 d-flex justify-content-center align-items-center p-0">
+    //           <div className="loginform  bg-white">
+    //             <img src="assets/rocacrm.jpeg" alt="" className="img-fluid" />
+
+    //             <div className="title d-flex">
+    //               <div className="title_text tittle_text--lightblue">
+    //                 Bienvenido
+    //               </div>
+    //               <div className="title_icon">
+    //                 <FaRegHandshake size={48} color={lightBlue} />
+    //               </div>
+    //             </div>
+
+    //             {state_Loguin.error != null ? (
+    //               <div className="text-center text-red">{state_Loguin.error}</div>
+    //             ) : (
+    //               <></>
+    //             )}
+
+    //             <form
+    //               className="col-xxl-12 aling-items-center"
+    //               onSubmit={(e) => login(e)}
+    //             >
+    //               <div className="">
+    //                 <input
+    //                   type="text"
+    //                   name="email"
+    //                   className="form-input"
+    //                   placeholder="Correo Electronico"
+    //                   onChange={llenaEmail}
+    //                   value={state_Loguin.email}
+    //                 />
+    //               </div>
+    //               <div className="">
+    //                 <input
+    //                   type="password"
+    //                   name="password"
+    //                   className="form-input"
+    //                   placeholder="Contraseña"
+    //                   onChange={llenaPassword}
+    //                   value={state_Loguin.password}
+    //                 />
+    //               </div>
+
+    //               <div className="d-flex pe-2 mb-3">
+    //                 <div className="col"></div>
+    //                 <span
+    //                   className="text text-orange cursor-pointer text-decoration-underline"
+    //                   onClick={recovery}
+    //                 >
+    //                   Recuperar contraseña
+    //                 </span>
+    //               </div>
+
+    //               <div className="d-grid">
+    //                 <button type="submit" className="cta cta--blue">
+    //                   {state_Loguin.isLoading ? (
+    //                     <>
+    //                       <div className="cta_icon">
+    //                         <MdLogin />
+    //                       </div>
+    //                       <div className="cta_text cta_text--white">ACCEDER</div>
+    //                       <div
+    //                         className="spinner-border text-light"
+    //                         role="status"
+    //                       >
+    //                         <span className="visually-hidden">Loading...</span>
+    //                       </div>
+    //                     </>
+    //                   ) : (
+    //                     <>
+    //                       <div className="cta_icon">
+    //                         <MdLogin />
+    //                       </div>
+    //                       <div className="cta_text cta_text--white">ACCEDER</div>
+    //                     </>
+    //                   )}
+    //                 </button>
+    //               </div>
+
+    //               <div className="text">
+    //                 ¿No tienes cuenta?
+    //                 <span
+    //                   className="text text-orange cursor-pointer text-decoration-underline"
+    //                   onClick={userAdd}
+    //                 >
+    //                   Regístrate
+    //                 </span>
+    //               </div>
+    //             </form>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
   );
 };

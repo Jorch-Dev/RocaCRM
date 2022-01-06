@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="46.005" height="46.005" viewBox="0 0 46.005 46.005">
+    <defs>
+        <style>
+            .cls-2{fill:#fff}
+        </style>
+    </defs>
+    <g id="Grupo_72" data-name="Grupo 72" transform="translate(-478.863 -275.245)">
+        <rect id="Rectángulo_51" data-name="Rectángulo 51" width="46.005" height="46.005" rx="11" transform="translate(478.863 275.245)" style="fill:#eb7306"/>
+        <g id="Grupo_46" data-name="Grupo 46" transform="translate(.402 11)">
+            <rect id="Rectángulo_52" data-name="Rectángulo 52" class="cls-2" width="31.663" height="8.378" rx="3.737" transform="translate(486.719 282.928)"/>
+            <rect id="Rectángulo_53" data-name="Rectángulo 53" class="cls-2" width="25.075" height="8.378" rx="3.737" transform="translate(493.307 293.439)"/>
+            <rect id="Rectángulo_54" data-name="Rectángulo 54" class="cls-2" width="15.823" height="8.378" rx="3.737" transform="translate(486.213 272.611)"/>
+        </g>
+    </g>
+</svg>

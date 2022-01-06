@@ -126,8 +126,12 @@ a:focus-visible {
 }
 
 .text {
-  font-size: 1rem;
+  font-size: 18px;
   font-family: Montserrat;
+}
+
+.text-grey {
+  color: #cecece;
 }
 
 .text-grey-00 {
@@ -142,6 +146,10 @@ a:focus-visible {
   color: var(--blue);
 }
 
+.text-bluelight {
+  color: #4b73ee;
+}
+
 .text-gray {
   color: var(--gray-30);
 }
@@ -151,7 +159,7 @@ a:focus-visible {
 }
 
 .text-big {
-  font-size: 1.62rem;
+  font-size: 1.2rem;
 }
 
 .text-bold {
@@ -172,6 +180,10 @@ a:focus-visible {
 
 .text-red {
   color: red;
+}
+
+.text-white{
+  color: var(--white);
 }
 
 .text-orange {
@@ -195,17 +207,16 @@ a:focus-visible {
 }
 
 .title {
-  margin-top: 10px;
+  margin-top: 30%;
   margin-bottom: 10px;
 }
 
 .title_text {
-  font-weight: 700;
-  color: #333;
-  font-size: 2.2rem;
-  /* text-transform: uppercase; */
-  font-family: Montserrat;
-  line-height: 1.2;
+  color: #000000;
+  font-size: 22px;
+  font-family: Gotham-Bold;
+  line-height: 26.4sp;
+  font-weight: bold;
 }
 
 .title_icon {
@@ -222,7 +233,7 @@ a:focus-visible {
   margin: 10px 0px;
   border: none;
   background-color: var(--input-gray);
-  color: #65676b;
+  color: #65676b;;
   outline: none;
   border-radius: 40px;
   padding: 0px 15px;
@@ -230,10 +241,34 @@ a:focus-visible {
 }
 
 .loginform {
-  padding: 45px;
-  margin: 25px;
-  border-radius: 10px;
-  box-shadow: 3px 3px 3px 0px var(--black-alpha-10);
+  width: 60%;
+  margin-top: 20%;
+  padding: 0 50px 0 50px;
+}
+
+.img-uno{
+  position: absolute;
+  width: 20%;
+  margin-left:-35px;
+  top: 55%;
+  transform: translate(0%, -50%);
+}
+
+.img-dos{ 
+  position: absolute;
+  width: 20%;
+  margin-left:190px;
+  top: 67%;
+  transform: translate(0%, -50%);
+}
+
+.loginform_footer{
+  position: relative;
+  width: 50%;
+  top: 90%;
+  /* background: linear-gradient(to top, #000, #ccc);
+  opacity: 0.5; */
+  position: absolute;
 }
 
 .registerform {
@@ -287,7 +322,7 @@ a:focus-visible {
   height: 40px;
   background-color: var(--gray-10);
   margin: 5px;
-  border-radius: 10px;
+  border-radius: 20px;
   text-align: inherit;
   cursor: pointer;
   box-shadow: 3px 3px 3px 0px var(--black-alpha-10);
@@ -315,7 +350,7 @@ a:focus-visible {
 }
 
 .cta--orange {
-  background-color: var(--orage);
+  background-color: #ff9e2d;
 }
 
 .cta_text {
@@ -338,7 +373,7 @@ a:focus-visible {
   color: red;
 }
 
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
 }
 
@@ -410,7 +445,7 @@ a:focus-visible {
   fill: var(--blue);
 }
 
-.bottom-border{
+.bottom-border {
   border-bottom: 1px solid var(--gray-00);
 }
 
@@ -442,43 +477,69 @@ a:focus-visible {
   font-size: 1.32rem;
 }
 
-.icon_btn{
+.icon_btn {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 50px;
   cursor: pointer;
-  color: #CCC;
+  color: #ccc;
   height: 50px;
   flex: none;
 }
 
-.icon_btn--active{
+.icon_btn--active {
   color: #1a47bc;
   background-color: var(--gray-00);
   border-bottom: none;
 }
 
-.icon_btn:hover{
+.icon_btn:hover {
   background-color: #f5f5f5;
-  color:var(--blue)
+  color: var(--blue);
   /* color: var(--gray-25) */
 }
 
-.icon_btn--disable{
-  color: #CCC;
+.icon_btn--disable {
+  color: #ccc;
   cursor: not-allowed;
 }
 
-.icon_btn--disable:hover{
+.icon_btn--disable:hover {
   background-color: inherit !important;
-  color:#CCC !important;
+  color: #ccc !important;
+}
+@media (max-width: 1400px) {
+  .loginform {
+    width: 70%;
+    margin-top: 20%;
+    padding: 0 50px 0 50px;
+  }
+  .img-dos{
+    margin-left:170px;
+  }
 }
 
 @media (max-width: 1200px) {
+  .loginform {
+    width: 70%;
+    margin-top: 20%;
+    padding: 0 50px 0 50px;
+  }
+  .img-dos{
+    margin-left:150px;
+  }
 }
 
 @media (max-width: 992px) {
+  .img-dos{
+    margin-left:150px;
+  }
+  .loginform {
+    width: 50%;
+    margin-top: 20%;
+    padding: 0 50px 0 50px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -486,9 +547,9 @@ a:focus-visible {
 
 @media (max-width: 576px) {
   .loginform {
-    padding: 10px;
-    border-radius: 8px;
-    margin: 0px;
+    width: 80%;
+    margin-top: 15%;
+    padding: 0 5px 0 5px;
   }
   .text-big {
     font-size: 22px;

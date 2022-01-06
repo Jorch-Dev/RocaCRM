@@ -22,11 +22,11 @@ export const Home_view = () => {
 
   useEffect(() => {
     //-----Si el usuario tiene el plan con Id 1 entonces no lo dejamos entrar, descomentar el if
-    if (userState.usuario !== null) {
-      if (userState.usuario.Pln_ID === 1) {
-        history.replace("/");
-      }
-    }
+    // if (userState.usuario !== null) {
+    //   if (userState.usuario.Pln_ID === 1) {
+    //     history.replace("/");
+    //   }
+    // }
     if (obj != null) {
       authenticated = true;
     }
@@ -45,7 +45,7 @@ export const Home_view = () => {
       <div className="col bg-gray-00 h-100 overflow-auto">
         <Navbar_view />
         <Switch>
-          <Route exact path="/contacts">
+          <Route exact path="/home">
             <Contacts_view />
           </Route>
           <Route exact path="/contacts">

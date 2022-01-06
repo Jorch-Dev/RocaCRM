@@ -9,10 +9,13 @@ export const VerticalBar_component = () => {
   return (
     <div className="d-none d-lg-block homemenu h-100">
       <div className="brand">
-        <img src="/assets/rocacrm.jpeg" width="150" height="30" />
+      <Link to="/home">
+      <img src="/assets/rocacrm.jpeg" width="150" height="30" />
         {/* <div className="d-none d-lg-block text-dark text-bolder px-2">
           Roca CRM
         </div> */}
+      </Link>
+        
       </div>
 
       {/* <Link to={`${url}`}> */}
