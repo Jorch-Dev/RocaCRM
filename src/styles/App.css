@@ -38,6 +38,21 @@
   --shadow-5: rgba(0, 0, 0, 0.5);
   --shadow-8: rgba(0, 0, 0, 0.8);
 }
+
+@font-face {
+  font-family: Gotham-Bold;
+  src: url("../utils/assets/fonts/gotham-bold.otf");
+}
+
+@font-face {
+  font-family: Gotham-Book;
+  src: url("../utils/assets/fonts/Gotham-book.otf");
+}
+
+@font-face {
+  font-family: Gotham-Light;
+  src: url("../utils/assets/fonts/gotham-light.ttf");
+}
 * {
   margin: 0px;
   padding: 0px;
@@ -127,7 +142,12 @@ a:focus-visible {
 
 .text {
   font-size: 18px;
-  font-family: Montserrat;
+  font-family: Gotham-Bold;
+}
+
+.text-book {
+  font-size: 20px;
+  font-family: Gotham-Book;
 }
 
 .text-grey {
@@ -139,7 +159,8 @@ a:focus-visible {
 }
 
 .text-medium {
-  font-size: 1.18rem !important;
+  font-size: 18px;
+  font-family: Gotham-Book;
 }
 
 .text-blue {
@@ -148,10 +169,15 @@ a:focus-visible {
 
 .text-bluelight {
   color: #4b73ee;
+  font-size: 18px;
+  font-family: Gotham-Bold;
+  line-height: 2.8;
 }
 
 .text-gray {
   color: var(--gray-30);
+  font-size: 18px;
+  font-family: Gotham-Book;
 }
 
 .text-small {
@@ -215,8 +241,7 @@ a:focus-visible {
   color: #000000;
   font-size: 22px;
   font-family: Gotham-Bold;
-  line-height: 26.4sp;
-  font-weight: bold;
+  line-height: 2.8;
 }
 
 .title_icon {
@@ -240,10 +265,17 @@ a:focus-visible {
   font-size: 14px;
 }
 
+.form-input::placeholder{
+  font-size: 18px;
+  font-family: Gotham-Book;
+  line-height: 2.8;
+  color: #bababa;
+}
+
 .loginform {
-  width: 60%;
-  margin-top: 20%;
-  padding: 0 50px 0 50px;
+  width: 70%;
+    margin-top: 20%;
+    padding: 0 50px 0 50px;
 }
 
 .img-uno{
@@ -258,7 +290,7 @@ a:focus-visible {
   position: absolute;
   width: 20%;
   margin-left:190px;
-  top: 67%;
+  top: 66%;
   transform: translate(0%, -50%);
 }
 
@@ -276,45 +308,6 @@ a:focus-visible {
   margin: 25px;
   border-radius: 10px;
   box-shadow: 3px 3px 3px 0px var(--black-alpha-10);
-}
-
-@keyframes placeholder {
-  0% {
-    transform: translate(-150%);
-  }
-  100% {
-    transform: translate(150%);
-  }
-}
-
-.placeholder-background {
-  background-color: var(--gray-10);
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  position: absolute;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.placeholder-loader {
-  width: 100%;
-  height: 100%;
-  animation-duration: 0.75s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  animation-name: placeholder;
-  animation-timing-function: linear;
-  background: rgb(242, 243, 245);
-  background: linear-gradient(
-    90deg,
-    rgba(235, 237, 240, 1) 0%,
-    rgba(235, 237, 240, 1) 25%,
-    rgba(242, 243, 245, 1) 50%,
-    rgba(235, 237, 240, 1) 75%,
-    rgba(235, 237, 240, 1) 100%
-  );
 }
 
 .cta {
@@ -354,10 +347,11 @@ a:focus-visible {
 }
 
 .cta_text {
-  color: var(--primary-text);
+  color: var(--white);
   margin: 0px 10px;
-  font-family: Montserrat;
-  font-weight: 700;
+  font-family: Gotham-Bold;
+  line-height: 2.8;
+  font-size: 17.3px;
 }
 
 .cta_text--white {
@@ -509,6 +503,7 @@ a:focus-visible {
   background-color: inherit !important;
   color: #ccc !important;
 }
+
 @media (max-width: 1400px) {
   .loginform {
     width: 70%;
@@ -516,7 +511,8 @@ a:focus-visible {
     padding: 0 50px 0 50px;
   }
   .img-dos{
-    margin-left:170px;
+    margin-left:190px;
+    top: 66%;
   }
 }
 
@@ -526,15 +522,9 @@ a:focus-visible {
     margin-top: 20%;
     padding: 0 50px 0 50px;
   }
-  .img-dos{
-    margin-left:150px;
-  }
 }
 
 @media (max-width: 992px) {
-  .img-dos{
-    margin-left:150px;
-  }
   .loginform {
     width: 50%;
     margin-top: 20%;

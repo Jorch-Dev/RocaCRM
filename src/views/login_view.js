@@ -1,10 +1,7 @@
 import React, { useState, useContext } from "react";
-import { MdLogin } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import { ApiService } from "../services/api_service";
 import { UserContext } from "../context/user_context";
-import { FaRegHandshake } from "react-icons/fa";
-import { lightBlue } from "../styles/colors";
 
 export const Login_view = () => {
   let history = useHistory();
@@ -85,7 +82,7 @@ export const Login_view = () => {
 
   return (
     <div className="w-100 d-flex justify-content-center h-100">
-      <div className="col-12 col-lg-6 d-flex bg-white justify-content-center p-0">
+      <div className="col-12 col-xl-6 d-flex bg-white justify-content-center p-0">
         <div className="loginform">
           <div className="w-100 d-flex justify-content-center">
             <img
@@ -98,10 +95,10 @@ export const Login_view = () => {
           <div className="title text-center">
             <div className="title_text">Acceder</div>
           </div>
-          <div className="text text-grey text-center">
+          <div className="text-medium text-grey text-center">
             ¿Necesitas una cuenta?
             <span
-              className="text text-bluelight cursor-pointer text-decoration-underline ms-1"
+              className="text-medium text-bluelight cursor-pointer text-decoration-underline ms-1"
               onClick={userAdd}
             >
               ¡EMPIEZA!
@@ -143,16 +140,13 @@ export const Login_view = () => {
               <div className="form-check">
                 <input type="checkbox" className="form-check-input" />
               </div>
-              <span className="text text-grey">Recuérdame</span>
+              <span className="text-medium text-grey">Recuérdame</span>
             </div>
 
             <div className="d-grid">
               <button type="submit" className="cta cta--orange">
                 {state_Loguin.isLoading ? (
                   <>
-                    <div className="cta_icon">
-                      <MdLogin />
-                    </div>
                     <div className="cta_text cta_text--white">ACCEDER</div>
                     <div className="spinner-border text-light" role="status">
                       <span className="visually-hidden">Loading...</span>
@@ -160,19 +154,26 @@ export const Login_view = () => {
                   </>
                 ) : (
                   <>
-                    <div className="cta_icon">
-                      <MdLogin />
-                    </div>
                     <div className="cta_text cta_text--white">ACCEDER</div>
                   </>
                 )}
               </button>
             </div>
+
+            <div className="text-medium text-grey text-center border">
+            ¿Olvidaste tu contraseña?
+            <span
+              className="text-medium text-grey cursor-pointer text-center text-decoration-underline ms-1"
+              onClick={userAdd}
+            >
+              Solicita una nueva contraseña
+            </span>
+          </div>
           </form>
         </div>
       </div>
 
-      <div className="d-none d-lg-block col-12 col-lg-6 h-100">
+      <div className="d-none d-xl-block col-12 col-xl-6 h-100">
         <img src="assets/grupo_36.webp" className="img-fluid h-100 w-100" />
 
         <div className="">
@@ -180,7 +181,7 @@ export const Login_view = () => {
           <img src="assets/grupo_42.webp" className="img-dos" />
         </div>
         <div className="d-flex justify-content-center loginform_footer">
-          <div className="text-white text-big text-center w-50">
+          <div className="text-book text-white text-big text-center w-75">
             Automatiza tu negocio con email marketing que maximizará tus ventas.
           </div>
         </div>
