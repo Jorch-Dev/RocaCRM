@@ -520,7 +520,7 @@ a:focus-visible {
 @media (max-width: 1400px) {
   .loginform {
     margin-top: 20%;
-    padding: 0 50px 0 50px;
+    padding: 0 30px 0 30px;
   }
   .loginimg_bg img:nth-child(2) {
     left: 150px;
@@ -530,22 +530,40 @@ a:focus-visible {
 
 @media (max-width: 1200px) {
   .loginform {
-    width: 50%;
-    margin-top: 5%;
-    padding: 0 60px 0 60px;
+    width: 70%;
+    margin-top: 20%;
+    padding: 0 30px 0 30px;
+  }
+  .title {
+    margin-top: 10px;
+  }
+  .loginform_lost{
+    margin-top: 3%;
+  }
+  .loginimg_bg img:nth-child(2) {
+    left: 120px;
+    top: 60%;
   }
 }
 
 @media (max-width: 992px) {
+  .loginform {
+    width: 70%;
+    padding: 0 10px 0 10px;
+  }
 }
 
 @media (max-width: 768px) {
+  .loginform {
+    width: 70%;
+    padding: 0 10px 0 10px;
+  }
 }
 
 @media (max-width: 576px) {
   .loginform {
     width: 100%;
-    padding: 0 10px 0 10px;
+    padding: 0 50px 0 50px;
   }
   .snack {
     font-size: 10px;

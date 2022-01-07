@@ -81,7 +81,7 @@ export const Login_view = () => {
   };
 
   return (
-    <div className="h-100 border">
+    <div className="h-100">
       <div className="container-fluid h-100 d-flex p-0">
   
           <div className="col-12 col-xl-6 h-100 d-flex justify-content-center">
@@ -168,7 +168,7 @@ export const Login_view = () => {
                   <div className="text-medium text-grey d-flex justify-content-center">
                     ¿Olvidaste tu contraseña?
                   </div>
-                  <div className="text-medium text-grey d-flex justify-content-center cursor-pointer text-decoration-underline">
+                  <div className="text-medium text-grey d-flex justify-content-center cursor-pointer text-decoration-underline" onClick={recovery}>
                     Solicita una nueva contraseña
                   </div>
                 </div>
