@@ -208,7 +208,7 @@ a:focus-visible {
   color: red;
 }
 
-.text-white{
+.text-white {
   color: var(--white);
 }
 
@@ -258,14 +258,14 @@ a:focus-visible {
   margin: 10px 0px;
   border: none;
   background-color: var(--input-gray);
-  color: #65676b;;
+  color: #65676b;
   outline: none;
   border-radius: 40px;
   padding: 0px 15px;
   font-size: 14px;
 }
 
-.form-input::placeholder{
+.form-input::placeholder {
   font-size: 18px;
   font-family: Gotham-Book;
   line-height: 2.8;
@@ -274,33 +274,46 @@ a:focus-visible {
 
 .loginform {
   width: 70%;
-    margin-top: 20%;
-    padding: 0 50px 0 50px;
+  margin-top: 10%;
+  padding: 0 50px 0 50px;
 }
 
-.img-uno{
-  position: absolute;
-  width: 20%;
-  margin-left:-35px;
-  top: 55%;
-  transform: translate(0%, -50%);
-}
-
-.img-dos{ 
-  position: absolute;
-  width: 20%;
-  margin-left:190px;
-  top: 66%;
-  transform: translate(0%, -50%);
-}
-
-.loginform_footer{
+.loginimg_bg {
+  background-image: url("../utils/assets/grupo_36.webp");
+  background-size: cover;
+  background-position: 0;
   position: relative;
-  width: 50%;
+}
+
+.loginimg_bg img {
+  position: absolute;
+}
+
+.loginimg_bg img:nth-child(1) {
+  width: 33%;
+  left: -35px;
+  top: 50%;
+  transform: translate(0%, -50%);
+}
+
+.loginimg_bg img:nth-child(2) {
+  width: 35%;
+  left: 210px;
+  top: 65%;
+  transform: translate(0%, -50%);
+}
+
+.loginform_footer {
+  position: relative;
+  width: 100%;
   top: 90%;
   /* background: linear-gradient(to top, #000, #ccc);
   opacity: 0.5; */
-  position: absolute;
+  position: relative;
+}
+
+.loginform_lost{
+  margin-top: 10%;
 }
 
 .registerform {
@@ -506,30 +519,24 @@ a:focus-visible {
 
 @media (max-width: 1400px) {
   .loginform {
-    width: 70%;
     margin-top: 20%;
     padding: 0 50px 0 50px;
   }
-  .img-dos{
-    margin-left:190px;
-    top: 66%;
+  .loginimg_bg img:nth-child(2) {
+    left: 150px;
+    top: 60%;
   }
 }
 
 @media (max-width: 1200px) {
   .loginform {
-    width: 70%;
-    margin-top: 20%;
-    padding: 0 50px 0 50px;
+    width: 50%;
+    margin-top: 5%;
+    padding: 0 60px 0 60px;
   }
 }
 
 @media (max-width: 992px) {
-  .loginform {
-    width: 50%;
-    margin-top: 20%;
-    padding: 0 50px 0 50px;
-  }
 }
 
 @media (max-width: 768px) {
@@ -537,17 +544,16 @@ a:focus-visible {
 
 @media (max-width: 576px) {
   .loginform {
-    width: 80%;
-    margin-top: 15%;
-    padding: 0 5px 0 5px;
-  }
-  .text-big {
-    font-size: 22px;
-  }
-  .text-medium {
-    font-size: 18px;
+    width: 100%;
+    padding: 0 10px 0 10px;
   }
   .snack {
     font-size: 10px;
+  }
+  .title {
+    margin-top: 10px;
+  }
+  .loginform_lost{
+    margin-top: 3%;
   }
 }
