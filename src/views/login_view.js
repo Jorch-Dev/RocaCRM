@@ -181,7 +181,7 @@ export const Login_view = () => {
             <img src="assets/grupo_42.webp" />
 
             <div className="d-flex justify-content-center loginform_footer">
-              <div className="text-book text-white text-big text-center w-50">
+              <div className="text-book text-white text-big text-center w-75">
                 Automatiza tu negocio con email marketing que maximizará tus
                 ventas.
               </div>
