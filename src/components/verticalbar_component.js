@@ -1,26 +1,28 @@
-import React from "react";
-import { IoMdContacts } from "react-icons/io";
-import { BsCashStack } from "react-icons/bs";
+import React, { useContext } from "react";
+import { IoMdContacts, AiOutlinePoweroff, BsCashStack } from "react-icons/all";
 import { Link, useRouteMatch } from "react-router-dom";
 import { IconUI } from "../utils/IconUI";
+import { UserContext } from "../context/user_context";
 
 export const VerticalBar_component = () => {
   const { path, url } = useRouteMatch();
+
+  const { _logOut } = useContext(UserContext);
+
   return (
-    <div className="d-none d-lg-block homemenu h-100">
+    <div className="homemenu h-100">
       <div className="brand">
-      <Link to="/home">
-      <img src="/assets/rocacrm.jpeg" width="150" height="30" />
-        {/* <div className="d-none d-lg-block text-dark text-bolder px-2">
+        <Link to="/home">
+          <img src="/assets/rocacrm.jpeg" width="150" height="30" className="d-none d-lg-block" />
+          {/* <div className="d-none d-lg-block text-dark text-bolder px-2">
           Roca CRM
         </div> */}
-      </Link>
-        
+        </Link>
       </div>
 
       {/* <Link to={`${url}`}> */}
       <Link to="/contacts">
-        <div className="homemenu_item text-grey-00 text-bold">
+        <div className="homemenu_item">
           <IconUI>
             <IoMdContacts />
           </IconUI>
@@ -30,32 +32,26 @@ export const VerticalBar_component = () => {
       </Link>
 
       <Link to="/sales">
-        <div className="homemenu_item text-grey-00 text-bold">
+        <div className="homemenu_item">
           <IconUI>
             <BsCashStack />
           </IconUI>
 
-          <div className="d-none d-lg-block  text-0  px-3">Ventas</div>
+          <div className="d-none d-lg-block text-0 px-3">Ventas</div>
         </div>
       </Link>
 
-      {/* <div className="options_vertical navbar-white">
-        <Link className="link--none" to="/contacts_view">
-          <div className="option_vertical">
-            <div className="icon">
-              <IoMdContacts size="50" className="img-fluid" />
-            </div>
-          </div>
-        </Link>
-
-        <Link className="link--none" to="/sales_view">
-          <div className="option_vertical">
-            <div className="icon">
-              <BsCashStack size="50" className="img-fluid" />
-            </div>
-          </div>
-        </Link>
-      </div> */}
+      <div
+        className="homemenu_item mt-auto"
+        onClick={() => {
+          _logOut();
+        }}
+      >
+        <IconUI>
+          <AiOutlinePoweroff />
+        </IconUI>
+        <div className="d-none d-lg-block text-0 px-3">Salir</div>
+      </div>
     </div>
   );
 };

@@ -92,7 +92,7 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
   
   return (
     <>
-      <Paper sx={{ overflow: "hidden" }}>
+      <div className='card'>
         <TableContainer sx={{ maxHeight: 600 }}>
           <Table aria-label="sticky table" tabIndex={-1}>
             <TableHead>
@@ -188,7 +188,7 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
           // onRowsPerPageChange={cambiaFilasxPagina}
           // labelRowsPerPage="Columnas por página"
         />
-      </Paper>
+      </div>
 
       <Modal show={pagination.modalIsOpen} onHide={closeModal}>
         <Modal.Header closeButton>

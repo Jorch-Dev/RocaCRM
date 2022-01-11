@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { AiOutlineSave } from "react-icons/ai";
 import { ApiService } from "../services/api_service";
+import { IconUI } from "../utils/IconUI";
+import { white } from "../styles/colors";
 
 export const AddContactsView = ({ data, stateData, onAddUser }) => {
   const [stateuser, setStateuser] = useState({
@@ -42,11 +44,10 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
       setStateuser({
         ...stateuser,
         Con_Email: "",
-        error:
-          "el formato de Correo Electrónico no es el correcto",
+        error: "el formato de Correo Electrónico no es el correcto",
       });
       stateData({ ...data, isLoading: false });
-      return
+      return;
     }
     if (stateuser.Con_Phone === "") {
       setStateuser({
@@ -75,19 +76,19 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
     let resource = `user/contact?f=${id}&o=0&i=100`;
 
     const result = await ApiService(method, resource, obj);
-    
+
     if (result.status !== 201) {
       setStateuser({
         ...stateuser,
         error: result.data.error.msg,
       });
       stateData({ ...data, isLoading: false });
-    }else{
-      onAddUser(result.data)
-      stateData({ ...data, modalIsOpen: false, });
+    } else {
+      onAddUser(result.data);
+      stateData({ ...data, modalIsOpen: false });
     }
   };
-  
+
   return (
     <>
       <div className="modal-body">
@@ -103,8 +104,11 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 type="text"
                 className="form-control"
                 placeholder="Nombre"
-                onChange={ (evt) => {
-                  setStateuser({...stateuser, Con_Name:evt.currentTarget.value})
+                onChange={(evt) => {
+                  setStateuser({
+                    ...stateuser,
+                    Con_Name: evt.currentTarget.value,
+                  });
                 }}
               />
             </div>
@@ -113,8 +117,11 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 type="text"
                 className="form-control"
                 placeholder="Apellidos"
-                onChange={ (evt) => {
-                  setStateuser({...stateuser, Con_Lastname:evt.currentTarget.value})
+                onChange={(evt) => {
+                  setStateuser({
+                    ...stateuser,
+                    Con_Lastname: evt.currentTarget.value,
+                  });
                 }}
               />
             </div>
@@ -125,8 +132,11 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 type="text"
                 className="form-control"
                 placeholder="Correo Electrónico"
-                onChange={ (evt) => {
-                  setStateuser({...stateuser, Con_Email:evt.currentTarget.value})
+                onChange={(evt) => {
+                  setStateuser({
+                    ...stateuser,
+                    Con_Email: evt.currentTarget.value,
+                  });
                 }}
               />
             </div>
@@ -135,8 +145,11 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 type="text"
                 className="form-control"
                 placeholder="Télefono"
-                onChange={ (evt) => {
-                  setStateuser({...stateuser, Con_Phone:evt.currentTarget.value})
+                onChange={(evt) => {
+                  setStateuser({
+                    ...stateuser,
+                    Con_Phone: evt.currentTarget.value,
+                  });
                 }}
               />
             </div>
@@ -145,8 +158,11 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 type="text"
                 className="form-control"
                 placeholder="Dirección 1"
-                onChange={ (evt) => {
-                  setStateuser({...stateuser, Con_Address1:evt.currentTarget.value})
+                onChange={(evt) => {
+                  setStateuser({
+                    ...stateuser,
+                    Con_Address1: evt.currentTarget.value,
+                  });
                 }}
               />
             </div>
@@ -155,8 +171,11 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 type="text"
                 className="form-control"
                 placeholder="Dirección 2"
-                onChange={ (evt) => {
-                  setStateuser({...stateuser, Con_Address2:evt.currentTarget.value})
+                onChange={(evt) => {
+                  setStateuser({
+                    ...stateuser,
+                    Con_Address2: evt.currentTarget.value,
+                  });
                 }}
               />
             </div>
@@ -168,8 +187,11 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 type="text"
                 className="form-control"
                 placeholder="Ciudad"
-                onChange={ (evt) => {
-                  setStateuser({...stateuser, Con_City:evt.currentTarget.value})
+                onChange={(evt) => {
+                  setStateuser({
+                    ...stateuser,
+                    Con_City: evt.currentTarget.value,
+                  });
                 }}
               />
             </div>
@@ -178,8 +200,11 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 type="text"
                 className="form-control"
                 placeholder="Estado"
-                onChange={ (evt) => {
-                  setStateuser({...stateuser, Con_State:evt.currentTarget.value})
+                onChange={(evt) => {
+                  setStateuser({
+                    ...stateuser,
+                    Con_State: evt.currentTarget.value,
+                  });
                 }}
               />
             </div>
@@ -188,8 +213,11 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 type="text"
                 className="form-control"
                 placeholder="Código postal"
-                onChange={ (evt) => {
-                  setStateuser({...stateuser, Con_PostalCode:evt.currentTarget.value})
+                onChange={(evt) => {
+                  setStateuser({
+                    ...stateuser,
+                    Con_PostalCode: evt.currentTarget.value,
+                  });
                 }}
               />
             </div>
@@ -198,8 +226,11 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 type="text"
                 className="form-control"
                 placeholder="País"
-                onChange={ (evt) => {
-                  setStateuser({...stateuser, Con_Country:evt.currentTarget.value})
+                onChange={(evt) => {
+                  setStateuser({
+                    ...stateuser,
+                    Con_Country: evt.currentTarget.value,
+                  });
                 }}
               />
             </div>
@@ -208,8 +239,11 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 type="date"
                 className="form-control"
                 placeholder="Fecha de nacimiento"
-                onChange={ (evt) => {
-                  setStateuser({...stateuser, Con_Birthday:evt.currentTarget.value})
+                onChange={(evt) => {
+                  setStateuser({
+                    ...stateuser,
+                    Con_Birthday: evt.currentTarget.value,
+                  });
                 }}
               />
             </div>
@@ -222,8 +256,10 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
         <button className="cta cta--blue" onClick={saveContac}>
           {data.isLoading ? (
             <>
-            <div className="cta_icon">
-                <AiOutlineSave />
+              <div className="cta_icon">
+                <IconUI color={white}>
+                  <AiOutlineSave />
+                </IconUI>
               </div>
               <div className="cta_text cta_text--white">GUARDAR</div>
               <div className="spinner-border text-light" role="status">
@@ -232,8 +268,10 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
             </>
           ) : (
             <>
-              <div className="cta_icon">
-                <AiOutlineSave />
+              <div className="cta_icon mt-1">
+                <IconUI color={white}>
+                  <AiOutlineSave />
+                </IconUI>
               </div>
               <div className="cta_text cta_text--white">GUARDAR</div>
             </>

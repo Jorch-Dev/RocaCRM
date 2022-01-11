@@ -81,7 +81,7 @@ export const Login_view = () => {
   };
 
   return (
-    <div className="h-100">
+    <div className="contenedor-login">
       <div className="container-fluid h-100 d-flex p-0">
   
           <div className="col-12 col-xl-6 h-100 d-flex justify-content-center">
@@ -149,7 +149,7 @@ export const Login_view = () => {
                   <button type="submit" className="cta cta--orange">
                     {state_Loguin.isLoading ? (
                       <>
-                        <div className="cta_text cta_text--white">ACCEDER</div>
+                        <div className="cta_text cta_text--white mt-1">ACCEDER</div>
                         <div
                           className="spinner-border text-light"
                           role="status"

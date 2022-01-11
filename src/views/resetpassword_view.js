@@ -61,23 +61,24 @@ export const ResetPasswordView = () => {
           </div>
 
           <div className="col-12 col-lg-6 d-flex justify-content-center align-items-center p-0">
-            <div className="loginform  bg-white">
-              <img src="assets/rocacrm.jpeg" alt="" className="img-fluid" />
-
-              <div className="title d-flex">
-                <div className="title_text tittle_text--lightblue">
-                  Recuperar contraseña
-                </div>
-                <div className="title_icon">
-                  <RiDeviceRecoverFill size={48} color={lightBlue} />
-                </div>
+            <div className="registerform  bg-white">
+            <div className="w-100 d-flex justify-content-center">
+                <img
+                  src="assets/roca-crm.svg"
+                  width="200px"
+                  className="img-fluid"
+                />
               </div>
 
-              <div className="text text-secondary">
+              <div className="title text-center">
+                <div className="title_text">Recuperar contraseña</div>
+              </div>
+
+              <div className="text-medium text-grey">
                 Ingrese su dirección de correo electrónico y le enviaremos un
                 enlace para restablecer su contraseña.
               </div>
-              <div className="text-center text-orange d-none">
+              <div className="text-center text-red d-none">
                 Este es un error en alguna respuesta
               </div>
 
@@ -98,39 +99,33 @@ export const ResetPasswordView = () => {
                 </div>
 
                 <div className="d-grid">
-                  <button className="cta cta--blue">
+                  <button type="submit" className="cta cta--orange">
                     {objmail.isLoading ? (
                       <>
-                        <div className="cta_icon">
-                          <RiDeviceRecoverFill />
-                        </div>
-                        <div className="cta_text cta_text--white">
-                          RECUPERAR
+                        <div className="cta_text cta_text--white mt-1">
+                        RECUPERAR
                         </div>
                         <div
                           className="spinner-border text-light"
                           role="status"
                         >
-                          <span className="visually-hidden">loading...</span>
+                          <span className="visually-hidden">Loading...</span>
                         </div>
                       </>
                     ) : (
                       <>
-                        <div className="cta_icon">
-                          <RiDeviceRecoverFill />
-                        </div>
                         <div className="cta_text cta_text--white">
-                          RECUPERAR
+                        RECUPERAR
                         </div>
                       </>
                     )}
                   </button>
                 </div>
 
-                <div className="text">
+                <div className="text-medium text-grey d-flex justify-content-center">
                   Regresa a&nbsp;
                   <span
-                    className="text text-orange cursor-pointer text-decoration-underline"
+                    className="text-medium text-grey d-flex justify-content-center cursor-pointer text-decoration-underline"
                     onClick={loguin}
                   >
                     login

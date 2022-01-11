@@ -21,11 +21,18 @@ export const User_ContextProvider = ({ children }) => {
     }
 }, [])
 
+const _logOut = () => {
+  window.localStorage.clear();
+  setUserState({usuario:null})
+  window.location.replace("/");
+}
+
   return (
     <UserContext.Provider
       value={{
         userState,
         setUserState,
+        _logOut
       }}
     >
       {children}

@@ -1,6 +1,8 @@
 import React from "react";
 import { TableSales_component } from "../components/tablesales_component";
 import { FiSearch } from "react-icons/fi";
+import { IconUI } from "../utils/IconUI";
+import { white } from "../styles/colors";
 import { AddContactsView } from "./addcontacts_view";
 
 export const Sales_view = () => {
@@ -71,20 +73,30 @@ export const Sales_view = () => {
                   ))}
                 </select>
               </div>
-              <button className="cta cta--icon cta--blue">
-                <div className="cta_icon">
-                  <FiSearch />
-                </div>
-                <div className="cta_text cta_text--white">BUSCAR</div>
-              </button>
-              <button className="cta cta--icon cta--orange">
-                <div className="cta_icon">
-                  <FiSearch />
-                </div>
-                <div data-bs-toggle="modal" data-bs-target="#addModal">
-                  <div className="cta_text cta_text--white">AGREGAR</div>
-                </div>
-              </button>
+              <div className="col d-none d-xl-flex justify-content-center align-items-center">
+              <div className="col d-none d-xl-block position-relative">
+                <button className="cta cta--icon cta--blue">
+                  <div className="d-flex align-items-center">
+                    <IconUI color={white}>
+                      <FiSearch />
+                    </IconUI>
+                    <div className="cta_text ps-2">BUSCAR</div>
+                  </div>
+                </button>
+              </div>
+
+              <div className="col d-none d-xl-block position-relative">
+                <button className="cta cta--icon cta--orange">
+                  <div className="d-flex align-items-center">
+                    <IconUI color={white}>
+                      <FiSearch />
+                    </IconUI>
+                    <div className="cta_text ps-2">AGREGAR</div>
+                  </div>
+                </button>
+              </div>
+              </div>
+              
             </div>
 
             <div className="d-sm-none">
@@ -169,9 +181,7 @@ export const Sales_view = () => {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body">
-              {/* <AddContactsView /> */}
-            </div>
+            <div className="modal-body">{/* <AddContactsView /> */}</div>
             <div className="modal-footer">
               <button
                 type="button"

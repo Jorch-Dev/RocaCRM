@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { AiOutlineSave } from "react-icons/ai";
 import { ApiService } from "../services/api_service";
+import { IconUI } from "../utils/IconUI";
+import { white } from "../styles/colors";
 
 export const EditContactsView = ({ data, setData, onEditUser }) => {
 
@@ -198,8 +200,10 @@ export const EditContactsView = ({ data, setData, onEditUser }) => {
             </>
           ) : (
             <>
-              <div className="cta_icon">
+              <div className="cta_icon mt-1">
+              <IconUI color={white}>
                 <AiOutlineSave />
+                </IconUI>
               </div>
               <div className="cta_text cta_text--white">GUARDAR</div>
             </>

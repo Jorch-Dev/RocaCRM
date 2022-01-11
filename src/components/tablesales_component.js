@@ -203,7 +203,7 @@ export const TableSales_component = () => {
 
   return (
     <>
-      <Paper sx={{ overflow: "hidden" }}>
+      <div className='card'>
         <TableContainer sx={{ maxHeight: 600 }}>
           <Table aria-label="sticky table" tabIndex={-1}>
           <TableHead>
@@ -237,7 +237,7 @@ export const TableSales_component = () => {
           page={pagination.page}
           onPageChange={handleChangePage}
         />
-      </Paper>
+      </div>
 
       <div
         className="modal fade"

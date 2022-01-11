@@ -11,29 +11,41 @@ export const RegisterView = () => {
     Con_Email: "",
     Con_Pwd: "",
     error: null,
-    isLoading: false
+    isLoading: false,
   });
 
-  const registro = async(e) => {
+  const registro = async (e) => {
     e.preventDefault();
 
     var exName = /^[a-zA-ZÀ-ÿ\s]{1,40}$/;
     if (!exName.test(stateuser.Con_Name)) {
-      setStateuser({ ...stateuser, Con_Name: "",error: "El campo nombre solo puede contener espacios y letras" })
+      setStateuser({
+        ...stateuser,
+        Con_Name: "",
+        error: "El campo nombre solo puede contener espacios y letras",
+      });
       return;
     }
 
     var exPass =
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[.#?!@$%^&*-/]).{8,}$/;
     if (!exPass.test(stateuser.Con_Pwd)) {
-      setStateuser({ ...stateuser, Con_Pwd: "", error: "Debe contener mínimo 8 posiciones considerando al menos una mayúscula, un carácter especial .#?!@$%^&*-/ y un número" })
+      setStateuser({
+        ...stateuser,
+        Con_Pwd: "",
+        error:
+          "Debe contener mínimo 8 posiciones considerando al menos una mayúscula, un carácter especial .#?!@$%^&*-/ y un número",
+      });
       return;
     }
 
-    var exEmail =
-      /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    var exEmail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     if (!exEmail.test(stateuser.Con_Email)) {
-      setStateuser({ ...stateuser, Con_Email: "", error: "El formato de correo electrónico no es el correcto"})
+      setStateuser({
+        ...stateuser,
+        Con_Email: "",
+        error: "El formato de correo electrónico no es el correcto",
+      });
       return;
     }
 
@@ -43,13 +55,12 @@ export const RegisterView = () => {
       Usr_Lastname: stateuser.Con_Lastname,
       Usr_Password: stateuser.Con_Pwd,
     };
-     const result = await ApiRegister(obj)
-
+    const result = await ApiRegister(obj);
   };
 
   const loguin = () => {
-    history.push("/")
-  }
+    history.push("/");
+  };
   return (
     <div className="container-fluid bg-light-blue d-flex justify-content-center align-items-center h-100">
       <div className="container">
@@ -62,16 +73,26 @@ export const RegisterView = () => {
 
           <div className="col-12 col-lg-6 d-flex justify-content-center align-items-center p-0">
             <div className="registerform  bg-white">
-              <img src="assets/rocacrm.jpeg" alt="" className="img-fluid" />
+            <div className="w-100 d-flex justify-content-center">
+                <img
+                  src="assets/roca-crm.svg"
+                  width="200px"
+                  className="img-fluid"
+                />
+              </div>
 
-              <h3 className="fw-bold text-center py-4">
-                Registrate para acceder
-              </h3>
-              <div class="text-center text-orange d-none">
+              <div className="title text-center">
+                <div className="title_text">Registrate para acceder</div>
+              </div>
+
+              <div class="text-center text-red d-none">
                 Este es un error en alguna respuesta
               </div>
 
-              <form className="col-xxl-12 aling-items-center" onSubmit={(e) => registro(e)}>
+              <form
+                className="col-xxl-12 aling-items-center"
+                onSubmit={(e) => registro(e)}
+              >
                 <div className="">
                   <input
                     type="text"
@@ -130,36 +151,37 @@ export const RegisterView = () => {
                 </div>
 
                 <div className="d-grid">
-                  <button className="cta cta--blue">
+                  <button type="submit" className="cta cta--orange">
                     {stateuser.isLoading ? (
                       <>
-                        <div className="cta_icon">
-                          <AiOutlineUserAdd />
+                        <div className="cta_text cta_text--white mt-1">
+                          REGISTRATE
                         </div>
-                        <div className="cta_text cta_text--white">REGISTRATE</div>
                         <div
                           className="spinner-border text-light"
                           role="status"
                         >
-                          <span className="visually-hidden">loading...</span>
+                          <span className="visually-hidden">Loading...</span>
                         </div>
                       </>
                     ) : (
                       <>
-                        <div className="cta_icon">
-                          <AiOutlineUserAdd />
+                        <div className="cta_text cta_text--white">
+                          REGISTRATE
                         </div>
-                        <div className="cta_text cta_text--white">REGISTRATE</div>
                       </>
                     )}
                   </button>
                 </div>
 
-                <div className="text">
-                    Ya tienes cuenta?
-                    <span className="text text-orange cursor-pointer text-decoration-underline" onClick={loguin}>
-                      Inicia sesión aquí
-                    </span>
+                <div className="text-medium text-grey d-flex justify-content-center">
+                  Ya tienes cuenta?
+                  <span
+                    className="text-medium text-grey d-flex justify-content-center cursor-pointer text-decoration-underline"
+                    onClick={loguin}
+                  >
+                    Inicia sesión aquí
+                  </span>
                 </div>
               </form>
             </div>
