@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { TableSales_component } from "../components/tablesales_component";
 import { FiSearch } from "react-icons/fi";
 import { IconUI } from "../utils/IconUI";
 import { white } from "../styles/colors";
-import { AddContactsView } from "./addcontacts_view";
+import { UserContext } from "../context/user_context";
 
 export const Sales_view = () => {
+  const { userState } = useContext(UserContext);
   const obj = JSON.parse(localStorage.getItem("token"));
 
   const objFunnels = [
@@ -34,72 +35,82 @@ export const Sales_view = () => {
   return (
     <div className="contenedor-dashboard">
       <div className="d-flex flex-column">
-        <div>
-          <div className="col">
-            <h1 className="mx-2 text-center">Ventas</h1>
+        <div className="position-relative p-1">
+          <div className="text-big text-primary text-bold">Bienvenido</div>
+          <div className="text-secondary text-0">
+            {userState.usuario !== null ? (
+              <span className="text-0">
+                {userState.usuario.Usr_Name} {userState.usuario.Usr_Lastname}
+              </span>
+            ) : (
+              <></>
+            )}
           </div>
-
-          <div className="row shadow bg-white mx-1 py-2">
-            <div className="d-none d-sm-flex">
-              <div className="col">
-                <input
-                  type="email"
-                  className="form-input"
-                  id="txtNombre"
-                  placeholder="Escribe tu nombre"
-                />
-              </div>
-              <div className="col">
-                <input
-                  type="email"
-                  className="form-input"
-                  id="txtVentas"
-                  placeholder="name@example.com"
-                />
-              </div>
-              <div className="col">
-                <select
-                  name="selectfunnels"
-                  id="selectfunnels"
-                  className="form-input"
-                >
-                  <option value="0" defaultValue>
-                    Busca tu proyecto
-                  </option>
-                  {objFunnels.map((i) => (
-                    <option key={i.Fun_ID} value={i.Fun_ID}>
-                      {i.Fun_Name}
+        </div>
+        <div>
+          <div className="card bg-white my-2">
+            <div className="d-none d-lg-flex">
+              <div className="col-6 d-flex">
+                <div className="col ms-1">
+                  <input
+                    type="email"
+                    className="form-input"
+                    id="txtNombre"
+                    placeholder="Escribe tu nombre"
+                  />
+                </div>
+                <div className="col ms-1">
+                  <input
+                    type="email"
+                    className="form-input"
+                    id="txtVentas"
+                    placeholder="name@example.com"
+                  />
+                </div>
+                <div className="col ms-1">
+                  <select
+                    name="selectfunnels"
+                    id="selectfunnels"
+                    className="form-input"
+                  >
+                    <option value="0" defaultValue>
+                      Busca tu proyecto
                     </option>
-                  ))}
-                </select>
-              </div>
-              <div className="col d-none d-xl-flex justify-content-center align-items-center">
-              <div className="col d-none d-xl-block position-relative">
-                <button className="cta cta--icon cta--blue">
-                  <div className="d-flex align-items-center">
-                    <IconUI color={white}>
-                      <FiSearch />
-                    </IconUI>
-                    <div className="cta_text ps-2">BUSCAR</div>
-                  </div>
-                </button>
+                    {objFunnels.map((i) => (
+                      <option key={i.Fun_ID} value={i.Fun_ID}>
+                        {i.Fun_Name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
-              <div className="col d-none d-xl-block position-relative">
-                <button className="cta cta--icon cta--orange">
-                  <div className="d-flex align-items-center">
-                    <IconUI color={white}>
-                      <FiSearch />
-                    </IconUI>
-                    <div className="cta_text ps-2">AGREGAR</div>
-                  </div>
-                </button>
+              <div className="col d-flex justify-content-center">
+                <div className="col h-100 d-flex justify-content-center align-items-center position-relative">
+                  <button className="cta cta--blue">
+                    <div className="d-flex align-items-center">
+                      <IconUI color={white}>
+                        <FiSearch />
+                      </IconUI>
+                      <div className="cta_text ps-2">Buscar</div>
+                    </div>
+                  </button>
+                </div>
+
+                <div className="col h-100 d-flex justify-content-center align-items-center position-relative">
+                  <button className="cta cta--orange">
+                    <div className="d-flex align-items-center">
+                      <IconUI color={white}>
+                        <FiSearch />
+                      </IconUI>
+                      <div className="cta_text ps-2">Agregar</div>
+                    </div>
+                  </button>
+                </div>
               </div>
-              </div>
-              
             </div>
 
-            <div className="d-sm-none">
+            <div className="d-lg-none">
               <div className="row gy-2">
                 <div className="col pe-1 pt-1">
                   <input
@@ -117,7 +128,7 @@ export const Sales_view = () => {
                     placeholder="name@example.com"
                   />
                 </div>
-                <div className="col pe-1 pt-1">
+                <div className="col pe-3 pt-1">
                   <select
                     name="selectfunnels"
                     id="selectfunnels"
@@ -136,27 +147,32 @@ export const Sales_view = () => {
               </div>
 
               <div className="row gy-2 mt-2">
-                <button className="col cta cta--icon cta--blue">
-                  <div className="cta_icon">
-                    <div className="icon">
-                      <FiSearch />
+                <div className="d-grid">
+                  <button className="cta cta--blue">
+                    <div className="d-flex align-items-center">
+                      <IconUI color={white}>
+                        <FiSearch />
+                      </IconUI>
+                      <div className="cta_text ps-2">BUSCAR</div>
                     </div>
-                  </div>
-                  <div className="cta_text cta_text--white">BUSCAR</div>
-                </button>
-                <button className="col cta cta--icon cta--orange">
-                  <div className="cta_icon">
-                    <div className="icon">
-                      <FiSearch />
+                  </button>
+                </div>
+                <div className="d-grid">
+                  <button className="cta cta--orange">
+                    <div className="d-flex align-items-center">
+                      <IconUI color={white}>
+                        <FiSearch />
+                      </IconUI>
+                      <div className="cta_text ps-2">AGREGAR</div>
                     </div>
-                  </div>
-                  <div className="cta_text cta_text--white">AGREGAR</div>
-                </button>
+                    
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="col shadow my-2">
+        <div className="my-2">
           <TableSales_component />
         </div>
       </div>

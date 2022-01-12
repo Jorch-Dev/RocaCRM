@@ -13,7 +13,6 @@ import { UserContext } from "../context/user_context";
 import { IconUI } from "../utils/IconUI";
 import { lightBlue, green, lightOrange, white } from "../styles/colors";
 import {
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -209,11 +208,11 @@ export const Contacts_view = () => {
       ) : ( */}
       <div className="d-flex flex-column">
         <div>
-          <div className="position-relative">
+          <div className="position-relative p-1">
             <div className="text-big text-primary text-bold">Bienvenido</div>
-            <div className="text-secondary text-0 ">
+            <div className="text-secondary text-0">
               {userState.usuario !== null ? (
-                <span className="mx-2 text-0">
+                <span className="text-0">
                   {userState.usuario.Usr_Name} {userState.usuario.Usr_Lastname}
                 </span>
               ) : (
@@ -221,8 +220,7 @@ export const Contacts_view = () => {
               )}
             </div>
           </div>
-          <br />
-          <div className="row shadow bg-white mx-1 pt-2 mb-2">
+          <div className="card bg-white d-block p-1 my-2">
             <div className="d-none d-md-flex">
               <div className="col-6 d-flex justify-content-center align-items-center ms-2 mt-3">
                 <select
@@ -240,12 +238,10 @@ export const Contacts_view = () => {
                 </select>
               </div>
               <div className="col-2 d-flex flex-column">
-                <div className="col text-center text-primary">
-                  Nuevos contactos
-                </div>
+                <div className="text-center text-primary">Nuevos contactos</div>
 
                 <div className="col">
-                  <div className="d-flex justify-content-center align-items-center">
+                  <div className="h-100 d-flex justify-content-center align-items-center">
                     {stateAdd.contacts.data != null ? (
                       <>
                         {stateAdd.isLoading ? (
@@ -257,16 +253,16 @@ export const Contacts_view = () => {
                           </div>
                         ) : (
                           <>
-                            <div className="col-3 d-flex justify-content-center align-items-center">
-                              <IconUI size={30} color={lightBlue}>
+                            <div className="col-3 d-flex justify-content-center">
+                              <IconUI size={25} color={lightBlue}>
                                 <RiContactsFill />
                               </IconUI>
                             </div>
 
-                            <div className="col-3 d-flex justify-content-center align-items-center pt-3">
-                              <p className="text-orange">
+                            <div className="col-3 d-flex justify-content-center">
+                              <span className="text-black">
                                 {stateAdd.contacts.data.nuevos}
-                              </p>
+                              </span>
                             </div>
                           </>
                         )}
@@ -279,11 +275,11 @@ export const Contacts_view = () => {
               </div>
 
               <div className="col-2 d-flex flex-column">
-                <div className="col text-center text-primary">
+                <div className="text-center text-primary">
                   Todos los contactos
                 </div>
                 <div className="col">
-                  <div className="d-flex justify-content-center align-items-center">
+                  <div className="h-100 d-flex justify-content-center align-items-center">
                     {stateAdd.contacts.data != null ? (
                       <>
                         {stateAdd.isLoading ? (
@@ -295,16 +291,16 @@ export const Contacts_view = () => {
                           </div>
                         ) : (
                           <>
-                            <div className="col-3 d-flex justify-content-center align-items-center">
+                            <div className="col-3 d-flex justify-content-center">
                               <IconUI size={30} color={green}>
                                 <IoMdContacts />
                               </IconUI>
                             </div>
 
-                            <div className="col-3 d-flex justify-content-center align-items-center pt-3">
-                              <p className="text-orange">
+                            <div className="col-3 d-flex justify-content-center">
+                              <span className="text-black">
                                 {stateAdd.contacts.data.total}
-                              </p>
+                              </span>
                             </div>
                           </>
                         )}
@@ -317,11 +313,9 @@ export const Contacts_view = () => {
               </div>
 
               <div className="col-2 d-flex flex-column">
-                <div className="col text-center text-primary">
-                  Dados de baja
-                </div>
+                <div className="text-center text-primary">Dados de baja</div>
                 <div className="col">
-                  <div className="d-flex justify-content-center align-items-center">
+                  <div className="h-100 d-flex justify-content-center align-items-center">
                     {stateAdd.contacts.data != null ? (
                       <>
                         {stateAdd.isLoading ? (
@@ -333,16 +327,16 @@ export const Contacts_view = () => {
                           </div>
                         ) : (
                           <>
-                            <div className="col-3 d-flex justify-content-center align-items-center">
+                            <div className="col-3 d-flex justify-content-center">
                               <IconUI size={30} color={lightOrange}>
                                 <TiUserDelete />
                               </IconUI>
                             </div>
 
-                            <div className="col-3 d-flex justify-content-center align-items-center pt-3">
-                              <p className="text-orange">
+                            <div className="col-3 d-flex justify-content-center">
+                              <span className="text-black">
                                 {stateAdd.contacts.data.baja}
-                              </p>
+                              </span>
                             </div>
                           </>
                         )}
@@ -356,7 +350,7 @@ export const Contacts_view = () => {
             </div>
 
             <div className="d-md-none">
-              <div className="col d-flex justify-content-center align-items-center ms-2">
+              <div className="col d-flex justify-content-center align-items-center ms-1">
                 <select
                   name="selectfunnels"
                   id="selectfunnels"
@@ -388,7 +382,7 @@ export const Contacts_view = () => {
                           ) : (
                             <>
                               <div className="col-6 d-flex justify-content-center align-items-center">
-                                <IconUI size={30} color={lightBlue}>
+                                <IconUI size={25} color={lightBlue}>
                                   <RiContactsFill />
                                 </IconUI>
                               </div>
@@ -487,9 +481,9 @@ export const Contacts_view = () => {
             </div>
           </div>
 
-          <div className="row shadow bg-white mx-1 py-2">
+          <div className="card bg-white d-block p-1 my-3">
             <div className="d-none d-xl-flex">
-              <div className="col-md-8 mx-1 d-flex justify-content-center align-items-center">
+              <div className="col-6 d-flex justify-content-center align-items-center ms-2">
                 <select
                   name="selectfunnels"
                   id="selectfunnels"
@@ -506,24 +500,24 @@ export const Contacts_view = () => {
                   ))}
                 </select>
               </div>
-              <div className="col d-none d-xl-flex justify-content-center align-items-center">
-                <div className="col d-none d-xl-block position-relative">
+              <div className="col-6 d-flex justify-content-center">
+                <div className="col h-100 d-flex justify-content-center align-items-center position-relative">
                   <button className="cta cta--blue" onClick={downloadExcel}>
                     <div className="d-flex align-items-center">
                       <IconUI color={white}>
                         <RiFileExcel2Line />
                       </IconUI>
-                      <div className="cta_text ps-2">DESCARGAR EXCEL</div>
+                      <div className="cta_text ps-2">Descargar excel</div>
                     </div>
                   </button>
                 </div>
-                <div className="col d-none d-xl-block position-relative ms-1">
+                <div className="col h-100 d-flex justify-content-center align-items-center position-relative">
                   <button className="cta cta--orange" onClick={openModal}>
                     <div className="d-flex align-items-center">
                       <IconUI color={white}>
                         <FiSearch />
                       </IconUI>
-                      <div className="cta_text ps-2">NUEVO CONTACTO</div>
+                      <div className="cta_text ps-2">Nuevo contacto</div>
                     </div>
                   </button>
                 </div>
@@ -556,34 +550,41 @@ export const Contacts_view = () => {
               </div>
 
               <div className="row gy-2 mt-2">
-                <button
-                  className="col cta cta--icon cta--blue"
-                  onClick={downloadExcel}
-                >
-                  <div className="d-flex align-items-center">
-                    <IconUI color={white}>
-                      <RiFileExcel2Line />
-                    </IconUI>
-                    <div className="cta_text ps-2">DESCARGAR EXCEL</div>
-                  </div>
-                </button>
-                <button
-                  className="col cta cta--icon cta--orange"
-                  onClick={openModal}
-                >
-                  <div className="cta_icon">
-                    <div className="icon">
-                      <FiSearch />
+                <div className="d-grid">
+                  <button
+                    className="cta cta--blue position-relative"
+                    onClick={downloadExcel}
+                  >
+                    <div className="d-flex align-items-center">
+                      <IconUI color={white}>
+                        <RiFileExcel2Line />
+                      </IconUI>
+                      <div className="cta_text ps-2">Descargar Excel</div>
                     </div>
-                  </div>
-                  <div className="cta_text cta_text--white">NUEVO CONTACTO</div>
-                </button>
+                  </button>
+                </div>
+
+                <div className="d-grid">
+                  <button
+                    className="cta cta--orange position-relative"
+                    onClick={openModal}
+                  >
+                    <div className="cta_icon">
+                      <div className="icon">
+                        <FiSearch />
+                      </div>
+                    </div>
+                    <div className="cta_text cta_text--white">
+                      Nuevo contacto
+                    </div>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="col shadow mx-1 my-2">
+        <div className="my-1">
           {stateAdd.idFunel != null ? (
             <>
               {stateAdd.contactos.length === 0 ? (
@@ -611,7 +612,7 @@ export const Contacts_view = () => {
               )}
             </>
           ) : (
-            <div className='card'>
+            <div className="card">
               <TableContainer sx={{ maxHeight: 600 }}>
                 <Table aria-label="sticky table" tabIndex={-1}>
                   <TableHead>

@@ -40,11 +40,6 @@ export const Navbar_view = () => {
                 <></>
               )}
             </div>
-            {/* <div className="snack" onClick={cerrarSesion}>
-              <IconUI size={32}>
-                <AiOutlinePoweroff />
-              </IconUI>
-            </div> */}
           </div>
         </div>
 
@@ -76,7 +71,7 @@ export const Navbar_view = () => {
             </div> */}
           </div>
 
-          <div className="d-flex">
+          {/*<div className="d-flex">
             <div className="snack">
               <IconUI size={32}>
                 <IoMdContacts />
@@ -90,12 +85,12 @@ export const Navbar_view = () => {
               </IconUI>
               <span className="ms-2 text-0">Ventas</span>
             </div>
-            {/* <div className="snack" onClick={cerrarSesion}>
+             <div className="snack" onClick={cerrarSesion}>
               <IconUI size={32}>
                 <AiOutlinePoweroff />
               </IconUI>
-            </div> */}
-          </div>
+            </div> 
+          </div>*/}
         </div>
       </div>
     </nav>
