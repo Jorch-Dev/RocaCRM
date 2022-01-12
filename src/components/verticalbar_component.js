@@ -21,7 +21,7 @@ export const VerticalBar_component = () => {
       </div>
 
       {/* <Link to={`${url}`}> */}
-      <Link to="/contacts">
+      <Link to="/home">
         <div className="homemenu_item">
           <IconUI>
             <IoMdContacts />

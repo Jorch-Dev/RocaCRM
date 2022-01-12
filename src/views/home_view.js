@@ -48,7 +48,7 @@ export const Home_view = () => {
           <Route exact path="/home">
             <Contacts_view />
           </Route>
-          <Route exact path="/contacts">
+          <Route exact path="/home">
             <Contacts_view />
           </Route>
           <Route exact path="/sales">
