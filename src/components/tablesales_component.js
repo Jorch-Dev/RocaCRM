@@ -9,7 +9,7 @@ import {
   TablePagination,
   TableRow,
   Checkbox,
-} from "@mui/material";
+} from "@material-ui/core";
 import { MdDeleteForever, MdEdit } from "react-icons/md";
 import { EditContactsView } from "../views/editcontacts_view";
 import Swal from "sweetalert2";

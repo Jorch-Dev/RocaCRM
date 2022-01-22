@@ -141,6 +141,15 @@ min-height: 850px;
   background-color: var(--green);
 }
 
+.bottom-border{
+  border-bottom: 1px solid var(--gray-00);
+}
+
+.bottom-shadow{
+  border-bottom: 1px solid var(--gray-05);
+  box-shadow: 0px 5px 20px 0px var(--black-alpha-05);
+}
+
 .max-640 {
   max-width: 640px;
 }

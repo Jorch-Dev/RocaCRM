@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { IoMdContacts, AiOutlinePoweroff, BsCashStack } from "react-icons/all";
+import { IoMdContacts, AiOutlinePoweroff, BsCashStack, SiMarketo } from "react-icons/all";
 import { Link, useRouteMatch } from "react-router-dom";
 import { IconUI } from "../utils/IconUI";
 import { UserContext } from "../context/user_context";
@@ -12,7 +12,7 @@ export const VerticalBar_component = () => {
   return (
     <div className="homemenu h-100">
       <div className="brand">
-        <Link to="/home">
+        <Link to={`${url}`}>
           <img src="/assets/rocacrm.jpeg" width="150" height="30" className="d-none d-lg-block" />
           {/* <div className="d-none d-lg-block text-dark text-bolder px-2">
           Roca CRM
@@ -21,7 +21,7 @@ export const VerticalBar_component = () => {
       </div>
 
       {/* <Link to={`${url}`}> */}
-      <Link to="/home">
+      <Link to={`${url}`}>
         <div className="homemenu_item">
           <IconUI>
             <IoMdContacts />
@@ -31,13 +31,23 @@ export const VerticalBar_component = () => {
         </div>
       </Link>
 
-      <Link to="/sales">
+      <Link to={`${url}/sales`}>
         <div className="homemenu_item">
           <IconUI>
             <BsCashStack />
           </IconUI>
 
           <div className="d-none d-lg-block text-0 px-3">Ventas</div>
+        </div>
+      </Link>
+
+      <Link to={`${url}/marketing`}>
+        <div className="homemenu_item">
+          <IconUI>
+            <SiMarketo />
+          </IconUI>
+
+          <div className="d-none d-lg-block text-0 px-3">Email Marketing</div>
         </div>
       </Link>
 

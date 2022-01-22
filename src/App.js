@@ -16,7 +16,7 @@ function App() {
             <Route exact path="/" component={Login_view} />
             <Route exact path="/register" component={RegisterView} />
             <Route exact path="/reset" component={ResetPasswordView} />
-            <PrivateRoute exact path="/home" component={Home_view} />
+            <PrivateRoute path="/home" component={Home_view} />
           </Switch>
         </Router>
       </>

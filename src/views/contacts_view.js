@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { Fragment, useState, useEffect, useContext } from "react";
 import { TableContact_component } from "../components/tablecontact_component";
 import {
   FiSearch,
@@ -15,12 +15,9 @@ import { lightBlue, green, lightOrange, white } from "../styles/colors";
 import {
   Table,
   TableBody,
-  TableCell,
   TableContainer,
   TablePagination,
-  TableHead,
-  TableRow,
-} from "@mui/material";
+} from "@material-ui/core";
 import Modal from "react-bootstrap/Modal";
 
 export const Contacts_view = () => {
@@ -245,12 +242,12 @@ export const Contacts_view = () => {
                     {stateAdd.contacts.data != null ? (
                       <>
                         {stateAdd.isLoading ? (
-                          <div
-                            className="spinner-border text-secondary"
-                            role="status"
-                          >
-                            <span className="sr-only"></span>
-                          </div>
+                            <div
+                              className="spinner-border text-secondary"
+                              role="status"
+                            >
+                              <span className="sr-only"></span>
+                            </div>
                         ) : (
                           <>
                             <div className="col-3 d-flex justify-content-center">
@@ -613,66 +610,107 @@ export const Contacts_view = () => {
             </>
           ) : (
             <div className="card">
-              <TableContainer sx={{ maxHeight: 600 }}>
-                <Table aria-label="sticky table" tabIndex={-1}>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell padding="checkbox"></TableCell>
+              <TableContainer>
+                <Table stickyHeader aria-label="sticky table">
+                  <thead>
+                    <tr>
+                      <td className="bottom-border">
+                        <div></div>
+                      </td>
                       {stateAdd.columns.map((column) => (
-                        <TableCell
-                          tabIndex={-1}
-                          key={column.id}
-                          align={column.align}
-                          style={{ minWidth: column.minWidth }}
-                          className="text-bold text-primary text-0"
-                        >
-                          {column.label}
-                        </TableCell>
+                        <>
+                          <td className="bottom-border" key={column.id}>
+                            <div className="text-bold text-secondary text-0 pt-1 pb-3">
+                              {column.label}
+                            </div>
+                          </td>
+                        </>
                       ))}
-                    </TableRow>
-                  </TableHead>
+                      <td className="bottom-border">
+                        <div></div>
+                      </td>
+                    </tr>
+                  </thead>
                   <TableBody>
                     {stateAdd.allcontactos
+
                       .slice(
                         stateAdd.page * stateAdd.rowsPerPage,
                         stateAdd.page * stateAdd.rowsPerPage +
                           stateAdd.rowsPerPage
                       )
-                      .map((i, x) => {
+
+                      .map((c, j) => {
                         return (
-                          <TableRow
-                            hover
-                            role="checkbox"
-                            tabIndex={-1}
-                            key={i.Con_ID}
-                          >
-                            <TableCell className="text-center text-bold text-primary text-0">
-                              {x + 1}
-                            </TableCell>
-                            <TableCell className="text-secondary">
-                              {i.Con_Name}
-                            </TableCell>
-                            <TableCell className="text-secondary">
-                              {i.Con_Lastname}
-                            </TableCell>
-                            <TableCell className="text-secondary">
-                              {i.Con_Email}
-                            </TableCell>
-                            <TableCell className="text-secondary">
-                              {i.Con_Phone}
-                            </TableCell>
-                            <TableCell className="text-secondary">
-                              {i.Fun_Name}
-                            </TableCell>
-                          </TableRow>
+                          <tr key={j} className="table_row">
+                            {stateAdd.columns.map((column, i) => {
+                              var value = c[column.code];
+                              return (
+                                <Fragment key={i}>
+                                  {column.code === "name" ? (
+                                    <>
+                                      <td className="bottom-border ps-3">
+                                        <div className="text-secondary">
+                                          {j + 1}
+                                        </div>
+                                      </td>
+                                      <td className="bottom-border ps-3">
+                                        <div className="text-secondary">
+                                          {c.Con_Name}
+                                        </div>
+                                      </td>
+                                      <td className="bottom-border ps-3">
+                                        <div className="text-secondary">
+                                          {c.Con_Lastname}
+                                        </div>
+                                      </td>
+                                      <td className="bottom-border ps-3">
+                                        <div className="text-secondary">
+                                          {c.Con_Email}
+                                        </div>
+                                      </td>
+                                      <td className="bottom-border ps-3">
+                                        <div className="text-secondary">
+                                          {c.Con_Phone}
+                                        </div>
+                                      </td>
+                                      <td className="bottom-border ps-3">
+                                        <div className="text-secondary">
+                                          {c.Fun_Name}
+                                        </div>
+                                      </td>
+                                      <td className="bottom-border ps-3">
+                                        <div className="icon_btn">
+                                          <IconUI size={20}></IconUI>
+                                        </div>
+                                      </td>
+
+                                      <td className="bottom-border ps-3">
+                                        <div className="icon_btn">
+                                          <IconUI size={20}></IconUI>
+                                        </div>
+                                      </td>
+                                    </>
+                                  ) : (
+                                    <td className="bottom-border">
+                                      <div className="text-secondary">
+                                        {value}
+                                      </div>
+                                    </td>
+                                  )}
+                                </Fragment>
+                              );
+                            })}
+                          </tr>
                         );
                       })}
                   </TableBody>
                 </Table>
               </TableContainer>
+
               <TablePagination
                 animation="false"
-                rowsPerPageOptions={[-1]}
+                rowsPerPageOptions={[10]}
                 component="div"
                 count={stateAdd.allcontactos.length}
                 rowsPerPage={stateAdd.rowsPerPage}

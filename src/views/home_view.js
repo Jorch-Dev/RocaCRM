@@ -4,8 +4,8 @@ import { VerticalBar_component } from "../components/verticalbar_component";
 import { UserContext } from "../context/user_context";
 import { Contacts_view } from "./contacts_view";
 import { Sales_view } from "./sales_view";
+import { EmailViews } from "./email_views"
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
@@ -37,7 +37,7 @@ export const Home_view = () => {
   }
   return (
     <div className="d-flex h-100">
-      <Router>
+
       <div className="d-block">
         <VerticalBar_component />
       </div>
@@ -45,21 +45,24 @@ export const Home_view = () => {
       <div className="col bg-gray-00 h-100 overflow-auto">
         <Navbar_view />
         <Switch>
-          <Route exact path="/home">
+          <Route exact path={`${path}`}>
             <Contacts_view />
           </Route>
-          <Route exact path="/home">
+          <Route exact path={`${path}/home`}>
             <Contacts_view />
           </Route>
-          <Route exact path="/sales">
+          <Route exact path={`${path}/sales`}>
             <Sales_view />
+          </Route>
+          <Route exact path={`${path}/marketing`}>
+            <EmailViews />
           </Route>
           {/* <Route exact path="/contacts" component={Contacts_view} />
           <Route exact path="/contacts" component={Contacts_view} />
           <Route exact path="/sales" component={Sales_view} /> */}
         </Switch>
       </div>
-      </Router>
+
     </div>
   );
 };

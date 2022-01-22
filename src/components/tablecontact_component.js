@@ -1,15 +1,10 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import {
-  Paper,
   Table,
   TableBody,
-  TableCell,
   TableContainer,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Checkbox
-} from "@mui/material";
+  TablePagination
+} from "@material-ui/core";
 import { MdDeleteForever, BiEdit } from "react-icons/all";
 import { ApiService } from "../services/api_service";
 import { EditContactsView } from "../views/editcontacts_view";
@@ -21,11 +16,12 @@ import Moment from "moment";
 export const TableContact_component = ({ data, stateData, onEditUser }) => {
   const [pagination, setPagination] = useState({
     columns: [
-      { id: 1, code: "name", label: "Nombre", minWidth: 100 },
-      { id: 2, code: "lasName", label: "Apellido", minWidth: 100 },
-      { id: 3, code: "email", label: "Email", minWidth: 100 },
-      { id: 4, code: "phone", label: "Telefono", minWidth: 100 },
-      { id: 5, code: "date", label: "Fecha de alta", minWidth: 100 },
+      { id: 1, code: "id", label: " ", minWidth: 100 },
+      { id: 2, code: "name", label: "Nombre", minWidth: 100 },
+      { id: 3, code: "lasName", label: "Apellido", minWidth: 100 },
+      { id: 4, code: "email", label: "Email", minWidth: 100 },
+      { id: 5, code: "phone", label: "Telefono", minWidth: 100 },
+      { id: 6, code: "date", label: "Fecha de alta", minWidth: 100 },
     ],
     page: 0,
     rowsPerPage: 5,
@@ -33,6 +29,7 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
     objetoUsuario: null,
     isLoading: false,
   });
+  
 
   const cambiaPagina = (event, newPage) => {
     setPagination({ ...pagination, page: newPage });
@@ -65,7 +62,7 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
         let metod = "delete";
         let resource = `user/contact/${e}?f=${data.idFunel}`;
         const result = await ApiService(metod, resource);
-        
+
         if (result === 401) {
           stateData({
             ...data,
@@ -89,89 +86,110 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
   };
 
   const closeModal = () => setPagination({ ...pagination, modalIsOpen: false });
-  
+
   return (
     <>
-      <div className='card'>
-        <TableContainer sx={{ maxHeight: 600 }}>
-          <Table aria-label="sticky table" tabIndex={-1}>
-            <TableHead>
-              <TableRow>
-                <TableCell padding="checkbox">
-                  {/* <Checkbox color="primary" /> */}
-                </TableCell>
+      <div className="card">
+        <TableContainer>
+          <Table stickyHeader aria-label="sticky table">
+            <thead>
+              <tr>
                 {pagination.columns.map((column) => (
-                  <TableCell
-                    tabIndex={-1}
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                    className="text-bold text-primary text-0"
-                  >
-                    {column.label}
-                  </TableCell>
+                  <>
+                    <td className="bottom-border" key={column.id}>
+                      <div className="text-bold text-secondary text-0 pt-1 pb-3 ps-3">
+                        {column.label}
+                      </div>
+                    </td>
+                  </>
                 ))}
-                <TableCell className="text-center text-bold text-primary text-0">
-                  Acciones
-                </TableCell>
-              </TableRow>
-            </TableHead>
+                <td className="bottom-border">
+                  <div></div>
+                </td>
+              </tr>
+            </thead>
             <TableBody>
               {data.contactos
+
                 .slice(
                   pagination.page * pagination.rowsPerPage,
                   pagination.page * pagination.rowsPerPage +
                     pagination.rowsPerPage
                 )
-                .map((i, x) => {
+
+                .map((c, j) => {
+                  
                   return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={i.Con_ID}
-                    >
-                      <TableCell className="text-center text-bold text-primary text-0">
-                        {x+1}
-                      </TableCell>
-                      <TableCell className="text-secondary">
-                        {i.Con_Name}
-                      </TableCell>
-                      <TableCell className="text-secondary">
-                        {i.Con_Lastname}
-                      </TableCell>
-                      <TableCell className="text-secondary">
-                        {i.Con_Email}
-                      </TableCell>
-                      <TableCell className="text-secondary">
-                        {i.Con_Phone}
-                      </TableCell>
-                      <TableCell className="text-secondary">
-                        {Moment(i.createdAt).format("MMMM DD, YYYY HH:mm")}
-                      </TableCell>
+                    <tr key={j} className="table_row">
+                      {pagination.columns.map((column, i) => {
+                        var value = c[column.code];
+                        return (
+                          <Fragment key={i}>
+                            {column.code === "name" ? (
+                              <>
+                                {/* <td className="bottom-border ps-3">
+                                  <div className="text-secondary">{j + 1}</div>
+                                </td> */}
+                                <td className="bottom-border ps-3">
+                                  <div className="text-secondary">
+                                    {c.Con_Name}
+                                  </div>
+                                </td>
+                                <td className="bottom-border ps-3">
+                                  <div className="text-secondary">
+                                    {c.Con_Lastname}
+                                  </div>
+                                </td>
+                                <td className="bottom-border ps-3">
+                                  <div className="text-secondary">
+                                    {c.Con_Email}
+                                  </div>
+                                </td>
+                                <td className="bottom-border ps-3">
+                                  <div className="text-secondary">
+                                    {c.Con_Phone}
+                                  </div>
+                                </td>
+                                <td className="bottom-border ps-3">
+                                  <div className="text-secondary">
+                                    {Moment(c.createdAt).format(
+                                      "MMMM DD, YYYY HH:mm"
+                                    )}
+                                  </div>
+                                </td>
+                                <td className="bottom-border ps-3">
+                                  <div
+                                    className="icon_btn"
+                                    onClick={() => editContact(i)}
+                                  >
+                                    <IconUI size={20}>
+                                      <BiEdit />
+                                    </IconUI>
+                                  </div>
+                                </td>
 
-                      <TableCell tabIndex={-1} className="bottom-border">
-                        <div className="d-flex justify-content-end">
-                          <div
-                            onClick={() => editContact(i)}
-                            className="me-auto icon_btn"
-                          >
-                            <IconUI size={22}>
-                              <BiEdit />
-                            </IconUI>
-                          </div>
-
-                          <div
-                            onClick={() => deleteContac(i.Con_ID, i.Con_Name)}
-                            className="icon_btn"
-                          >
-                            <IconUI size={22}>
-                              <MdDeleteForever />
-                            </IconUI>
-                          </div>
-                        </div>
-                      </TableCell>
-                    </TableRow>
+                                <td className="bottom-border ps-3">
+                                  <div
+                                    className="icon_btn"
+                                    onClick={() =>
+                                      deleteContac(i.Con_ID, i.Con_Name)
+                                    }
+                                  >
+                                    <IconUI size={20}>
+                                      <MdDeleteForever />
+                                    </IconUI>
+                                  </div>
+                                </td>
+                              </>
+                            ) : column.code === "id" ? (
+                              <td className="bottom-border ps-3">
+                                <div className="text-secondary">{j + 1}</div>
+                              </td>
+                            ) : (<></>)}
+                          </Fragment>
+                        );
+                      })}
+                    </tr>
                   );
                 })}
             </TableBody>
@@ -185,8 +203,6 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
           rowsPerPage={pagination.rowsPerPage}
           page={pagination.page}
           onPageChange={cambiaPagina}
-          // onRowsPerPageChange={cambiaFilasxPagina}
-          // labelRowsPerPage="Columnas por página"
         />
       </div>
 
