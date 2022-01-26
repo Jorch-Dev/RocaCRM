@@ -1,10 +1,11 @@
 import React, { useState, useContext, useRef } from "react";
 import { UserContext } from "../context/user_context";
+import sample from '../utils/sample.json';
 import EmailEditor from "react-email-editor";
 
 export const EmailViews = () => {
   const { userState } = useContext(UserContext);
-  const [objectseditor, setObjectseditor] = useState({designJson:{}})
+  const [mailEditor, setMailEditor] = useState({isLoaded: false})
 
   const emailEditorRef = useRef(null);
 
@@ -16,39 +17,27 @@ export const EmailViews = () => {
     //exporta html con css
     emailEditorRef.current.editor.exportHtml((data) => {
       const { design, html } = data;
-      console.log("exportHtml", design);
+      console.log("exportHtml", html);
     });
   };
 
   const exportjsl = () => {
-    //guarda tu diseño
+    //aqui se tendra la logica para guardarlo en un documento json
     emailEditorRef.current.editor.saveDesign((design) => {
-      localStorage.setItem("TemplateEmail", design);
+      console.log(design)
       alert(
-        "Diseño exportado en formato Json, Generá la lógica para que carge el diseño"
+        "Se exporto correctamente el diseño"
       );
     });
   };
 
-  const onLoad = () => {
-    // editor instance is created 
-    // you can load your template here; 
-     const designJson =   localStorage.getItem("TemplateEmail")
-    // console.log(objectseditor);
-    if (designJson != null) {
-      emailEditorRef.current.editor.loadDesign(designJson);
-    }
+  const onLoad = (sample) => {
+    emailEditorRef.current.loadDesign(sample);
   };
 
   const onReady = () => {
     // editor is ready
-    //emailEditorRef.current.editor.ready(templateJson);
-    // emailEditorRef.init({
-    //   appearance: {
-    //     theme: 'dark'
-    //   }
-    // });
-    console.log("onReady");
+    setMailEditor({...mailEditor, isLoaded:true})
   };
 
   return (
@@ -84,7 +73,8 @@ export const EmailViews = () => {
         <div className="card bg-white my-2">
           <EmailEditor
             ref={emailEditorRef}
-            onLoad={onLoad}
+            onLoad={mailEditor.isLoaded ? onLoad(sample) : null}
+            //onLoad={onLoad}
             onReady={onReady}
             style={editorHTML}
             appearance={{ theme: "dark" }}

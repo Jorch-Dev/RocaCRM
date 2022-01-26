@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { RiDeviceRecoverFill } from "react-icons/ri";
-import { postForgotPassword } from "../services/api_service";
-import { lightBlue } from "../styles/colors";
+import { ApiService } from "../services/api_service";
 
 export const ResetPasswordView = () => {
   let history = useHistory();
@@ -35,15 +33,24 @@ export const ResetPasswordView = () => {
     });
     let resource = `user/forgot/password`;
 
-    const result = await postForgotPassword(obj, resource);
+    const result = await ApiService("post", resource, obj);
     console.log(result);
-    setObjMail({
-      ...objmail,
-      email: "",
-      error:
-        "Se mando un correo a su bandeja de entrada con una liga para que pueda restablecer su contraseña, tiene 25 minutos para realizar está acción o de lo contrario tendrá que solicitarlo nuevamente, no olvide revisar su bandeja de spam.",
-      isLoading: false,
-    });
+    if (result.status === 400 || result.status === 500) {
+      setObjMail({
+        ...objmail,
+        email: "",
+        isLoading: false,
+        error: result.data.error.msg,
+      });
+    } else {
+      setObjMail({
+        ...objmail,
+        email: "",
+        error:
+          "Se mando un correo a su bandeja de entrada con una liga para que pueda restablecer su contraseña, tiene 25 minutos para realizar está acción o de lo contrario tendrá que solicitarlo nuevamente, no olvide revisar su bandeja de spam.",
+        isLoading: false,
+      });
+    }
   };
 
   const loguin = () => {
@@ -51,88 +58,94 @@ export const ResetPasswordView = () => {
   };
 
   return (
-    <div className="container-fluid bg-light-blue d-flex justify-content-center align-items-center h-100">
-      <div className="container">
-        <div className="row m-0">
-          <div className="col-12 col-lg-6 p-0">
-            <div className="w-100 h-100 d-none d-lg-flex justify-content-center align-items-center">
-              <img src="assets/lap.png" alt="" className="w-100 max-640" />
+    <div className="contenedor-login">
+      <div className="container-fluid h-100 d-flex p-0">
+        <div className="d-none d-xl-block col-12 col-xl-6 h-100 loginimg_bg">
+          <img src="assets/grupo_39.webp" />
+          <img src="assets/grupo_42.webp" />
+
+          <div className="d-flex justify-content-center loginform_footer">
+            <div className="text-book text-white text-big text-center w-75">
+              Automatiza tu negocio con email marketing que maximizará tus
+              ventas.
             </div>
           </div>
+        </div>
 
-          <div className="col-12 col-lg-6 d-flex justify-content-center align-items-center p-0">
-            <div className="registerform  bg-white">
+        <div className="col-12 col-xl-6 h-100 d-flex justify-content-center">
+          <div className="loginform">
             <div className="w-100 d-flex justify-content-center">
-                <img
-                  src="assets/roca-crm.svg"
-                  width="200px"
-                  className="img-fluid"
+              <img
+                src="assets/roca-crm.svg"
+                width="200px"
+                className="img-fluid"
+              />
+            </div>
+
+            <div className="title text-center">
+              <div className="title_text">Recuperar contraseña</div>
+            </div>
+            <div className="text-medium text-grey text-center">
+              Ingrese su dirección de correo electrónico y le enviaremos un
+              &nbsp;
+              <span className="text-medium text-bluelight cursor-pointer text-decoration-underline ms-1">
+                enlace
+              </span>
+              &nbsp; para restablecer su contraseña.
+            </div>
+
+            {objmail.error != null ? (
+              <div className="text-center text-red">{objmail.error}</div>
+            ) : (
+              <></>
+            )}
+
+            <form
+              className="col-xxl-12 aling-items-center"
+              onSubmit={(e) => recupera(e)}
+            >
+              <div className="">
+                <input
+                  type="text"
+                  name="email"
+                  className="form-input"
+                  placeholder="tu@correo"
+                  onChange={(e) =>
+                    setObjMail({ ...objmail, email: e.target.value })
+                  }
+                  value={objmail.email}
                 />
               </div>
 
-              <div className="title text-center">
-                <div className="title_text">Recuperar contraseña</div>
-              </div>
-
-              <div className="text-medium text-grey">
-                Ingrese su dirección de correo electrónico y le enviaremos un
-                enlace para restablecer su contraseña.
-              </div>
-              <div className="text-center text-red d-none">
-                Este es un error en alguna respuesta
-              </div>
-
-              <form
-                className="col-xxl-12 aling-items-center"
-                onSubmit={(e) => recupera(e)}
-              >
-                <div className="">
-                  <input
-                    type="text"
-                    name="email"
-                    className="form-input"
-                    placeholder="tu@correo"
-                    onChange={(e) =>
-                      setObjMail({ ...objmail, email: e.target.value })
-                    }
-                  />
-                </div>
-
-                <div className="d-grid">
-                  <button type="submit" className="cta cta--orange">
-                    {objmail.isLoading ? (
-                      <>
-                        <div className="cta_text cta_text--white mt-1">
+              <div className="d-grid">
+                <button type="submit" className="cta cta--orange">
+                  {objmail.isLoading ? (
+                    <>
+                      <div className="cta_text cta_text--white mt-1">
                         RECUPERAR
-                        </div>
-                        <div
-                          className="spinner-border text-light"
-                          role="status"
-                        >
-                          <span className="visually-hidden">Loading...</span>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="cta_text cta_text--white">
-                        RECUPERAR
-                        </div>
-                      </>
-                    )}
-                  </button>
-                </div>
-
-                <div className="text-medium text-grey d-flex justify-content-center">
-                  Regresa a&nbsp;
-                  <span
-                    className="text-medium text-grey d-flex justify-content-center cursor-pointer text-decoration-underline"
-                    onClick={loguin}
-                  >
-                    login
-                  </span>
-                </div>
-              </form>
-            </div>
+                      </div>
+                      <div className="spinner-border text-light" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="cta_text cta_text--white">RECUPERAR</div>
+                    </>
+                  )}
+                </button>
+              </div>
+              <br />
+              <div className="text-medium text-grey d-flex justify-content-center">
+                Regresa a&nbsp;
+                <span
+                  className="text-medium text-grey d-flex justify-content-center cursor-pointer text-decoration-underline"
+                  onClick={loguin}
+                >
+                  login
+                </span>
+              </div>
+            </form>
           </div>
         </div>
       </div>

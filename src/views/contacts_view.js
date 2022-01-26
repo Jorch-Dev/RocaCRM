@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { TableContact_component } from "../components/tablecontact_component";
 import {
   FiSearch,
@@ -23,13 +23,6 @@ import Modal from "react-bootstrap/Modal";
 export const Contacts_view = () => {
   const { userState } = useContext(UserContext);
   const [stateAdd, setStateAdd] = useState({
-    columns: [
-      { id: 1, code: "name", label: "Nombre", minWidth: 100 },
-      { id: 2, code: "lasName", label: "Apellido", minWidth: 100 },
-      { id: 3, code: "email", label: "Email", minWidth: 100 },
-      { id: 4, code: "phone", label: "Telefono", minWidth: 100 },
-      { id: 5, code: "Funnel", label: "Pertenece al funnel", minWidth: 100 },
-    ],
     isLoading: false,
     objFunnels: [],
     contactos: [],
@@ -242,12 +235,12 @@ export const Contacts_view = () => {
                     {stateAdd.contacts.data != null ? (
                       <>
                         {stateAdd.isLoading ? (
-                            <div
-                              className="spinner-border text-secondary"
-                              role="status"
-                            >
-                              <span className="sr-only"></span>
-                            </div>
+                          <div
+                            className="spinner-border text-secondary"
+                            role="status"
+                          >
+                            <span className="sr-only"></span>
+                          </div>
                         ) : (
                           <>
                             <div className="col-3 d-flex justify-content-center">
@@ -615,19 +608,32 @@ export const Contacts_view = () => {
                   <thead>
                     <tr>
                       <td className="bottom-border">
-                        <div></div>
+                        <div className="text-bold text-secondary text-0 pt-1 pb-3"></div>
                       </td>
-                      {stateAdd.columns.map((column) => (
-                        <>
-                          <td className="bottom-border" key={column.id}>
-                            <div className="text-bold text-secondary text-0 pt-1 pb-3">
-                              {column.label}
-                            </div>
-                          </td>
-                        </>
-                      ))}
                       <td className="bottom-border">
-                        <div></div>
+                        <div className="text-bold text-secondary text-0 pt-1 pb-3">
+                          Nombre
+                        </div>
+                      </td>
+                      <td className="bottom-border">
+                        <div className="text-bold text-secondary text-0 pt-1 pb-3">
+                          Apellido
+                        </div>
+                      </td>
+                      <td className="bottom-border">
+                        <div className="text-bold text-secondary text-0 pt-1 pb-3">
+                          Email
+                        </div>
+                      </td>
+                      <td className="bottom-border">
+                        <div className="text-bold text-secondary text-0 pt-1 pb-3">
+                          Telefono
+                        </div>
+                      </td>
+                      <td className="bottom-border">
+                        <div className="text-bold text-secondary text-0 pt-1 pb-3">
+                          Pertenece al funnel
+                        </div>
                       </td>
                     </tr>
                   </thead>
@@ -643,64 +649,41 @@ export const Contacts_view = () => {
                       .map((c, j) => {
                         return (
                           <tr key={j} className="table_row">
-                            {stateAdd.columns.map((column, i) => {
-                              var value = c[column.code];
-                              return (
-                                <Fragment key={i}>
-                                  {column.code === "name" ? (
-                                    <>
-                                      <td className="bottom-border ps-3">
-                                        <div className="text-secondary">
-                                          {j + 1}
-                                        </div>
-                                      </td>
-                                      <td className="bottom-border ps-3">
-                                        <div className="text-secondary">
-                                          {c.Con_Name}
-                                        </div>
-                                      </td>
-                                      <td className="bottom-border ps-3">
-                                        <div className="text-secondary">
-                                          {c.Con_Lastname}
-                                        </div>
-                                      </td>
-                                      <td className="bottom-border ps-3">
-                                        <div className="text-secondary">
-                                          {c.Con_Email}
-                                        </div>
-                                      </td>
-                                      <td className="bottom-border ps-3">
-                                        <div className="text-secondary">
-                                          {c.Con_Phone}
-                                        </div>
-                                      </td>
-                                      <td className="bottom-border ps-3">
-                                        <div className="text-secondary">
-                                          {c.Fun_Name}
-                                        </div>
-                                      </td>
-                                      <td className="bottom-border ps-3">
-                                        <div className="icon_btn">
-                                          <IconUI size={20}></IconUI>
-                                        </div>
-                                      </td>
+                            <td className="bottom-border ps-3">
+                              <div className="text-secondary">{j + 1}</div>
+                            </td>
+                            <td className="bottom-border ps-3">
+                              <div className="text-secondary">{c.Con_Name}</div>
+                            </td>
+                            <td className="bottom-border ps-3">
+                              <div className="text-secondary">
+                                {c.Con_Lastname}
+                              </div>
+                            </td>
+                            <td className="bottom-border ps-3">
+                              <div className="text-secondary">
+                                {c.Con_Email}
+                              </div>
+                            </td>
+                            <td className="bottom-border ps-3">
+                              <div className="text-secondary">
+                                {c.Con_Phone}
+                              </div>
+                            </td>
+                            <td className="bottom-border ps-3">
+                              <div className="text-secondary">{c.Fun_Name}</div>
+                            </td>
+                            <td className="bottom-border ps-3">
+                              <div className="icon_btn">
+                                <IconUI size={20}></IconUI>
+                              </div>
+                            </td>
 
-                                      <td className="bottom-border ps-3">
-                                        <div className="icon_btn">
-                                          <IconUI size={20}></IconUI>
-                                        </div>
-                                      </td>
-                                    </>
-                                  ) : (
-                                    <td className="bottom-border">
-                                      <div className="text-secondary">
-                                        {value}
-                                      </div>
-                                    </td>
-                                  )}
-                                </Fragment>
-                              );
-                            })}
+                            <td className="bottom-border ps-3">
+                              <div className="icon_btn">
+                                <IconUI size={20}></IconUI>
+                              </div>
+                            </td>
                           </tr>
                         );
                       })}

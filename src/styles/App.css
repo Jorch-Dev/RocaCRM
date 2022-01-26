@@ -251,15 +251,14 @@ min-height: 850px;
 }
 
 .title {
-  margin-top: 30%;
+  margin-top: 20%;
   margin-bottom: 10px;
 }
 
 .title_text {
   color: #000000;
-  font-size: 22px;
+  font-size: 25px;
   font-family: Gotham-Bold;
-  line-height: 2.8;
 }
 
 .title_icon {
@@ -290,31 +289,25 @@ min-height: 850px;
   color: #bababa;
 }
 
-.loginform {
-  width: 70%;
-  margin-top: 10%;
-  padding: 0 50px 0 50px;
-}
-
-.loginimg_bg {
+.img_bg {
   background-image: url("../utils/assets/grupo_36.webp");
   background-size: cover;
   background-position: 0;
   position: relative;
 }
 
-.loginimg_bg img {
+.img_bg img {
   position: absolute;
 }
 
-.loginimg_bg img:nth-child(1) {
+.img_bg img:nth-child(1) {
   width: 33%;
   left: -35px;
   top: 50%;
   transform: translate(0%, -50%);
 }
 
-.loginimg_bg img:nth-child(2) {
+.img_bg img:nth-child(2) {
   width: 35%;
   left: 210px;
   top: 65%;
@@ -322,11 +315,7 @@ min-height: 850px;
 }
 
 .loginform_footer {
-  position: relative;
-  width: 100%;
   top: 90%;
-  /* background: linear-gradient(to top, #000, #ccc);
-  opacity: 0.5; */
   position: relative;
 }
 
@@ -552,53 +541,42 @@ min-height: 850px;
 }
 
 @media (max-width: 1400px) {
-  .loginform {
-    margin-top: 20%;
-    padding: 0 30px 0 30px;
+  .loginform_footer {
+    top: 90%;
   }
-  .loginimg_bg img:nth-child(2) {
+  .img_bg img:nth-child(2) {
     left: 150px;
     top: 60%;
+  }
+  .text-book {
+    font-size: 20px;
   }
 }
 
 @media (max-width: 1200px) {
-  .loginform {
-    width: 70%;
-    margin-top: 20%;
-    padding: 0 30px 0 30px;
-  }
   .title {
     margin-top: 10px;
   }
   .loginform_lost{
     margin-top: 3%;
   }
-  .loginimg_bg img:nth-child(2) {
+  .img_bg img:nth-child(2) {
     left: 120px;
     top: 60%;
   }
 }
 
 @media (max-width: 992px) {
-  .loginform {
-    width: 70%;
-    padding: 0 10px 0 10px;
+  .img_bg img:nth-child(2) {
+    left: 90px;
+    top: 60%;
   }
 }
 
 @media (max-width: 768px) {
-  .loginform {
-    width: 70%;
-    padding: 0 10px 0 10px;
-  }
 }
 
 @media (max-width: 576px) {
-  .loginform {
-    width: 100%;
-    padding: 0 50px 0 50px;
-  }
   .snack {
     font-size: 10px;
   }

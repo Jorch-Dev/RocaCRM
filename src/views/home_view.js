@@ -22,11 +22,11 @@ export const Home_view = () => {
 
   useEffect(() => {
     //-----Si el usuario tiene el plan con Id 1 entonces no lo dejamos entrar, descomentar el if
-    // if (userState.usuario !== null) {
-    //   if (userState.usuario.Pln_ID === 1) {
-    //     history.replace("/");
-    //   }
-    // }
+    if (userState.usuario !== null) {
+      if (userState.usuario.Pln_ID === 1) {
+        history.replace("/");
+      }
+    }
     if (obj != null) {
       authenticated = true;
     }

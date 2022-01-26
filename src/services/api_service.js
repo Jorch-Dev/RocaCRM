@@ -2,47 +2,6 @@ import Axios from "axios";
 //export const Api_Url = `http://192.168.88.198:3000/api/v1/`;
 export const Api_Url = `https://api.stage.rocafunnels.com/api/v1/`;
 
-export const postForgotPassword = async (contact, resource) => {
-
-  try {
-    const result = await Axios(`${Api_Url}${resource}`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: contact,
-    });
-
-    const data = result.data;
-
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const ApiRegister = async (obj) => {
-  let url = `${Api_Url}user`;
-
-  try {
-    const result = await Axios.post(url, {
-      "Usr_Email": obj.Usr_Email,
-      "Usr_Name": obj.Usr_Name,
-      "Usr_Lastname": obj.Usr_Lastname,
-      "Usr_Password": obj.Usr_Password,
-    });
-    const data = result.data;
- 
-    return data
-    
-  } catch (error) {
-    if (error.response.status === 400) {
-      const data = error.response;
-      return data;
-    }
-  }
-};
-
 export const getContactExcel = async (f) => {
   let direccion = `${Api_Url}user/contact/excel?f=${f}`;
   try {
@@ -88,9 +47,8 @@ export const ApiService = async (method, resource, data) => {
           headers: getTokenContent(),
         });
       } catch (error) {
-        
         const data = error.response;
-      return data;
+        return data;
       }
     case "put":
       try {
@@ -98,7 +56,6 @@ export const ApiService = async (method, resource, data) => {
           headers: getTokenContent(),
         });
       } catch (error) {
-        
         return 401;
       }
     case "delete":
@@ -107,7 +64,6 @@ export const ApiService = async (method, resource, data) => {
           headers: getToken(),
         });
       } catch (error) {
-        
         return 401;
       }
     default:
@@ -120,7 +76,6 @@ const getToken = () => {
 
   return {
     "RF-Token": `${token}`,
-    "Content-Type": "application/json",
   };
 };
 
@@ -132,4 +87,3 @@ const getTokenContent = () => {
     "Content-Type": "application/json",
   };
 };
-

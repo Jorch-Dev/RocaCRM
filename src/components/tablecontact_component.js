@@ -1,9 +1,9 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
   TableContainer,
-  TablePagination
+  TablePagination,
 } from "@material-ui/core";
 import { MdDeleteForever, BiEdit } from "react-icons/all";
 import { ApiService } from "../services/api_service";
@@ -15,28 +15,15 @@ import Moment from "moment";
 
 export const TableContact_component = ({ data, stateData, onEditUser }) => {
   const [pagination, setPagination] = useState({
-    columns: [
-      { id: 1, code: "id", label: " ", minWidth: 100 },
-      { id: 2, code: "name", label: "Nombre", minWidth: 100 },
-      { id: 3, code: "lasName", label: "Apellido", minWidth: 100 },
-      { id: 4, code: "email", label: "Email", minWidth: 100 },
-      { id: 5, code: "phone", label: "Telefono", minWidth: 100 },
-      { id: 6, code: "date", label: "Fecha de alta", minWidth: 100 },
-    ],
     page: 0,
     rowsPerPage: 5,
     modalIsOpen: false,
     objetoUsuario: null,
     isLoading: false,
   });
-  
 
   const cambiaPagina = (event, newPage) => {
     setPagination({ ...pagination, page: newPage });
-  };
-
-  const cambiaFilasxPagina = (event) => {
-    setPagination({ ...pagination, rowsPerPage: +event.target.value, page: 0 });
   };
 
   const editContact = async (user) => {
@@ -94,15 +81,35 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
           <Table stickyHeader aria-label="sticky table">
             <thead>
               <tr>
-                {pagination.columns.map((column) => (
-                  <>
-                    <td className="bottom-border" key={column.id}>
-                      <div className="text-bold text-secondary text-0 pt-1 pb-3 ps-3">
-                        {column.label}
-                      </div>
-                    </td>
-                  </>
-                ))}
+                <td className="bottom-border">
+                  <div className="text-bold text-secondary text-0 pt-1 pb-3 ps-3">
+                  </div>
+                </td>
+                <td className="bottom-border">
+                  <div className="text-bold text-secondary text-0 pt-1 pb-3 ps-3">
+                    Nombre
+                  </div>
+                </td>
+                <td className="bottom-border">
+                  <div className="text-bold text-secondary text-0 pt-1 pb-3 ps-3">
+                    Apellido
+                  </div>
+                </td>
+                <td className="bottom-border">
+                  <div className="text-bold text-secondary text-0 pt-1 pb-3 ps-3">
+                    Email
+                  </div>
+                </td>
+                <td className="bottom-border">
+                  <div className="text-bold text-secondary text-0 pt-1 pb-3 ps-3">
+                    Telefono
+                  </div>
+                </td>
+                <td className="bottom-border">
+                  <div className="text-bold text-secondary text-0 pt-1 pb-3 ps-3">
+                  Fecha de alta
+                  </div>
+                </td>
                 <td className="bottom-border">
                   <div></div>
                 </td>
@@ -118,77 +125,49 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
                 )
 
                 .map((c, j) => {
-                  
                   return (
                     <tr key={j} className="table_row">
-                      {pagination.columns.map((column, i) => {
-                        var value = c[column.code];
-                        return (
-                          <Fragment key={i}>
-                            {column.code === "name" ? (
-                              <>
-                                {/* <td className="bottom-border ps-3">
-                                  <div className="text-secondary">{j + 1}</div>
-                                </td> */}
-                                <td className="bottom-border ps-3">
-                                  <div className="text-secondary">
-                                    {c.Con_Name}
-                                  </div>
-                                </td>
-                                <td className="bottom-border ps-3">
-                                  <div className="text-secondary">
-                                    {c.Con_Lastname}
-                                  </div>
-                                </td>
-                                <td className="bottom-border ps-3">
-                                  <div className="text-secondary">
-                                    {c.Con_Email}
-                                  </div>
-                                </td>
-                                <td className="bottom-border ps-3">
-                                  <div className="text-secondary">
-                                    {c.Con_Phone}
-                                  </div>
-                                </td>
-                                <td className="bottom-border ps-3">
-                                  <div className="text-secondary">
-                                    {Moment(c.createdAt).format(
-                                      "MMMM DD, YYYY HH:mm"
-                                    )}
-                                  </div>
-                                </td>
-                                <td className="bottom-border ps-3">
-                                  <div
-                                    className="icon_btn"
-                                    onClick={() => editContact(i)}
-                                  >
-                                    <IconUI size={20}>
-                                      <BiEdit />
-                                    </IconUI>
-                                  </div>
-                                </td>
+                      <td className="bottom-border ps-3">
+                        <div className="text-secondary">{j + 1}</div>
+                      </td>
+                      <td className="bottom-border ps-3">
+                        <div className="text-secondary">{c.Con_Name}</div>
+                      </td>
+                      <td className="bottom-border ps-3">
+                        <div className="text-secondary">{c.Con_Lastname}</div>
+                      </td>
+                      <td className="bottom-border ps-3">
+                        <div className="text-secondary">{c.Con_Email}</div>
+                      </td>
+                      <td className="bottom-border ps-3">
+                        <div className="text-secondary">{c.Con_Phone}</div>
+                      </td>
+                      <td className="bottom-border ps-3">
+                        <div className="text-secondary">
+                          {Moment(c.createdAt).format("MMMM DD, YYYY HH:mm")}
+                        </div>
+                      </td>
+                      <td className="bottom-border ps-3">
+                        <div
+                          className="icon_btn"
+                          onClick={() => editContact(c)}
+                        >
+                          <IconUI size={20}>
+                            <BiEdit />
+                          </IconUI>
+                        </div>
+                      </td>
 
-                                <td className="bottom-border ps-3">
-                                  <div
-                                    className="icon_btn"
-                                    onClick={() =>
-                                      deleteContac(i.Con_ID, i.Con_Name)
-                                    }
-                                  >
-                                    <IconUI size={20}>
-                                      <MdDeleteForever />
-                                    </IconUI>
-                                  </div>
-                                </td>
-                              </>
-                            ) : column.code === "id" ? (
-                              <td className="bottom-border ps-3">
-                                <div className="text-secondary">{j + 1}</div>
-                              </td>
-                            ) : (<></>)}
-                          </Fragment>
-                        );
-                      })}
+                      <td className="bottom-border ps-3">
+                        <div
+                          className="icon_btn"
+                          onClick={() => deleteContac(c.Con_ID, c.Con_Name)}
+                        >
+                          <IconUI size={20}>
+                            <MdDeleteForever />
+                          </IconUI>
+                        </div>
+                      </td>
                     </tr>
                   );
                 })}
