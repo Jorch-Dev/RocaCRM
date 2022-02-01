@@ -4,7 +4,7 @@ import { VerticalBar_component } from "../components/verticalbar_component";
 import { UserContext } from "../context/user_context";
 import { Contacts_view } from "./contacts_view";
 import { Sales_view } from "./sales_view";
-import { EmailViews } from "./email_views"
+import { CampaingView } from "./campaing_view"
 import {
   Switch,
   Route,
@@ -54,8 +54,8 @@ export const Home_view = () => {
           <Route exact path={`${path}/sales`}>
             <Sales_view />
           </Route>
-          <Route exact path={`${path}/marketing`}>
-            <EmailViews />
+          <Route exact path={`${path}/CampaingMarketing`}>
+            <CampaingView />
           </Route>
           {/* <Route exact path="/contacts" component={Contacts_view} />
           <Route exact path="/contacts" component={Contacts_view} />

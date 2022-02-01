@@ -92,9 +92,9 @@ a:focus-visible {
   border: 1px solid red !important;
 }
 
-.contenedor-login{
-height: 100%;
-min-height: 850px;
+.contenedor-login {
+  height: 100%;
+  min-height: 850px;
 }
 
 .icon-succes {
@@ -141,11 +141,11 @@ min-height: 850px;
   background-color: var(--green);
 }
 
-.bottom-border{
+.bottom-border {
   border-bottom: 1px solid var(--gray-00);
 }
 
-.bottom-shadow{
+.bottom-shadow {
   border-bottom: 1px solid var(--gray-05);
   box-shadow: 0px 5px 20px 0px var(--black-alpha-05);
 }
@@ -164,8 +164,8 @@ min-height: 850px;
   font-family: Gotham-Book;
 }
 
-.text-black{
-  color: var(--black)
+.text-black {
+  color: var(--black);
 }
 
 .text-grey {
@@ -319,7 +319,7 @@ min-height: 850px;
   position: relative;
 }
 
-.loginform_lost{
+.loginform_lost {
   margin-top: 10%;
 }
 
@@ -330,9 +330,9 @@ min-height: 850px;
   box-shadow: 3px 3px 3px 0px var(--black-alpha-10);
 }
 
-.cta{
+.cta {
   display: flex;
-  justify-content: center ;
+  justify-content: center;
   cursor: pointer;
   background-color: var(--grey);
   color: #65676b;
@@ -340,56 +340,66 @@ min-height: 850px;
   border-radius: 10px;
   white-space: nowrap;
   font-family: Montserrat;
-  font-weight: 700;  
+  font-weight: 700;
   border: none;
 }
 
-.cta--rounded{
+.cta--rounded {
   border-radius: 40px;
 }
 
-.cta:hover{
+.cta:hover {
   transform: scale(1.005);
   box-shadow: 3px 3px 6px 0px var(--black-alpha-20);
 }
 
-.cta--orange{
-  background-color: var(--orage); 
-  color: white;
-
+.cta--orange {
+  background-color: var(--orage);
 }
 
-.cta--blue{
+.cta--blue {
   background-color: var(--blue);
 }
 
-.cta--link{
+.cta--green {
+  background-color: var(--green);
+}
+
+.cta--link {
   padding: 10px 0px !important;
 }
 
-.cta--link--small{
+.cta--link--small {
   padding: 0px 0px !important;
 }
 
-.cta--link:hover, .cta--link--small:hover{
+.cta--link:hover,
+.cta--link--small:hover {
   box-shadow: none !important;
   transform: scale(1.02);
-  
 }
 
-.cta--disabled .cta_text{
+.cta--disabled .cta_text {
   color: var(--gray-30);
 }
 
-.cta--disabled svg{
+.cta--disabled svg {
   color: var(--gray-30) !important;
 }
 
-.cta--blue .cta_text{
+.cta--blue .cta_text {
   color: var(--white);
 }
 
-.cursor-pointer{
+.cta--orange .cta_text {
+  color: var(--white);
+}
+
+.cta--green .cta_text {
+  color: var(--white);
+}
+
+.cursor-pointer {
   cursor: pointer;
 }
 
@@ -526,18 +536,85 @@ min-height: 850px;
   color: #ccc !important;
 }
 
-.card.card--rounded{
+.card.card--rounded {
   border-radius: 30px !important;
 }
 
-.card{
+.card {
   position: relative !important;
   width: 100%;
   border: 1px solid var(--gray-10);
   border-radius: 0px !important;
   padding: 10px;
   box-shadow: 2.5px 2.5px 5px 0px var(--black-alpha-05);
-  
+}
+
+.tags {
+  width: auto;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  color: var(--white);
+  font-size: 14px;
+  list-style: none;
+  border-radius: 8px;
+  margin: 0 8px 8px 0;
+  background: #0052cc;
+}
+
+.tags-title {
+  margin-top: 3px;
+}
+
+.tags-closeicon {
+  display: flex;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  margin-left: 8px;
+  color: #0052cc;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.tags_container {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  min-height: 48px;
+  width: 100%;
+  padding: 0 8px;
+  border: 1px solid rgb(214, 216, 218);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.tags_container:focus-within {
+  border: 1px solid #0052cc;
+}
+
+.tags_container select {
+  flex: 1;
+  border: none;
+  height: 46px;
+  font-size: 14px;
+  padding: 4px 0 0 15px;
+}
+
+.tags_container select:focus {
+  outline: transparent;
+}
+
+.tags_list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 10px 0 0 0;
 }
 
 @media (max-width: 1400px) {
@@ -557,7 +634,7 @@ min-height: 850px;
   .title {
     margin-top: 10px;
   }
-  .loginform_lost{
+  .loginform_lost {
     margin-top: 3%;
   }
   .img_bg img:nth-child(2) {
@@ -583,7 +660,7 @@ min-height: 850px;
   .title {
     margin-top: 10px;
   }
-  .loginform_lost{
+  .loginform_lost {
     margin-top: 3%;
   }
 }

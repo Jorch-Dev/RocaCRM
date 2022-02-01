@@ -41,7 +41,7 @@ export const VerticalBar_component = () => {
         </div>
       </Link>
 
-      <Link to={`${url}/marketing`}>
+      <Link to={`${url}/CampaingMarketing`}>
         <div className="homemenu_item">
           <IconUI>
             <SiMarketo />
