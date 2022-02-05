@@ -4,7 +4,7 @@ import { VerticalBar_component } from "../components/verticalbar_component";
 import { UserContext } from "../context/user_context";
 import { Contacts_view } from "./contacts_view";
 import { Sales_view } from "./sales_view";
-import { CampaingView } from "./campaing_view"
+import { EmailMarketingView } from "./emailmarketing_view"
 import {
   Switch,
   Route,
@@ -13,11 +13,9 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 
-export const Home_view = () => {
+export const HomeView = () => {
   let history = useHistory();
   const { path, url } = useRouteMatch();
-  let authenticated = false;
-  const obj = JSON.parse(localStorage.getItem("token"));
   const { userState, setUserState } = useContext(UserContext);
 
   useEffect(() => {
@@ -27,14 +25,8 @@ export const Home_view = () => {
         history.replace("/");
       }
     }
-    if (obj != null) {
-      authenticated = true;
-    }
-  }, [userState.usuario, obj]);
+  }, [userState.usuario]);
 
-  if (authenticated) {
-    return <Redirect replace to="/" />;
-  }
   return (
     <div className="d-flex h-100">
 
@@ -54,8 +46,8 @@ export const Home_view = () => {
           <Route exact path={`${path}/sales`}>
             <Sales_view />
           </Route>
-          <Route exact path={`${path}/CampaingMarketing`}>
-            <CampaingView />
+          <Route exact path={`${path}/EmailMarketing`}>
+            <EmailMarketingView /> 
           </Route>
           {/* <Route exact path="/contacts" component={Contacts_view} />
           <Route exact path="/contacts" component={Contacts_view} />

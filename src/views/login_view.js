@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { ApiService } from "../services/api_service";
 import { UserContext } from "../context/user_context";
 
-export const Login_view = () => {
+export const LoginView = () => {
   let history = useHistory();
   const { userState, setUserState } = useContext(UserContext);
   const [state_Loguin, setState_Loguin] = useState({
@@ -184,7 +184,7 @@ export const Login_view = () => {
           <img src="assets/grupo_39.webp" className="d-none d-lg-block"/>
           <img src="assets/grupo_42.webp" className="d-none d-lg-block"/>
 
-          <div className="col d-flex justify-content-center loginform_footer border">
+          <div className="col d-flex justify-content-center loginform_footer">
             <div className="text-book text-white text-big text-center w-75">
               Automatiza tu negocio con email marketing que maximizará tus
               ventas.

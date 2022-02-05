@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../context/user_context";
 import { ApiService } from "../services/api_service";
+import { AiFillSave, GiNextButton, AiOutlineClose } from "react-icons/all";
 import { IconUI } from "../utils/IconUI";
-import { AiOutlineClose } from "react-icons/all";
+import { white } from "../styles/colors";
 
 export const CampaingView = () => {
   const { userState } = useContext(UserContext);
@@ -37,6 +38,8 @@ export const CampaingView = () => {
         });
       }
     }
+
+
   }, []);
 
   const llenaLista = async (e) => {
@@ -58,38 +61,71 @@ export const CampaingView = () => {
       (x) => x != indexToRemove
     );
 
-    console.log(newArray)
+    const newArrayDelete = CompaingDesing.listitem.filter(
+      (x) => x == indexToRemove
+    );
 
+    CompaingDesing.removeitem.unshift(newArrayDelete)
     setcampaingDesing({
       ...CompaingDesing,
       listitem: newArray,
-      removeitem: newArray,
     });
   };
 
   const addEmail = (e) => {
+ 
     if (e.target.value !== "") {
-      CompaingDesing.listitem.push(e.target.value);
+      const newArray = CompaingDesing.listitem;
+      newArray.unshift(e.target.value);
+      
+      setcampaingDesing({...CompaingDesing, listitem: newArray})
+      e.target.value = ""
     }
   };
-
+console.log(CompaingDesing.listitem)
   return (
     <div className="contenedor-dashboard">
       <div className="d-flex flex-column">
-        <div className="position-relative p-1">
-          <div className="text-big text-primary text-bold">Bienvenido</div>
-          <div className="text-secondary text-0">
-            {userState.usuario !== null ? (
-              <>
-                <span className="text-0">
-                  {userState.usuario.Usr_Name} {userState.usuario.Usr_Lastname}
-                </span>
-              </>
-            ) : (
-              <></>
-            )}
+      <div className="card">
+        <div className="col d-flex justify-content-center">
+          {/* {mailEditor.error != null ? (
+            <p className="text-center text-orange">{mailEditor.error}</p>
+          ) : (
+            <></>
+          )} */}
+        </div>
+
+        <div className="col d-flex">
+          <div className="col d-flex justify-content-center">
+            <button className="cta cta--orange">
+              <div className="d-flex align-items-center">
+                <IconUI color={white} size={25}>
+                  <AiFillSave />
+                </IconUI>
+                <div className="cta_text ps-2">Guardar</div>
+              </div>
+            </button>
+          </div>
+          <div className="ms-auto">
+            <button className="cta cta--orange">
+              <div className="d-flex align-items-center">
+                {CompaingDesing.isLoading ? (
+                  <div class="spinner-border text-success" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                ) : (
+                  <>
+                    <IconUI color={white} size={25}>
+                      <GiNextButton />
+                    </IconUI>
+                    <div className="cta_text ps-2">Continuar</div>
+                  </>
+                )}
+              </div>
+            </button>
           </div>
         </div>
+      </div>
 
         <div className="card bg-white d-block p-1 my-2">
           <div className="d-flex">
@@ -146,8 +182,8 @@ export const CampaingView = () => {
             <input
               name="selectfunnels"
               className="form-input"
-              onChange={(e) => (e.key == "Enter" ? addEmail(e) : null)}
-              placeholder="preciona inter para agregar elementos"
+              onKeyUp={(e) => (e.key == "Enter" ? addEmail(e) : null)}
+              placeholder="presiona inter para agregar elementos"
             ></input>
           </div>
         </div>

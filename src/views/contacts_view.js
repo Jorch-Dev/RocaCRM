@@ -6,7 +6,7 @@ import {
   RiContactsFill,
   IoMdContacts,
   TiUserDelete,
-  SiMarketo
+  SiMarketo,
 } from "react-icons/all";
 import { AddContactsView } from "./addcontacts_view";
 import { ApiService, getContactExcel } from "../services/api_service";
@@ -189,19 +189,32 @@ export const Contacts_view = () => {
 
   return (
     <div className="contenedor-dashboard">
-
       <div className="d-flex flex-column">
         <div>
-          <div className="position-relative p-1">
-            <div className="text-big text-primary text-bold">Bienvenido</div>
-            <div className="text-secondary text-0">
-              {userState.usuario !== null ? (
-                <span className="text-0">
-                  {userState.usuario.Usr_Name} {userState.usuario.Usr_Lastname}
-                </span>
-              ) : (
-                <></>
-              )}
+          <div className="col d-flex justify-content-center align-items-center p-1">
+            <div className="col">
+              <div className="text-big text-primary text-bold">Bienvenido</div>
+              <div className="text-secondary text-0">
+                {userState.usuario !== null ? (
+                  <span className="text-0">
+                    {userState.usuario.Usr_Name}{" "}
+                    {userState.usuario.Usr_Lastname}
+                  </span>
+                ) : (
+                  <></>
+                )}
+              </div>
+            </div>
+
+            <div className="col h-100 d-flex justify-content-center align-items-center position-relative">
+              <button className="cta cta--green" onClick={openModal}>
+                <div className="d-flex align-items-center">
+                  <IconUI color={white}>
+                    <SiMarketo />
+                  </IconUI>
+                  <div className="cta_text ps-2">Programar campaña</div>
+                </div>
+              </button>
             </div>
           </div>
           <div className="card bg-white d-block p-1 my-2">
@@ -492,17 +505,6 @@ export const Contacts_view = () => {
                         <RiFileExcel2Line />
                       </IconUI>
                       <div className="cta_text ps-2">Descargar excel</div>
-                    </div>
-                  </button>
-                </div>
-
-                <div className="col h-100 d-flex justify-content-center align-items-center position-relative">
-                  <button className="cta cta--green" onClick={openModal}>
-                    <div className="d-flex align-items-center">
-                      <IconUI color={white}>
-                        <SiMarketo />
-                      </IconUI>
-                      <div className="cta_text ps-2">Programar campaña</div>
                     </div>
                   </button>
                 </div>
