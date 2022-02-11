@@ -4,9 +4,7 @@ import { BiMailSend, CgTemplate } from "react-icons/all";
 import { IconUI } from "../utils/IconUI";
 import { white } from "../styles/colors";
 import { MarketingContext } from "../context/emailmarketing_context";
-import {
-  EmailEditorComponent,
-} from "../components/emaileditor_component";
+import { EmailEditorComponent } from "../components/emaileditor_component";
 
 export const EmailMarketingView = () => {
   const { userState } = useContext(UserContext);
@@ -18,9 +16,8 @@ export const EmailMarketingView = () => {
   });
 
   const netxitem = () => {
-    
     setMarketState({ ...marketState, isLoading: true });
-    if (marketingState.tipo != null) {
+    if (marketingState.tipoEnvio != null) {
       setMarketState({ ...marketState, isLoading: false, provider: true });
       return;
     } else {
@@ -33,8 +30,8 @@ export const EmailMarketingView = () => {
   };
 
   return (
-    <div className="contenedor-dashboard">
-      <div className="d-flex flex-column">
+    <div className="d-flex flex-column">
+      <div className="contenedor-dashboard">
         <div className="position-relative p-1">
           <div className="text-big text-primary text-bold">Bienvenido</div>
           <div className="text-secondary text-0">
@@ -49,17 +46,18 @@ export const EmailMarketingView = () => {
             )}
           </div>
         </div>
-
-        {marketState.provider ? (
-          <EmailEditorComponent />
-        ) : (
-          <>
+      </div>
+      {marketState.provider ? (
+        <EmailEditorComponent />
+      ) : (
+        <>
+          <div className="contenedor-dashboard">
             <div className="card  d-block p-2 my-2">
               <div className="w-100 d-flex">
                 <div className="col d-flex justify-content-center align-items-center">
                   <div>
-                    Te guiaremos paso a paso para crear
-                    <b>correo electrónico</b> atractivo para tus clientes solo
+                    Te guiaremos paso a paso para crear{" "}
+                    <b>correo electrónico</b>{" "}atractivo para tus clientes solo
                     selecciona un tipo.
                   </div>
                 </div>
@@ -74,8 +72,8 @@ export const EmailMarketingView = () => {
               )}
               <div className="col d-flex justify-content-center my-3">
                 <div className="col-4">
-                  <div className="col my-3">
-                    <buton
+                  <div className="col my-3 d-flex justify-content-center">
+                    <button
                       data-bs-toggle="collapse"
                       href="#information"
                       role="button"
@@ -83,7 +81,10 @@ export const EmailMarketingView = () => {
                       aria-controls="information"
                       className="cta cta--orange"
                       onClick={() =>
-                        setMarketingState({ ...marketingState, tipo: 1 })
+                        setMarketingState({
+                          ...marketingState,
+                          tipoEnvio: "Envio rapido",
+                        })
                       }
                     >
                       <div className="d-flex align-items-center">
@@ -92,10 +93,10 @@ export const EmailMarketingView = () => {
                         </IconUI>
                         <div className="cta_text ps-2">Envio rapido</div>
                       </div>
-                    </buton>
+                    </button>
                   </div>
-                  <div className="col my-3">
-                    <buton
+                  <div className="col my-3 d-flex justify-content-center">
+                    <button
                       data-bs-toggle="collapse"
                       href="#information"
                       role="button"
@@ -103,7 +104,10 @@ export const EmailMarketingView = () => {
                       aria-controls="information"
                       className="cta cta--orange"
                       onClick={() =>
-                        setMarketingState({ ...marketingState, tipo: 2 })
+                        setMarketingState({
+                          ...marketingState,
+                          tipoEnvio: "Envio personalizado",
+                        })
                       }
                     >
                       <IconUI color={white} size={30}>
@@ -111,7 +115,7 @@ export const EmailMarketingView = () => {
                       </IconUI>
                       <div className="cta_text ps-2">Envio personalizado</div>
                       <span className="cta_text"></span>
-                    </buton>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -119,7 +123,6 @@ export const EmailMarketingView = () => {
 
             <div className="collapse mt-3" id="information">
               <div className="card card-body">
-                
                 <div className="d-flex">
                   <div className="col-8">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -142,9 +145,9 @@ export const EmailMarketingView = () => {
                 </div>
               </div>
             </div>
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

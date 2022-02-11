@@ -56,67 +56,69 @@ export const EmailEditorComponent = () => {
         <CampaingView />
       ) : (
         <>
-          <div className="card">
-            <div className="col d-flex justify-content-center">
-              {mailEditor.error != null ? (
-                <p className="text-center text-orange">{mailEditor.error}</p>
-              ) : (
-                <></>
-              )}
-            </div>
-            <div className="col d-flex">
+          <div className="contenedor-dashboard">
+            <div className="card">
               <div className="col d-flex justify-content-center">
-                <button className="cta cta--orange" onClick={exportHtml}>
-                  <div className="d-flex align-items-center">
-                    <IconUI color={white} size={25}>
-                      <AiFillSave />
-                    </IconUI>
-                    <div className="cta_text ps-2">Guardar</div>
-                  </div>
-                </button>
+                {mailEditor.error != null ? (
+                  <p className="text-center text-orange">{mailEditor.error}</p>
+                ) : (
+                  <></>
+                )}
               </div>
-              <div className="ms-auto">
-                <button className="cta cta--orange" onClick={next}>
-                  <div className="d-flex align-items-center">
-                    {mailEditor.isLoading ? (
-                      <div class="spinner-border text-success" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                      </div>
-                    ) : (
-                      <>
-                        <IconUI color={white} size={25}>
-                          <GiNextButton />
-                        </IconUI>
-                        <div className="cta_text ps-2">Continuar</div>
-                      </>
-                    )}
-                  </div>
-                </button>
+              <div className="col d-flex">
+                <div className="col d-flex justify-content-center">
+                  <button className="cta cta--orange" onClick={exportHtml}>
+                    <div className="d-flex align-items-center">
+                      <IconUI color={white} size={25}>
+                        <AiFillSave />
+                      </IconUI>
+                      <div className="cta_text ps-2">Guardar</div>
+                    </div>
+                  </button>
+                </div>
+                <div className="ms-auto">
+                  <button className="cta cta--orange" onClick={next}>
+                    <div className="d-flex align-items-center">
+                      {mailEditor.isLoading ? (
+                        <div class="spinner-border text-success" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                        </div>
+                      ) : (
+                        <>
+                          <IconUI color={white} size={25}>
+                            <GiNextButton />
+                          </IconUI>
+                          <div className="cta_text ps-2">Continuar</div>
+                        </>
+                      )}
+                    </div>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          
-          <div className="card bg-white my-2">
-            <EmailEditor
-              ref={emailEditorRef}
-              onLoad={mailEditor.isLoaded ? onLoad(sample) : null}
-              onReady={onReady}
-              style={editorHTML}
-              appearance={{ theme: "dark" }}
-              tools={{
-                social: {
-                  properties: {
-                    value: {
-                      iconType: "squared",
-                      icons: [
-                        { name: "Facebook", url: "https://facebook.com/" },
-                        { name: "Twitter", url: "https://twitter.com/" },
-                      ],
+
+            <div className="card bg-white my-2">
+              <EmailEditor
+                ref={emailEditorRef}
+                onLoad={mailEditor.isLoaded ? onLoad(sample) : null}
+                onReady={onReady}
+                style={editorHTML}
+                appearance={{ theme: "dark" }}
+                tools={{
+                  social: {
+                    properties: {
+                      value: {
+                        iconType: "squared",
+                        icons: [
+                          { name: "Facebook", url: "https://facebook.com/" },
+                          { name: "Twitter", url: "https://twitter.com/" },
+                        ],
+                      },
                     },
                   },
-                },
-              }}
-            />
+                }}
+              />
+            </div>
           </div>
         </>
       )}

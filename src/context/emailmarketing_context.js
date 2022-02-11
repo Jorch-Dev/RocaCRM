@@ -5,13 +5,20 @@ export const MarketingContext = createContext();
 
 export const MarketingContextProvider = ({ children }) => {
   const [marketingState, setMarketingState] = useState({
-    tipo: "",
+    tipoEnvio: "",
     contentHTML: null,
     sendItems: [],
     deleteItems: [],
-    enviado: ""
+    enviado: "",
+    envioRapido: false,
+    emailSettings: false,
+    objetoSettings: {
+      remitente: "",
+      emailremitente: "",
+      asunto: "",
+    },
   });
- console.log(marketingState)
+  console.log(marketingState);
   return (
     <MarketingContext.Provider
       value={{

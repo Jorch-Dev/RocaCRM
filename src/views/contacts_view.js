@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { TableContact_component } from "../components/tablecontact_component";
 import {
-  FiSearch,
+  AiOutlineUserAdd,
   RiFileExcel2Line,
   RiContactsFill,
   IoMdContacts,
   TiUserDelete,
-  SiMarketo,
+  AiFillTags,
+  AiOutlineClose,
 } from "react-icons/all";
 import { AddContactsView } from "./addcontacts_view";
 import { ApiService, getContactExcel } from "../services/api_service";
@@ -31,10 +32,12 @@ export const Contacts_view = () => {
     idFunel: null,
     error: null,
     modalIsOpen: false,
+    IsOpen: false,
     days: 7,
     contacts: {},
     page: 0,
     rowsPerPage: 10,
+    listTags: [],
   });
 
   useEffect(async () => {
@@ -185,7 +188,23 @@ export const Contacts_view = () => {
     }
   }
 
+  function openModalTags() {
+    setStateAdd({ ...stateAdd, IsOpen: true, error: null });
+  }
+
   const closeModal = () => setStateAdd({ ...stateAdd, modalIsOpen: false });
+
+  const closeModalTags = () => setStateAdd({ ...stateAdd, IsOpen: false });
+
+  const addEmail = (e) => {
+    if (e.target.value !== "") {
+      const newArray = stateAdd.listTags;
+      newArray.unshift(e.target.value);
+
+      setStateAdd({ ...stateAdd, listTags: newArray });
+      e.target.value = "";
+    }
+  };
 
   return (
     <div className="contenedor-dashboard">
@@ -205,19 +224,10 @@ export const Contacts_view = () => {
                 )}
               </div>
             </div>
-
-            <div className="col h-100 d-flex justify-content-center align-items-center position-relative">
-              <button className="cta cta--green" onClick={openModal}>
-                <div className="d-flex align-items-center">
-                  <IconUI color={white}>
-                    <SiMarketo />
-                  </IconUI>
-                  <div className="cta_text ps-2">Programar campaña</div>
-                </div>
-              </button>
-            </div>
           </div>
+
           <div className="card bg-white d-block p-1 my-2">
+            {/* se muestra en tamaños lg, xl, xxl */}
             <div className="d-none d-md-flex">
               <div className="col-6 d-flex justify-content-center align-items-center ms-2 mt-3">
                 <select
@@ -345,7 +355,7 @@ export const Contacts_view = () => {
                 </div>
               </div>
             </div>
-
+            {/* se muestra en tamaños md, sm */}
             <div className="d-md-none">
               <div className="col d-flex justify-content-center align-items-center ms-1">
                 <select
@@ -479,55 +489,19 @@ export const Contacts_view = () => {
           </div>
 
           <div className="card bg-white d-block p-1 my-3">
+            {/* se muestra en tamaños xxl */}
             <div className="d-none d-xl-flex">
-              <div className="col-6 d-flex justify-content-center align-items-center ms-2">
-                <select
-                  name="selectfunnels"
-                  id="selectfunnels"
-                  className="form-input"
-                  onChange={(e) => llenaContactos(e.target.value)}
-                >
-                  <option value="0" defaultValue>
-                    Filtralo por funnel aquí
-                  </option>
-                  {stateAdd.objFunnels.map((i) => (
-                    <option key={i.Fun_ID} value={i.Fun_ID}>
-                      {i.Fun_Name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="col-6 d-flex justify-content-center">
-                <div className="col h-100 d-flex justify-content-center align-items-center position-relative">
-                  <button className="cta cta--blue" onClick={downloadExcel}>
+              <div className="col d-flex justify-content-center align-items-center">
+                <div className="h-100 d-flex justify-content-center align-items-center position-relative">
+                  <button className="cta cta--blue" onClick={openModalTags}>
                     <div className="d-flex align-items-center">
                       <IconUI color={white}>
-                        <RiFileExcel2Line />
+                        <AiFillTags />
                       </IconUI>
-                      <div className="cta_text ps-2">Descargar excel</div>
+                      <div className="cta_text ps-2">Etiquetas</div>
                     </div>
                   </button>
                 </div>
-
-                <div className="col h-100 d-flex justify-content-center align-items-center position-relative">
-                  <button className="cta cta--orange" onClick={openModal}>
-                    <div className="d-flex align-items-center">
-                      <IconUI color={white}>
-                        <FiSearch />
-                      </IconUI>
-                      <div className="cta_text ps-2">Nuevo contacto</div>
-                    </div>
-                  </button>
-                </div>
-              </div>
-            </div>
-            {stateAdd.error != null ? (
-              <p className="text-center text-orange">{stateAdd.error}</p>
-            ) : (
-              <></>
-            )}
-            <div className="d-xl-none">
-              <div className="row gy-2">
                 <div className="col">
                   <select
                     name="selectfunnels"
@@ -546,9 +520,84 @@ export const Contacts_view = () => {
                   </select>
                 </div>
               </div>
+              <div className="col d-flex justify-content-center">
+                <div className="col h-100 d-flex justify-content-center align-items-center position-relative">
+                  <button className="cta cta--blue" onClick={openModalTags}>
+                    <div className="d-flex align-items-center">
+                      <IconUI color={white}>
+                        <AiFillTags />
+                      </IconUI>
+                      <div className="cta_text ps-2">Etiquetas</div>
+                    </div>
+                  </button>
+                </div>
 
+                <div className="col h-100 d-flex justify-content-center align-items-center position-relative">
+                  <button className="cta cta--blue" onClick={downloadExcel}>
+                    <div className="d-flex align-items-center">
+                      <IconUI color={white}>
+                        <RiFileExcel2Line />
+                      </IconUI>
+                      <div className="cta_text ps-2">Descargar excel</div>
+                    </div>
+                  </button>
+                </div>
+
+                <div className="col h-100 d-flex justify-content-center align-items-center position-relative">
+                  <button className="cta cta--blue" onClick={openModal}>
+                    <div className="d-flex align-items-center">
+                      <IconUI color={white}>
+                        <AiOutlineUserAdd />
+                      </IconUI>
+                      <div className="cta_text ps-2">Agrega un contacto</div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+            {stateAdd.error != null ? (
+              <p className="text-center text-orange">{stateAdd.error}</p>
+            ) : (
+              <></>
+            )}
+            {/* se muestra en tamaños xl, lg, md y sm */}
+            <div className="d-xl-none">
               <div className="row gy-2 mt-2">
-                <div className="d-grid">
+                <div className="col">
+                  <select
+                    name="selectfunnels"
+                    id="selectfunnels"
+                    className="form-input"
+                    onChange={(e) => llenaContactos(e.target.value)}
+                  >
+                    <option value="0" defaultValue>
+                      Filtralo por funnel aquí
+                    </option>
+                    {stateAdd.objFunnels.map((i) => (
+                      <option key={i.Fun_ID} value={i.Fun_ID}>
+                        {i.Fun_Name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              {/* se muestra en tamaños lg, xl y xxl */}
+              <div className="d-none d-md-flex mt-2">
+                <div className="col">
+                  <button
+                    className="cta cta--blue position-relative"
+                    onClick={openModalTags}
+                  >
+                    <div className="d-flex align-items-center">
+                      <IconUI color={white}>
+                        <AiFillTags />
+                      </IconUI>
+                      <div className="cta_text ps-2">Etiquetas</div>
+                    </div>
+                  </button>
+                </div>
+
+                <div className="col">
                   <button
                     className="cta cta--blue position-relative"
                     onClick={downloadExcel}
@@ -562,20 +611,64 @@ export const Contacts_view = () => {
                   </button>
                 </div>
 
-                <div className="d-grid">
+                <div className="col">
                   <button
-                    className="cta cta--orange position-relative"
+                    className="cta cta--blue position-relative"
                     onClick={openModal}
                   >
-                    <div className="cta_icon">
-                      <div className="icon">
-                        <FiSearch />
-                      </div>
-                    </div>
-                    <div className="cta_text cta_text--white">
-                      Nuevo contacto
+                    <div className="d-flex align-items-center">
+                      <IconUI color={white}>
+                        <AiOutlineUserAdd />
+                      </IconUI>
+                      <div className="cta_text ps-2">Agregar un contacto</div>
                     </div>
                   </button>
+                </div>
+              </div>
+              {/* se muestra en tamaños md,sm */}
+              <div className="d-md-none mt-2">
+                <div className="row g-1">
+                  <div className="d-grid">
+                    <button
+                      className="cta cta--blue position-relative"
+                      onClick={openModalTags}
+                    >
+                      <div className="d-flex align-items-center">
+                        <IconUI color={white}>
+                          <AiFillTags />
+                        </IconUI>
+                        <div className="cta_text ps-2">Etiquetas</div>
+                      </div>
+                    </button>
+                  </div>
+
+                  <div className="d-grid">
+                    <button
+                      className="cta cta--blue position-relative"
+                      onClick={downloadExcel}
+                    >
+                      <div className="d-flex align-items-center">
+                        <IconUI color={white}>
+                          <RiFileExcel2Line />
+                        </IconUI>
+                        <div className="cta_text ps-2">Descargar Excel</div>
+                      </div>
+                    </button>
+                  </div>
+
+                  <div className="d-grid">
+                    <button
+                      className="cta cta--blue position-relative"
+                      onClick={openModal}
+                    >
+                      <div className="d-flex align-items-center">
+                        <IconUI color={white}>
+                          <AiOutlineUserAdd />
+                        </IconUI>
+                        <div className="cta_text ps-2">Agregar un contacto</div>
+                      </div>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -730,6 +823,53 @@ export const Contacts_view = () => {
               });
             }}
           />
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={stateAdd.IsOpen} onHide={closeModalTags}>
+        <Modal.Header closeButton>
+          <Modal.Title>Agrega una etiqueta...</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="container-fluid bg-gray">
+            <div className="col pt-2">
+              <input
+                type="text"
+                className="form-control"
+                onKeyUp={(e) => (e.key == "Enter" ? addEmail(e) : null)}
+                placeholder="presiona inter para agregar elementos"
+              />
+            </div>
+            <div className="card my-3">
+              <div className="col tags_container">
+                <ul className="tags_list">
+                  {stateAdd.listTags.map((i, count) => (
+                    <li key={count} className="tags">
+                      <span className="tags-title">{i}</span>
+                      <i className="tags-closeicon">
+                        <IconUI>
+                          <AiOutlineClose />
+                        </IconUI>
+                      </i>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* <AddContactsView
+            data={stateAdd}
+            stateData={setStateAdd}
+            onAddUser={(contacto) => {
+              //Al finalizar el add del nuevo contacto, agrega el item al principio del arreglo
+              stateAdd.contactos.unshift(contacto);
+              setStateAdd({
+                ...stateAdd,
+                idFunel: contacto.Fun_ID,
+              });
+            }}
+          /> */}
         </Modal.Body>
       </Modal>
     </div>

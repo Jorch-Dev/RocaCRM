@@ -17,6 +17,7 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
     Con_PostalCode: "",
     Con_Country: "",
     Con_Birthday: "",
+    con_Tag: "",
     error: null,
   });
 
@@ -234,18 +235,43 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
                 }}
               />
             </div>
-            <div className="col">
-              <input
-                type="date"
-                className="form-control"
-                placeholder="Fecha de nacimiento"
-                onChange={(evt) => {
-                  setStateuser({
-                    ...stateuser,
-                    Con_Birthday: evt.currentTarget.value,
-                  });
-                }}
-              />
+            <div className="d-flex flex-column">
+              <div className="col">
+                <input
+                  type="date"
+                  className="form-control"
+                  placeholder="Fecha de nacimiento"
+                  onChange={(evt) => {
+                    setStateuser({
+                      ...stateuser,
+                      Con_Birthday: evt.currentTarget.value,
+                    });
+                  }}
+                />
+              </div>
+              <div className="col mt-2">
+                <select
+                  name="selectfunnels"
+                  id="selectfunnels"
+                  className="form-control"
+                  onChange={(evt) => {
+                    setStateuser({
+                      ...stateuser,
+                      con_Tag: evt.currentTarget.value,
+                    });
+                  }}
+                >
+                  <option value="0" defaultValue>
+                    Agregale una etiqueta
+                  </option>
+
+                  {data.listTags.map((i, j) => (
+                    <option key={j} value={i}>
+                      {i}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
 
