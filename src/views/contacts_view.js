@@ -21,6 +21,7 @@ import {
   TablePagination,
 } from "@material-ui/core";
 import Modal from "react-bootstrap/Modal";
+import { blue } from "@material-ui/core/colors";
 
 export const Contacts_view = () => {
   const { userState } = useContext(UserContext);
@@ -229,11 +230,10 @@ export const Contacts_view = () => {
           <div className="card bg-white d-block p-1 my-2">
             {/* se muestra en tamaños lg, xl, xxl */}
             <div className="d-none d-md-flex">
-              <div className="col-6 d-flex justify-content-center align-items-center ms-2 mt-3">
+              <div className="col-6 d-flex justify-content-center align-items-center ms-2 my-3">
                 <select
                   name="selectfunnels"
                   id="selectfunnels"
-                  className="form-input"
                   onChange={(e) => getRange(e)}
                 >
                   <option value="7" className="text-small" defaultValue>
@@ -299,7 +299,7 @@ export const Contacts_view = () => {
                         ) : (
                           <>
                             <div className="col-3 d-flex justify-content-center">
-                              <IconUI size={30} color={green}>
+                              <IconUI size={30} color={lightBlue}>
                                 <IoMdContacts />
                               </IconUI>
                             </div>
@@ -335,7 +335,7 @@ export const Contacts_view = () => {
                         ) : (
                           <>
                             <div className="col-3 d-flex justify-content-center">
-                              <IconUI size={30} color={lightOrange}>
+                              <IconUI size={30} color={lightBlue}>
                                 <TiUserDelete />
                               </IconUI>
                             </div>
@@ -361,7 +361,6 @@ export const Contacts_view = () => {
                 <select
                   name="selectfunnels"
                   id="selectfunnels"
-                  className="form-input"
                   onChange={(e) => getRange(e)}
                 >
                   <option value="7" defaultValue>
@@ -427,7 +426,7 @@ export const Contacts_view = () => {
                           ) : (
                             <>
                               <div className="col-6 d-flex justify-content-center align-items-center">
-                                <IconUI size={30} color={green}>
+                                <IconUI size={30} color={lightBlue}>
                                   <IoMdContacts />
                                 </IconUI>
                               </div>
@@ -465,7 +464,7 @@ export const Contacts_view = () => {
                           ) : (
                             <>
                               <div className="col-6 d-flex justify-content-center align-items-center">
-                                <IconUI size={30} color={lightOrange}>
+                                <IconUI size={30} color={lightBlue}>
                                   <TiUserDelete />
                                 </IconUI>
                               </div>
@@ -490,23 +489,12 @@ export const Contacts_view = () => {
 
           <div className="card bg-white d-block p-1 my-3">
             {/* se muestra en tamaños xxl */}
-            <div className="d-none d-xl-flex">
+            <div className="d-none d-lg-flex">
               <div className="col d-flex justify-content-center align-items-center">
-                <div className="h-100 d-flex justify-content-center align-items-center position-relative">
-                  <button className="cta cta--blue" onClick={openModalTags}>
-                    <div className="d-flex align-items-center">
-                      <IconUI color={white}>
-                        <AiFillTags />
-                      </IconUI>
-                      <div className="cta_text ps-2">Etiquetas</div>
-                    </div>
-                  </button>
-                </div>
-                <div className="col">
+                <div className="col ms-3">
                   <select
                     name="selectfunnels"
                     id="selectfunnels"
-                    className="form-input"
                     onChange={(e) => llenaContactos(e.target.value)}
                   >
                     <option value="0" defaultValue>
@@ -522,34 +510,36 @@ export const Contacts_view = () => {
               </div>
               <div className="col d-flex justify-content-center">
                 <div className="col h-100 d-flex justify-content-center align-items-center position-relative">
-                  <button className="cta cta--blue" onClick={openModalTags}>
+                  <button
+                    className="pill text-bold cursor-pointer text-secondary text-small"
+                    onClick={openModalTags}
+                  >
                     <div className="d-flex align-items-center">
-                      <IconUI color={white}>
+                      <IconUI>
                         <AiFillTags />
                       </IconUI>
-                      <div className="cta_text ps-2">Etiquetas</div>
+                      <div className="ps-2">Etiquetas</div>
                     </div>
                   </button>
                 </div>
-
                 <div className="col h-100 d-flex justify-content-center align-items-center position-relative">
-                  <button className="cta cta--blue" onClick={downloadExcel}>
+                  <button className="pill text-bold cursor-pointer text-secondary text-small" onClick={downloadExcel}>
                     <div className="d-flex align-items-center">
-                      <IconUI color={white}>
+                      <IconUI>
                         <RiFileExcel2Line />
                       </IconUI>
-                      <div className="cta_text ps-2">Descargar excel</div>
+                      <div className="ps-2">Descargar excel</div>
                     </div>
                   </button>
                 </div>
 
                 <div className="col h-100 d-flex justify-content-center align-items-center position-relative">
-                  <button className="cta cta--blue" onClick={openModal}>
+                  <button className="pill text-bold cursor-pointer text-secondary text-small" onClick={openModal}>
                     <div className="d-flex align-items-center">
-                      <IconUI color={white}>
+                      <IconUI>
                         <AiOutlineUserAdd />
                       </IconUI>
-                      <div className="cta_text ps-2">Agrega un contacto</div>
+                      <div className="ps-2">Agrega un contacto</div>
                     </div>
                   </button>
                 </div>
@@ -561,13 +551,12 @@ export const Contacts_view = () => {
               <></>
             )}
             {/* se muestra en tamaños xl, lg, md y sm */}
-            <div className="d-xl-none">
+            <div className="d-lg-none">
               <div className="row gy-2 mt-2">
                 <div className="col">
                   <select
                     name="selectfunnels"
                     id="selectfunnels"
-                    className="form-input"
                     onChange={(e) => llenaContactos(e.target.value)}
                   >
                     <option value="0" defaultValue>
@@ -582,90 +571,90 @@ export const Contacts_view = () => {
                 </div>
               </div>
               {/* se muestra en tamaños lg, xl y xxl */}
-              <div className="d-none d-md-flex mt-2">
+              <div className="d-none d-lg-flex mt-2">
                 <div className="col">
                   <button
-                    className="cta cta--blue position-relative"
+                    className="pill text-bold cursor-pointer text-secondary text-small"
                     onClick={openModalTags}
                   >
                     <div className="d-flex align-items-center">
                       <IconUI color={white}>
                         <AiFillTags />
                       </IconUI>
-                      <div className="cta_text ps-2">Etiquetas</div>
+                      <div className="ps-2">Etiquetas</div>
                     </div>
                   </button>
                 </div>
 
                 <div className="col">
                   <button
-                    className="cta cta--blue position-relative"
+                    className="pill text-bold cursor-pointer text-secondary text-small"
                     onClick={downloadExcel}
                   >
                     <div className="d-flex align-items-center">
                       <IconUI color={white}>
                         <RiFileExcel2Line />
                       </IconUI>
-                      <div className="cta_text ps-2">Descargar Excel</div>
+                      <div className="ps-2">Descargar Excel</div>
                     </div>
                   </button>
                 </div>
 
                 <div className="col">
                   <button
-                    className="cta cta--blue position-relative"
+                    className="pill text-bold cursor-pointer text-secondary text-small"
                     onClick={openModal}
                   >
                     <div className="d-flex align-items-center">
                       <IconUI color={white}>
                         <AiOutlineUserAdd />
                       </IconUI>
-                      <div className="cta_text ps-2">Agregar un contacto</div>
+                      <div className="ps-2">Agregar un contacto</div>
                     </div>
                   </button>
                 </div>
               </div>
               {/* se muestra en tamaños md,sm */}
-              <div className="d-md-none mt-2">
+              <div className="d-lg-none mt-2">
                 <div className="row g-1">
                   <div className="d-grid">
                     <button
-                      className="cta cta--blue position-relative"
+                      className="pill text-bold cursor-pointer text-secondary text-small"
                       onClick={openModalTags}
                     >
                       <div className="d-flex align-items-center">
-                        <IconUI color={white}>
+                        <IconUI>
                           <AiFillTags />
                         </IconUI>
-                        <div className="cta_text ps-2">Etiquetas</div>
+                        <div className="ps-2">Etiquetas</div>
                       </div>
                     </button>
                   </div>
 
                   <div className="d-grid">
                     <button
-                      className="cta cta--blue position-relative"
+                      className="pill text-bold cursor-pointer text-secondary text-small"
                       onClick={downloadExcel}
                     >
                       <div className="d-flex align-items-center">
-                        <IconUI color={white}>
+                        <IconUI>
                           <RiFileExcel2Line />
                         </IconUI>
-                        <div className="cta_text ps-2">Descargar Excel</div>
+                        <div className="ps-2">Descargar Excel</div>
                       </div>
                     </button>
                   </div>
 
                   <div className="d-grid">
                     <button
-                      className="cta cta--blue position-relative"
+                      className="pill text-bold cursor-pointer text-secondary text-small"
                       onClick={openModal}
                     >
                       <div className="d-flex align-items-center">
-                        <IconUI color={white}>
+                        <IconUI > 
                           <AiOutlineUserAdd />
                         </IconUI>
-                        <div className="cta_text ps-2">Agregar un contacto</div>
+                        <div className="ps-2">Agregar un contacto</div>
                       </div>
                     </button>
                   </div>
@@ -807,8 +796,10 @@ export const Contacts_view = () => {
       </div>
 
       <Modal show={stateAdd.modalIsOpen} onHide={closeModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Estas agregando al contacto...</Modal.Title>
+        <Modal.Header className="bg-blue" closeButton closeVariant={"white"}>
+          <Modal.Title className="text-light">
+            Estas agregando al contacto...
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <AddContactsView
@@ -827,8 +818,10 @@ export const Contacts_view = () => {
       </Modal>
 
       <Modal show={stateAdd.IsOpen} onHide={closeModalTags}>
-        <Modal.Header closeButton>
-          <Modal.Title>Agrega una etiqueta...</Modal.Title>
+        <Modal.Header className="bg-blue" closeButton closeVariant={"white"}>
+          <Modal.Title className="text-light">
+            Agrega una etiqueta...
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="container-fluid bg-gray">

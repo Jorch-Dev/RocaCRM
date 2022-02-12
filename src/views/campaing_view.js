@@ -169,12 +169,15 @@ export const CampaingView = () => {
                     </li>
                   )}
                 </ul>
+                <div className="col d-flex justify-content-center align-items-center">
                 <input
                   name="selectfunnels"
                   className="form-input"
                   onKeyUp={(e) => (e.key == "Enter" ? addEmail(e) : null)}
                   placeholder="presiona inter para agregar elementos"
                 ></input>
+                </div>
+                
               </div>
             </div>
 
@@ -333,23 +336,22 @@ export const CampaingView = () => {
         <div className="col h-100 overflow-auto">
           <div className="contenedor-dashboard d-flex flex-column">
             <div className="card bg-white d-block p-1 my-2">
-                <div className="col">
-                  <select
-                    name="selectfunnels"
-                    id="selectfunnels"
-                    className="form-input"
-                    onChange={llenaLista}
-                  >
-                    <option value="0" defaultValue>
-                      Selecciona tu proyecto
+              <div className="col">
+                <select
+                  name="selectfunnels"
+                  id="selectfunnels"
+                  onChange={llenaLista}
+                >
+                  <option value="0" defaultValue>
+                    Selecciona tu proyecto
+                  </option>
+                  {CompaingDesing.funnels.map((i) => (
+                    <option key={i.Fun_ID} value={i.Fun_ID}>
+                      {i.Fun_Name}
                     </option>
-                    {CompaingDesing.funnels.map((i) => (
-                      <option key={i.Fun_ID} value={i.Fun_ID}>
-                        {i.Fun_Name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                  ))}
+                </select>
+              </div>
             </div>
 
             <div className="card bg-white d-block p-1 my-3">
@@ -381,12 +383,14 @@ export const CampaingView = () => {
                     </li>
                   )}
                 </ul>
-                <input
-                  name="selectfunnels"
-                  className="form-input"
-                  onKeyUp={(e) => (e.key == "Enter" ? addEmail(e) : null)}
-                  placeholder="presiona inter para agregar elementos"
-                ></input>
+                <div className="d-flex align-items-center">
+                  <input
+                    name="selectfunnels"
+                    className="form-input"
+                    onKeyUp={(e) => (e.key == "Enter" ? addEmail(e) : null)}
+                    placeholder="presiona enter para agregar elementos"
+                  />
+                </div>
               </div>
             </div>
 
@@ -542,9 +546,8 @@ export const CampaingView = () => {
         </div>
       </div>
 
-
       <Modal show={CompaingDesing.modalIsOpen} onHide={closeModal} size="lg">
-        <Modal.Header className="bg-blue" closeButton>
+        <Modal.Header className="bg-blue" closeButton closeVariant={"white"}>
           <Modal.Title className="text-light">
             Configuraciones del correo electrónico
           </Modal.Title>

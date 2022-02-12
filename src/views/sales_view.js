@@ -71,7 +71,6 @@ export const Sales_view = () => {
                   <select
                     name="selectfunnels"
                     id="selectfunnels"
-                    className="form-input"
                   >
                     <option value="0" defaultValue>
                       Busca tu proyecto
@@ -132,7 +131,6 @@ export const Sales_view = () => {
                   <select
                     name="selectfunnels"
                     id="selectfunnels"
-                    className="form-select"
                   >
                     <option value="0" defaultValue>
                       Busca tu proyecto

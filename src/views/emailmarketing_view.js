@@ -57,7 +57,7 @@ export const EmailMarketingView = () => {
                 <div className="col d-flex justify-content-center align-items-center">
                   <div>
                     Te guiaremos paso a paso para crear{" "}
-                    <b>correo electrónico</b>{" "}atractivo para tus clientes solo
+                    <b>correo electrónico</b> atractivo para tus clientes solo
                     selecciona un tipo.
                   </div>
                 </div>
@@ -70,16 +70,16 @@ export const EmailMarketingView = () => {
               ) : (
                 <></>
               )}
-              <div className="col d-flex justify-content-center my-3">
-                <div className="col-4">
-                  <div className="col my-3 d-flex justify-content-center">
+              <div className="col d-flex flex-column align-items-center my-3">
+                <div className="col-md-4">
+                  <div className="d-grid my-3">
                     <button
                       data-bs-toggle="collapse"
                       href="#information"
                       role="button"
                       aria-expanded="false"
                       aria-controls="information"
-                      className="cta cta--orange"
+                      className="cta cta--blue"
                       onClick={() =>
                         setMarketingState({
                           ...marketingState,
@@ -95,14 +95,16 @@ export const EmailMarketingView = () => {
                       </div>
                     </button>
                   </div>
-                  <div className="col my-3 d-flex justify-content-center">
+                </div>
+                <div className="col-md-4">
+                  <div className="d-grid my-3">
                     <button
                       data-bs-toggle="collapse"
                       href="#information"
                       role="button"
                       aria-expanded="false"
                       aria-controls="information"
-                      className="cta cta--orange"
+                      className="cta cta--blue"
                       onClick={() =>
                         setMarketingState({
                           ...marketingState,
@@ -110,11 +112,12 @@ export const EmailMarketingView = () => {
                         })
                       }
                     >
-                      <IconUI color={white} size={30}>
-                        <CgTemplate />
-                      </IconUI>
-                      <div className="cta_text ps-2">Envio personalizado</div>
-                      <span className="cta_text"></span>
+                      <div className="d-flex align-items-center">
+                        <IconUI color={white} size={30}>
+                          <CgTemplate />
+                        </IconUI>
+                        <div className="cta_text ps-2">Envio personalizado</div>
+                      </div>
                     </button>
                   </div>
                 </div>

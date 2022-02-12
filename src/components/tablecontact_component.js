@@ -186,8 +186,8 @@ export const TableContact_component = ({ data, stateData, onEditUser }) => {
       </div>
 
       <Modal show={pagination.modalIsOpen} onHide={closeModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Estas editando al contacto...</Modal.Title>
+        <Modal.Header className="bg-blue" closeButton closeVariant={'white'}>
+          <Modal.Title className="text-light">Estas editando al contacto...</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {pagination.objetoUsuario != null ? (
