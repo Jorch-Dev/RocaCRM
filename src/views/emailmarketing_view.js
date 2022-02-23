@@ -1,13 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { UserContext } from "../context/user_context";
 import { BiMailSend, CgTemplate } from "react-icons/all";
 import { IconUI } from "../utils/IconUI";
-import { white } from "../styles/colors";
+import { blue, white } from "../styles/colors";
 import { MarketingContext } from "../context/emailmarketing_context";
+import { NotificacionContext } from "../context/notification_context";
 import { EmailEditorComponent } from "../components/emaileditor_component";
 
 export const EmailMarketingView = () => {
   const { userState } = useContext(UserContext);
+  const { showNotification } = useContext(NotificacionContext);
   const { marketingState, setMarketingState } = useContext(MarketingContext);
   const [marketState, setMarketState] = useState({
     provider: false,
@@ -21,10 +23,16 @@ export const EmailMarketingView = () => {
       setMarketState({ ...marketState, isLoading: false, provider: true });
       return;
     } else {
+      showNotification(
+        "error",
+        "Email Marketing",
+        "Debes de seleccionar un tipo",
+        undefined,
+        4
+      );
       setMarketState({
         ...marketState,
         isLoading: false,
-        error: "Debes de seleccionar un tipo",
       });
     }
   };
@@ -64,86 +72,103 @@ export const EmailMarketingView = () => {
               </div>
             </div>
 
-            <div className="card mt-3">
-              {marketState.error != null ? (
-                <p className="text-center text-orange">{marketState.error}</p>
-              ) : (
-                <></>
-              )}
-              <div className="col d-flex flex-column align-items-center my-3">
-                <div className="col-md-4">
-                  <div className="d-grid my-3">
-                    <button
-                      data-bs-toggle="collapse"
-                      href="#information"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="information"
-                      className="cta cta--blue"
-                      onClick={() =>
-                        setMarketingState({
-                          ...marketingState,
-                          tipoEnvio: "Envio rapido",
-                        })
-                      }
-                    >
-                      <div className="d-flex align-items-center">
-                        <IconUI color={white} size={30}>
-                          <BiMailSend />
-                        </IconUI>
-                        <div className="cta_text ps-2">Envio rapido</div>
-                      </div>
-                    </button>
+            <div className="cards mt-3">
+              <div className="col d-flex justify-content-center">
+                <div className="col-4 mx-2">
+                  <div className="d-flex justify-content-center">
+                    <IconUI color={blue} size={50}>
+                      <BiMailSend />
+                    </IconUI>
                   </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="d-grid my-3">
-                    <button
-                      data-bs-toggle="collapse"
-                      href="#information"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="information"
-                      className="cta cta--blue"
-                      onClick={() =>
-                        setMarketingState({
-                          ...marketingState,
-                          tipoEnvio: "Envio personalizado",
-                        })
-                      }
-                    >
-                      <div className="d-flex align-items-center">
-                        <IconUI color={white} size={30}>
-                          <CgTemplate />
-                        </IconUI>
-                        <div className="cta_text ps-2">Envio personalizado</div>
-                      </div>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <div className="collapse mt-3" id="information">
-              <div className="card card-body">
-                <div className="d-flex">
-                  <div className="col-8">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Adipisci non ipsam maiores aut ut pariatur reprehenderit
-                    necessitatibus laudantium, ad similique distinctio. Dolorem
-                    nesciunt saepe qui, sunt modi blanditiis deleniti
-                    aspernatur?
+                  <div className="col bg-blue rounded-top">
+                    <div className="col cta_text text-light d-flex justify-content-center ps-2">
+                      Envio rapido
+                    </div>
                   </div>
-                  <div className="col-4 d-flex justify-content-center align-items-center">
-                    <button className="cta cta--blue" onClick={netxitem}>
-                      {marketingState.isLoading ? (
-                        <div class="spinner-border text-success" role="status">
-                          <span class="visually-hidden">Loading...</span>
+                  <div className="cards_panel">
+                    <div className="d-flex flex-column">
+                      <div className="m-2 text-secondary">
+                        Almacenamiento <span>ilimitado</span>
+                      </div>
+                      <div className="m-2 text-secondary">
+                        Ancho de banda <span>/60 GB</span>
+                      </div>
+                      <div className="m-2 text-secondary">
+                        Alojamiento <span>Gratuito</span>
+                      </div>
+                      <div className="m-2 text-secondary">
+                        <span>5</span> Embudos
+                      </div>
+                      <div className="m-2 text-secondary">
+                        Plantillas <span>Gratuitas</span>
+                      </div>
+                      <div className="m-2 text-secondary">
+                        Conexión de dominios personalizados
+                      </div>
+                      <div className="m-2 text-secondary">
+                        Subdominio <span>Gratuito</span>
+                      </div>
+                      <div className="m-2 text-secondary">
+                        500 <span>Contactos</span>
+                      </div>
+
+                      <button className="cta cta--blue" onClick={netxitem}>
+                        <div className="cta_text cta_text--white">
+                          Seleccionar
                         </div>
-                      ) : (
-                        <span className="cta_text">Continuar</span>
-                      )}
-                    </button>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-4 mx-2">
+                  <div className="col">
+                    <div className="d-flex justify-content-center">
+                      <IconUI color={blue} size={50}>
+                        <CgTemplate />
+                      </IconUI>
+                    </div>
+
+                    <div className="col bg-blue rounded-top">
+                      <div className="col cta_text text-light d-flex justify-content-center ps-2">
+                        Envio personalizado
+                      </div>
+                    </div>
+                  </div>
+                  <div className="cards_panel">
+                    <div className="d-flex flex-column">
+                      <div className="m-2 text-secondary">
+                        Almacenamiento <span>ilimitado</span>
+                      </div>
+                      <div className="m-2 text-secondary">
+                        Ancho de banda <span>/60 GB</span>
+                      </div>
+                      <div className="m-2 text-secondary">
+                        Alojamiento <span>Gratuito</span>
+                      </div>
+                      <div className="m-2 text-secondary">
+                        <span>5</span> Embudos
+                      </div>
+                      <div className="m-2 text-secondary">
+                        Plantillas <span>Gratuitas</span>
+                      </div>
+                      <div className="m-2 text-secondary">
+                        Conexión de dominios personalizados
+                      </div>
+                      <div className="m-2 text-secondary">
+                        Subdominio <span>Gratuito</span>
+                      </div>
+                      <div className="m-2 text-secondary">
+                        500 <span>Contactos</span>
+                      </div>
+
+                      <button className="cta cta--blue" onClick={netxitem}>
+                        <div className="cta_text cta_text--white">
+                          Seleccionar
+                        </div>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

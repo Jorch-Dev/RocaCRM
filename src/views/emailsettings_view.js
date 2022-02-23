@@ -3,11 +3,13 @@ import { AiOutlineSave, BiEdit, SiIconify } from "react-icons/all";
 import { IconUI } from "../utils/IconUI";
 import { white } from "../styles/colors";
 import { MarketingContext } from "../context/emailmarketing_context";
+import { NotificacionContext } from "../context/notification_context";
 import Picker from "emoji-picker-react";
 
 export const EmailSettingsView = ({modal, setModal}) => {
   const inputEmoji = useRef(null);
   const { marketingState, setMarketingState } = useContext(MarketingContext);
+  const { showNotification } = useContext(NotificacionContext);
   const [emailsettings, seEmailSettings] = useState({
     remitente: "",
     emailremitente: "",
@@ -36,26 +38,43 @@ export const EmailSettingsView = ({modal, setModal}) => {
   const savesettings = () => {
     seEmailSettings({ ...emailsettings, isLoading: true});
     if (emailsettings.remitente === "") {
-  
+      showNotification(
+        "error",
+        "Configuración avanzada",
+        "El campo remitente no puede estar vacio",
+        undefined,
+        4
+      );
       seEmailSettings({
         ...emailsettings,
-        error: "El campo remitente no puede estar vacio",
         isLoading: false,
       });
       return;
     }
     if (emailsettings.emailremitente === "") {
+      showNotification(
+        "error",
+        "Configuración avanzada",
+        "El campo email del remitente no puede estar vacio",
+        undefined,
+        4
+      );
       seEmailSettings({
         ...emailsettings,
-        error: "El campo email del remitente no puede estar vacio",
         isLoading: false,
       });
       return;
     }
     if (emailsettings.asunto === "") {
+      showNotification(
+        "error",
+        "Configuración avanzada",
+        "El campo asunto no puede estar vacio",
+        undefined,
+        4
+      );
       seEmailSettings({
         ...emailsettings,
-        error: "El campo asunto no puede estar vacio",
         isLoading: false,
       });
       return;
@@ -79,8 +98,6 @@ export const EmailSettingsView = ({modal, setModal}) => {
     //const myTimeout = setTimeout(), 5000);
     
   };
-
-  console.log(emailsettings);
 
   return (
     <>

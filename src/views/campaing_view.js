@@ -5,10 +5,12 @@ import { IconUI } from "../utils/IconUI";
 import { white } from "../styles/colors";
 import { EmailSettingsView } from "./emailsettings_view";
 import { MarketingContext } from "../context/emailmarketing_context";
+import { NotificacionContext } from "../context/notification_context";
 import Modal from "react-bootstrap/Modal";
 
 export const CampaingView = () => {
   const { marketingState, setMarketingState } = useContext(MarketingContext);
+  const { showNotification } = useContext(NotificacionContext);
   const [CompaingDesing, setcampaingDesing] = useState({
     funnels: [],
     idFunel: null,
@@ -50,11 +52,20 @@ export const CampaingView = () => {
         "get",
         `user/contact?f=${e.target.value}&o=0&l=100`
       );
+      if (result != null) {
+        const newArray = result.data.rows.map((x) => x.Con_Email);
 
-      const newArray = result.data.rows.map((x) => x.Con_Email);
-
-      setcampaingDesing({ ...CompaingDesing, listitem: newArray });
-      setMarketingState({ ...marketingState, sendItems: newArray });
+        setcampaingDesing({ ...CompaingDesing, listitem: newArray });
+        setMarketingState({ ...marketingState, sendItems: newArray });
+      } else {
+        showNotification(
+          "error",
+          "Error del sistema",
+          "Intente de nuevo más tarde o comuníquese con un asesor",
+          undefined,
+          4
+        );
+      }
     }
   };
 
@@ -111,6 +122,103 @@ export const CampaingView = () => {
 
   const gettime = (e) => {
     console.log(e);
+  };
+
+  const getEditValue = (e) => {
+    if (e != null) {
+      switch (e) {
+        case "txtNameUser":
+          var campo = document.getElementById(e);
+          campo.disabled = false;
+          campo.className = "form-input form-input--icon m-0";
+          //state.input.unshift(e);
+
+          break;
+        case "txtLastNameUser":
+          var campo = document.getElementById(e);
+          campo.disabled = false;
+          campo.className = "form-input form-input--icon m-0";
+
+          //state.input.unshift(e);
+
+          break;
+        case "txtEmailUser":
+          var campo = document.getElementById(e);
+          campo.disabled = false;
+          campo.className = "form-input form-input--icon m-0";
+
+          //state.input.unshift(e);
+
+          break;
+
+        case "txtNameCompany":
+          var campo = document.getElementById(e);
+          campo.disabled = false;
+          campo.className = "form-input form-input--icon m-0";
+
+          //state.input.unshift(e);
+
+          break;
+        case "txtAddress1Company":
+          var campo = document.getElementById(e);
+          campo.disabled = false;
+          campo.className = "form-input form-input--icon m-0";
+
+          //state.input.unshift(e);
+
+          break;
+        case "txtAddress2Company":
+          var campo = document.getElementById(e);
+          campo.disabled = false;
+          campo.className = "form-input form-input--icon m-0";
+
+          //state.input.unshift(e);
+
+          break;
+        case "txtCPCompany":
+          var campo = document.getElementById(e);
+          campo.disabled = false;
+          campo.className = "form-input form-input--icon m-0";
+
+          //state.input.unshift(e);
+
+          break;
+        case "txtPhoneCompany":
+          var campo = document.getElementById(e);
+          campo.disabled = false;
+          campo.className = "form-input form-input--icon m-0";
+
+          //state.input.unshift(e);
+
+          break;
+        case "txtCiudadCompany":
+          var campo = document.getElementById(e);
+          campo.disabled = false;
+          campo.className = "form-input form-input--icon m-0";
+
+          //state.input.unshift(e);
+
+          break;
+        case "txtEstadoCompany":
+          var campo = document.getElementById(e);
+          campo.disabled = false;
+          campo.className = "form-input form-input--icon m-0";
+
+          //state.input.unshift(e);
+
+          break;
+        case "txtPaisCompany":
+          var campo = document.getElementById(e);
+          campo.disabled = false;
+          campo.className = "form-input form-input--icon m-0";
+
+          //state.input.unshift(e);
+
+          break;
+        default:
+          break;
+      }
+    }
   };
 
   return (
@@ -170,14 +278,13 @@ export const CampaingView = () => {
                   )}
                 </ul>
                 <div className="col d-flex justify-content-center align-items-center">
-                <input
-                  name="selectfunnels"
-                  className="form-input"
-                  onKeyUp={(e) => (e.key == "Enter" ? addEmail(e) : null)}
-                  placeholder="presiona inter para agregar elementos"
-                ></input>
+                  <input
+                    name="selectfunnels"
+                    className="form-input"
+                    onKeyUp={(e) => (e.key == "Enter" ? addEmail(e) : null)}
+                    placeholder="presiona inter para agregar elementos"
+                  ></input>
                 </div>
-                
               </div>
             </div>
 

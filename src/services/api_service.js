@@ -42,9 +42,10 @@ export const ApiService = async (method, resource, data) => {
         return data;
       }
     case "post":
+      console.log("entre")
       try {
         return await Axios.post(`${Api_Url}${resource}`, data, {
-          headers: getTokenContent(),
+          headers: getToken(),
         });
       } catch (error) {
         const data = error.response;

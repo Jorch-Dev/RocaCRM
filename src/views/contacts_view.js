@@ -12,8 +12,9 @@ import {
 import { AddContactsView } from "./addcontacts_view";
 import { ApiService, getContactExcel } from "../services/api_service";
 import { UserContext } from "../context/user_context";
+import { NotificacionContext } from "../context/notification_context";
 import { IconUI } from "../utils/IconUI";
-import { lightBlue, green, lightOrange, white } from "../styles/colors";
+import { lightBlue, white } from "../styles/colors";
 import {
   Table,
   TableBody,
@@ -21,10 +22,10 @@ import {
   TablePagination,
 } from "@material-ui/core";
 import Modal from "react-bootstrap/Modal";
-import { blue } from "@material-ui/core/colors";
 
 export const Contacts_view = () => {
   const { userState } = useContext(UserContext);
+  const { showNotification } = useContext(NotificacionContext);
   const [stateAdd, setStateAdd] = useState({
     isLoading: false,
     objFunnels: [],
@@ -47,11 +48,16 @@ export const Contacts_view = () => {
       const funnels = await ApiService("get", "funnel/all");
 
       if (funnels.status != 200) {
+        showNotification(
+          "error",
+          "Error del sistema",
+          "Intente de nuevo más tarde o comuníquese con un asesor",
+          undefined,
+          4
+        );
         setStateAdd({
           ...stateAdd,
           idFunel: null,
-          error:
-            "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
         });
       } else {
         if (stateAdd.days != null) {
@@ -65,11 +71,16 @@ export const Contacts_view = () => {
             const contacts = await ApiService(metod, resource);
 
             if (result === 401) {
+              showNotification(
+                "error",
+                "Error del sistema",
+                "Intente de nuevo más tarde o comuníquese con un asesor",
+                undefined,
+                4
+              );
               setStateAdd({
                 ...stateAdd,
                 idFunel: null,
-                error:
-                  "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
               });
               return;
             } else {
@@ -84,11 +95,16 @@ export const Contacts_view = () => {
             }
           }
         } else {
+          showNotification(
+            "error",
+            "Error del sistema",
+            "Intente de nuevo más tarde o comuníquese con un asesor",
+            undefined,
+            4
+          );
           setStateAdd({
             ...stateAdd,
             idFunel: null,
-            error:
-              "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
           });
         }
       }
@@ -117,11 +133,16 @@ export const Contacts_view = () => {
       const result = await ApiService(metod, resource);
 
       if (result === 401) {
+        showNotification(
+          "error",
+          "Error del sistema",
+          "Intente de nuevo más tarde o comuníquese con un asesor",
+          undefined,
+          4
+        );
         setStateAdd({
           ...stateAdd,
           idFunel: null,
-          error:
-            "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
           isLoading: false,
         });
         return;
@@ -148,11 +169,16 @@ export const Contacts_view = () => {
       if (stateAdd.contactos.length !== 0) {
         const result = await getContactExcel(stateAdd.idFunel);
         if (result === 401) {
+          showNotification(
+            "error",
+            "Descarga CSV",
+            "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
+            undefined,
+            4
+          );
           setStateAdd({
             ...stateAdd,
             idFunel: null,
-            error:
-              "Error del sistema, intente de nuevo más tarde o comuníquese con un asesor",
           });
         } else {
           setStateAdd({
@@ -161,17 +187,29 @@ export const Contacts_view = () => {
           });
         }
       } else {
+        showNotification(
+          "error",
+          "Descarga CSV",
+          "Este proyecto no cuenta con contactos activos",
+          undefined,
+          4
+        );
         setStateAdd({
           ...stateAdd,
           idFunel: null,
-          error: "Este proyecto no cuenta con contactos activos",
         });
       }
     } else {
+      showNotification(
+        "error",
+        "Descarga CSV",
+        "Debe escojer un proyecto para poder descargar su archivo",
+        undefined,
+        4
+      );
       setStateAdd({
         ...stateAdd,
         idFunel: null,
-        error: "Debe escojer un proyecto para poder descargar su archivo",
       });
     }
   };
@@ -180,10 +218,16 @@ export const Contacts_view = () => {
     if (stateAdd.idFunel != null) {
       setStateAdd({ ...stateAdd, modalIsOpen: true, error: null });
     } else {
+      showNotification(
+        "error",
+        "Crea tu contacto",
+        "Debe seleccionar un embudo para poder crear un contacto",
+        undefined,
+        4
+      );
       setStateAdd({
         ...stateAdd,
         modalIsOpen: false,
-        error: "Debe seleccionar un embudo para poder crear un contacto",
       });
       return;
     }
@@ -523,7 +567,10 @@ export const Contacts_view = () => {
                   </button>
                 </div>
                 <div className="col h-100 d-flex justify-content-center align-items-center position-relative">
-                  <button className="pill text-bold cursor-pointer text-secondary text-small" onClick={downloadExcel}>
+                  <button
+                    className="pill text-bold cursor-pointer text-secondary text-small"
+                    onClick={downloadExcel}
+                  >
                     <div className="d-flex align-items-center">
                       <IconUI>
                         <RiFileExcel2Line />
@@ -534,7 +581,10 @@ export const Contacts_view = () => {
                 </div>
 
                 <div className="col h-100 d-flex justify-content-center align-items-center position-relative">
-                  <button className="pill text-bold cursor-pointer text-secondary text-small" onClick={openModal}>
+                  <button
+                    className="pill text-bold cursor-pointer text-secondary text-small"
+                    onClick={openModal}
+                  >
                     <div className="d-flex align-items-center">
                       <IconUI>
                         <AiOutlineUserAdd />
@@ -651,7 +701,7 @@ export const Contacts_view = () => {
                       onClick={openModal}
                     >
                       <div className="d-flex align-items-center">
-                        <IconUI > 
+                        <IconUI>
                           <AiOutlineUserAdd />
                         </IconUI>
                         <div className="ps-2">Agregar un contacto</div>
@@ -725,6 +775,14 @@ export const Contacts_view = () => {
                           Pertenece al funnel
                         </div>
                       </td>
+                      <td className="bottom-border">
+                        <div className="text-bold text-secondary text-0 pt-1 pb-3">
+                        </div>
+                      </td>
+                      <td className="bottom-border">
+                        <div className="text-bold text-secondary text-0 pt-1 pb-3">
+                        </div>
+                      </td>
                     </tr>
                   </thead>
                   <TableBody>
@@ -764,13 +822,13 @@ export const Contacts_view = () => {
                               <div className="text-secondary">{c.Fun_Name}</div>
                             </td>
                             <td className="bottom-border ps-3">
-                              <div className="icon_btn">
+                              <div className="iicon_btn--none">
                                 <IconUI size={20}></IconUI>
                               </div>
                             </td>
 
                             <td className="bottom-border ps-3">
-                              <div className="icon_btn">
+                              <div className="icon_btn--none">
                                 <IconUI size={20}></IconUI>
                               </div>
                             </td>

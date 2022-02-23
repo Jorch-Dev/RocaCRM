@@ -3,6 +3,7 @@ import { AiOutlineSave } from "react-icons/ai";
 import { ApiService } from "../services/api_service";
 import { IconUI } from "../utils/IconUI";
 import { white } from "../styles/colors";
+import { DotLoader } from "../components/dotloader_component";
 
 export const AddContactsView = ({ data, stateData, onAddUser }) => {
   const [stateuser, setStateuser] = useState({
@@ -19,6 +20,7 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
     Con_Birthday: "",
     con_Tag: "",
     error: null,
+    isLoading: false,
   });
 
   const saveContac = async () => {
@@ -279,30 +281,20 @@ export const AddContactsView = ({ data, stateData, onAddUser }) => {
         </div>
       </div>
       <div className="modal-footer">
-        <button className="cta cta--blue" onClick={saveContac}>
-          {data.isLoading ? (
-            <>
-              <div className="cta_icon">
-                <IconUI color={white}>
-                  <AiOutlineSave />
-                </IconUI>
-              </div>
-              <div className="cta_text cta_text--white">GUARDAR</div>
-              <div className="spinner-border text-light" role="status">
-                <span className="visually-hidden">loading...</span>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="cta_icon mt-1">
-                <IconUI color={white}>
-                  <AiOutlineSave />
-                </IconUI>
-              </div>
-              <div className="cta_text cta_text--white">GUARDAR</div>
-            </>
-          )}
-        </button>
+        {stateuser.isLoading ? (
+          <button className="cta_loader cta--blue">
+            <DotLoader />
+          </button>
+        ) : (
+          <button className="cta cta--blue" onClick={saveContac}>
+            <div className="cta_icon mt-1">
+              <IconUI color={white}>
+                <AiOutlineSave />
+              </IconUI>
+            </div>
+            <div className="cta_text cta_text--white">GUARDAR</div>
+          </button>
+        )}
       </div>
     </>
   );

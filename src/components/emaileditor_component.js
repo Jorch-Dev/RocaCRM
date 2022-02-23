@@ -5,10 +5,12 @@ import { MarketingContext } from "../context/emailmarketing_context";
 import { AiFillSave, GiNextButton } from "react-icons/all";
 import { IconUI } from "../utils/IconUI";
 import { white } from "../styles/colors";
+import { NotificacionContext } from "../context/notification_context";
 import { CampaingView } from "../views/campaing_view";
 
 export const EmailEditorComponent = () => {
   const { marketingState, setMarketingState } = useContext(MarketingContext);
+  const { showNotification } = useContext(NotificacionContext);
   const [mailEditor, setMailEditor] = useState({
     isLoaded: false,
     provider: false,
@@ -42,10 +44,16 @@ export const EmailEditorComponent = () => {
     if (marketingState.contentHTML != null) {
       setMailEditor({ ...mailEditor, provider: true, isLoaded: true });
     } else {
+      showNotification(
+        "error",
+        "Email Marketing",
+        "Tienes que guardar la plantilla del correo para poder avanzar",
+        undefined,
+        4
+      );
       setMailEditor({
         ...mailEditor,
         isLoaded: false,
-        error: "Tienes que guardar la plantilla del correo para poder avanzar",
       });
     }
   };
